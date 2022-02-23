@@ -3,3 +3,5 @@
 /build/
 /out/
 /out/production/classes/
+/.idea/
+/src/main/resources/fr/suylo/gsbmedecins/img/

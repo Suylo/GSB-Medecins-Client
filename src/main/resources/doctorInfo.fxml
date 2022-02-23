@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2000.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.suylo.gsbmedecins.controllers.ProfileController">
+    <children>
+        <Pane id="textHome" layoutX="252.0" prefHeight="2000.0" prefWidth="1095.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="252.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ImageView fitHeight="274.0" fitWidth="393.0" layoutX="414.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                    <viewport>
+                        <Rectangle2D />
+                    </viewport>
+                    <image>
+                        <Image url="@fr/suylo/gsbmedecins/img/-favicon.jpg" />
+                    </image>
+                </ImageView>
+                <Label id="titleHome" alignment="CENTER" layoutX="-30.0" layoutY="347.0" prefHeight="17.0" prefWidth="1054.0" text="Profil N°" />
+                <Label id="titleHome" fx:id="doctorID" alignment="CENTER" layoutX="262.0" layoutY="347.0" prefHeight="17.0" prefWidth="750.0" />
+                <Separator layoutX="387.0" layoutY="425.0" prefHeight="17.0" prefWidth="330.0" />
+                <Label id="textHome" layoutX="218.0" layoutY="469.0" lineSpacing="2.0" prefHeight="38.0" prefWidth="69.0" text="Nom : " wrapText="true" />
+                <Label id="persoInfo" fx:id="doctorLastName" layoutX="273.0" layoutY="469.0" prefHeight="38.0" prefWidth="665.0" />
+                <Label id="textHome" layoutX="218.0" layoutY="500.0" lineSpacing="2.0" prefHeight="38.0" prefWidth="181.0" text="Prénom  : " wrapText="true" />
+                <Label id="persoInfo" fx:id="doctorName" layoutX="304.0" layoutY="500.0" prefHeight="38.0" prefWidth="665.0" />
+                <Label id="textHome" layoutX="219.0" layoutY="538.0" lineSpacing="2.0" prefHeight="38.0" prefWidth="181.0" text="Adresse : " wrapText="true" />
+                <Label id="persoInfo" fx:id="doctorAddress" layoutX="304.0" layoutY="538.0" prefHeight="38.0" prefWidth="665.0" />
+                <Label id="textHome" layoutX="219.0" layoutY="576.0" lineSpacing="2.0" prefHeight="38.0" prefWidth="181.0" text="Téléphone : " wrapText="true" />
+                <Label id="persoInfo" fx:id="doctorPhone" layoutX="320.0" layoutY="576.0" prefHeight="38.0" prefWidth="665.0">
+               <font>
+                  <Font name="System Bold" size="12.0"/>
+               </font></Label>
+                <Label id="textHome" layoutX="219.0" layoutY="614.0" lineSpacing="2.0" prefHeight="38.0" prefWidth="289.0" text="Spécialité complémentaire : " wrapText="true" />
+                <Label id="persoInfo" fx:id="doctorSpe" layoutX="463.0" layoutY="614.0" prefHeight="38.0" prefWidth="665.0">
+                   <font>
+                      <Font name="System Bold" size="12.0" />
+                   </font>
+                </Label>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

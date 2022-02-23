@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2000.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.suylo.gsbmedecins.controllers.HomeController">
+   <children>
+      <Pane id="textHome" layoutX="252.0" prefHeight="2000.0" prefWidth="1095.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="252.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="227.0" fitWidth="241.0" layoutX="434.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+               <image>
+                  <Image url="@fr/suylo/gsbmedecins/img/-favicon.jpg" />
+               </image>
+            </ImageView>
+            <Label id="titleHome" fx:id="userTitle" alignment="CENTER" layoutX="-1.0" layoutY="294.0" prefHeight="17.0" prefWidth="1095.0" />
+            <Separator layoutX="229.0" layoutY="373.0" prefHeight="17.0" prefWidth="645.0" />
+            <Label id="textHome" layoutX="218.0" layoutY="541.0" lineSpacing="2.0" prefHeight="120.0" prefWidth="665.0" text="Vous êtes maintenant connecté sur l'interface d'administration de GSB, à vous de jouer !" wrapText="true" />
+            <Label id="textHome" layoutX="228.0" layoutY="436.0" prefHeight="17.0" prefWidth="193.0" text="Nom :" />
+            <Label id="textHome" layoutX="228.0" layoutY="469.0" prefHeight="17.0" prefWidth="193.0" text="Prénom :" />
+            <Label id="textHome" layoutX="228.0" layoutY="501.0" prefHeight="17.0" prefWidth="193.0" text="Adresse :" />
+            <Label id="textHome" layoutX="228.0" layoutY="532.0" prefHeight="17.0" prefWidth="193.0" text="Embauche :" />
+            <Label id="persoInfo" fx:id="userLastName" layoutX="284.0" layoutY="436.0" prefHeight="17.0" prefWidth="193.0" />
+            <Label id="persoInfo" fx:id="userFirstName" layoutX="312.0" layoutY="469.0" prefHeight="17.0" prefWidth="193.0" />
+            <Label id="persoInfo" fx:id="userAddress" layoutX="312.0" layoutY="501.0" prefHeight="17.0" prefWidth="665.0" />
+            <Label id="persoInfo" fx:id="userEmbauche" layoutX="313.0" layoutY="532.0" prefHeight="17.0" prefWidth="429.0" />
+            <Label id="textHome" layoutX="229.0" layoutY="407.0" prefHeight="17.0" prefWidth="193.0" text="Identifiant :" />
+            <Label id="persoInfo" fx:id="userID" layoutX="338.0" layoutY="407.0" prefHeight="17.0" prefWidth="193.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

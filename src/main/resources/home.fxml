@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2000.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane id="textHome" layoutX="252.0" prefHeight="2000.0" prefWidth="1095.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="252.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="274.0" fitWidth="393.0" layoutX="414.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+               <image>
+                  <Image url="@fr/suylo/gsbmedecins/img/images.png" />
+               </image>
+            </ImageView>
+            <Label id="titleHome" alignment="CENTER" layoutY="351.0" prefHeight="17.0" prefWidth="1100.0" text="Bienvenue sur Galaxy Swiss Bourdin !" />
+            <Separator layoutX="228.0" layoutY="427.0" prefHeight="17.0" prefWidth="645.0" />
+            <Label id="textHome" layoutX="218.0" layoutY="469.0" lineSpacing="2.0" prefHeight="120.0" prefWidth="665.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." wrapText="true" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

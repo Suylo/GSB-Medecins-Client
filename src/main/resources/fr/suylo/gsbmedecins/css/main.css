@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Roboto&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+
+
+/*
+    DARK THEME
+ */
+#button, #buttonReverse{
+    -fx-font-family: "Montserrat", sans-serif;
+    -fx-font-size: 1.2em;
+    -fx-padding: 10px;
+    -fx-font-weight: 500;
+    -fx-text-fill: #ffffff;
+    text-transform: uppercase;
+    -fx-background-color: #202940;
+    transition: all .2s ease;
+    -fx-background-radius: 10px !important;
+}
+#button:hover, #button-active, #buttonReverse{
+    -fx-background-color: rgb(50, 58, 78);
+    -fx-cursor: hand;
+    transition: all .2s ease;
+    -fx-background-radius: 10px !important;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Montserrat", sans-serif;
+    -fx-font-size: 1.2em;
+    -fx-padding: 10px;
+    -fx-font-weight: 500;
+
+}
+#buttonAdmin, #buttonAdminReverse{
+    -fx-font-family: "Montserrat", sans-serif;
+    -fx-font-size: 1.2em;
+    -fx-padding: 10px;
+    -fx-font-weight: 500;
+    -fx-text-fill: #ffffff;
+    text-transform: uppercase;
+    -fx-background-color: #0f3e52;
+    transition: all .2s ease;
+    -fx-background-radius: 10px !important;
+}
+#buttonAdmin:hover{
+    -fx-background-color: rgba(255, 255, 255, 0.26);
+    -fx-cursor: hand;
+    transition: all .2s ease;
+    -fx-background-radius: 10px !important;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Montserrat", sans-serif;
+    -fx-font-size: 1.2em;
+    -fx-padding: 10px;
+    -fx-font-weight: 500;
+
+}
+#wrapper-dark-theme{
+    /*-fx-background-color: rgb(189, 189, 189);*/
+    -fx-background-color: #202940;
+    -fx-effect: none !important;
+    -fx-border-color: none;
+    -fx-border-width: 0 !important;
+    -fx-border-insets: 0 !important;
+    -fx-border-radius: 0 !important;
+    -fx-background-insets: 0 !important;
+    -fx-border-image-insets: 0 !important;
+    /*-fx-border-width: 5px;*/
+
+}
+#navbar-dark{
+    -fx-border-color: #202940;
+    -fx-border-width: 0 !important;
+    -fx-border-insets: 0 !important;
+    -fx-border-radius: 0 !important;
+    -fx-background-insets: 0 !important;
+    -fx-border-image-insets: 0 !important;
+    -fx-border-style: none !important;
+    -fx-effect: none !important;
+}
+
+.left-navigation{
+
+}
+.button-see {
+    -fx-padding: 0.3em 1em;
+    -fx-font-size: 18px;
+    -fx-background-color: #202940;
+    -fx-text-fill: white;
+}
+.button-see:hover{
+    -fx-text-fill: #202940;
+    -fx-background-color: white;
+    -fx-cursor: hand;
+}
+
+#persoInfo{
+    -fx-font-weight: bold;
+}
+
+/*
+    WHITE THEME
+ */
+#button-white{
+    -fx-font-family: "Montserrat", sans-serif;
+    -fx-font-size: 1.2em;
+    -fx-padding: 10px;
+    -fx-font-weight: 500;
+    -fx-text-fill: #202940;
+    text-transform: uppercase;
+    -fx-background-color: #ffffff;
+    transition: all .2s ease;
+    -fx-background-radius: 10px !important;
+}
+#searchBar{
+    -fx-border-width: 2px;
+    -fx-background-color: white;
+    -fx-border-color: #202940;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+#button-white:hover{
+    -fx-background-color: rgb(241, 241, 241);
+    -fx-cursor: hand;
+    transition: all .2s ease;
+    -fx-background-radius: 10px !important;
+}
+#wrapper-white-theme{
+    -fx-background-color: rgb(245, 245, 245);
+}
+
+
+#titleHome{
+    -fx-font-family: "Montserrat", sans-serif;
+    -fx-font-weight: 500;
+    -fx-text-fill: #202940;
+    -fx-font-size: 2.4em;
+}
+#titleLogin{
+    -fx-font-family: "Montserrat", sans-serif;
+    -fx-font-weight: 500;
+    -fx-text-fill: white;
+    -fx-font-size: 1.2em;
+}
+#textHome{
+    -fx-font-family: "Montserrat", sans-serif;
+    -fx-font-weight: 400;
+    -fx-text-fill: black;
+    -fx-font-size: 1.4em;
+    -fx-text-alignment: justify;
+}
+
+#dashboard{
+    -fx-background-color: #202940;
+}
+
+#navbar-img{
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+}
+
+.table-view{
+    -fx-background-color: #ffffff;
+}
+.table-view .column-header-background{
+}
+.table-view .column-header-background .filler{
+    -fx-background-color: #ffffff;
+}
+#col{
+
+    -fx-background-color: #ffffff;
+    -fx-border-color: white !important;
+    -fx-border-width: 1px !important;
+    -fx-border-insets: 0 !important;
+    -fx-font-size: 1.2em;
+    -fx-text-fill: #202940 !important;
+    -fx-font-family: "Open Sans", sans-serif !important;
+    -fx-padding: 1em 0;
+    -fx-text-alignment: center !important;
+    -fx-column-halignment: center !important;
+    -fx-alignment: center !important;
+}
+
+/* JavaFX Menu not FXML */
+/*
+.menu{
+    -fx-padding: 2em;
+    -fx-text-fill: rgba(66, 80, 106, 0.96);
+}
+.menu .label{
+    -fx-text-fill: white;
+    -fx-font-family: "Open Sans", sans-serif;
+    -fx-font-size: 1.5em;
+    -fx-font-weight: 400;
+}
+.menu:hover{
+    -fx-background-color: #536a9a;
+    -fx-cursor: hand;
+}
+.menu-item .label {
+    -fx-text-fill: white;
+}
+.menu-item:focused {
+    -fx-background-color: darkgray;
+}
+.menu-item:focused .label {
+    -fx-text-fill: blue;
+}
+.context-menu {
+    -fx-border: none;
+    -fx-background-color: #536a9a;
+    -fx-border-radius: 0px !important;
+}
+*/
+#navigationBar{
+    -fx-background-color: #202940 !important;
+    -fx-border-color: #202940;
+    -fx-text-fill: #FFFFFF;
+}
+.navbar-link{
+    -fx-text-fill: white;
+    -fx-padding: 5em;
+}
+.navbar-link:focused{
+    -fx-background-color: white;
+}
+

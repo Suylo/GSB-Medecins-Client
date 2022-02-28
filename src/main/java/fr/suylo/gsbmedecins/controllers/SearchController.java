@@ -20,8 +20,6 @@ import lk.vivoxalabs.customstage.CustomStage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -29,53 +27,35 @@ public class SearchController implements Initializable {
 
 
     public TableView<Medecin> myTable;
-
-    private String nom;
-    private String prenom;
-
     @FXML
     public Button searchEnter;
     @FXML
-    TextField textField;
-
-    @FXML
     public TableColumn<Medecin, Integer> id;
     @FXML
-    public TableColumn<Medecin, String> nomCol;
-    @FXML
-    public TableColumn<Medecin, String> prenomCol;
-    @FXML
-    public TableColumn<Medecin, String> adresse;
-    @FXML
-    public TableColumn<Medecin, String> tel;
-    @FXML
-    public TableColumn<Medecin, String> spe;
+    public TableColumn<Medecin, String> nomCol, prenomCol, spe;
     @FXML
     public TableColumn<Medecin, Medecin> action = new TableColumn<>("Action");
+    @FXML
+    public TextField textField;
 
-
+    private String nom;
+    private String prenom;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         searchDoctor();
     }
 
-
-    public void searchDoctor(){
+    public void searchDoctor() {
         searchEnter.setOnAction(event -> {
-            System.out.println("SearchController :: User ID : " + UserSession.getUserID());
-            System.out.println("SearchController :: User Passwd : " + UserSession.getUserPassword());
             // On enlève les espaces pour éviter des erreurs
             this.prenom = textField.getText().trim();
             this.nom = textField.getText().trim();
 
-            // DEBUG pour test si quand on clique ça fonctionne bien
-            System.out.println("Bouton cliqué !");
-
-
             // Requête HTTP
             HttpResponse<JsonNode> apiResponse = null;
             try {
+                // Recherche au niveau de l'API pour savoir si il y a un nom/prenom qui correspond
                 apiResponse = Unirest.get("http://localhost:8080/api/v1/medecins/search?nom=" + this.getNom() + "&prenom=" + this.getPrenom()).asJson();
             } catch (UnirestException e) {
                 e.printStackTrace();
@@ -88,21 +68,17 @@ public class SearchController implements Initializable {
                 data.addAll(new Medecin(medecin.getId(), medecin.getNom(), medecin.getPrenom(), medecin.getAdresse(), medecin.getTel(), medecin.getSpe()));
             }
 
-
             // On clear la table et ensuite on ajoute les médecins
             myTable.getItems().clear();
             for (Medecin medecin : data) {
                 myTable.getItems().add(medecin);
             }
 
-            System.out.println(this.getNom() + " | " + this.getPrenom());
-
             id.setCellValueFactory(new PropertyValueFactory<>("id"));
             nomCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
             prenomCol.setCellValueFactory(new PropertyValueFactory<>("prenom"));
             spe.setCellValueFactory(new PropertyValueFactory<>("spe"));
         });
-
 
 
         // Affectation des différents champs
@@ -118,7 +94,6 @@ public class SearchController implements Initializable {
                 setGraphic(seeButton);
                 // On ajoute du css à ce button
                 seeButton.getStyleClass().add("button-see");
-
 
                 // On récupère le numéro de la ligne pour pouvoir set un id à un button, exemple ligne 5 = button ID 5
                 int index = Integer.parseInt(String.valueOf(getTableRow().getIndex()));
@@ -141,7 +116,6 @@ public class SearchController implements Initializable {
                     profileController.loadData(id.getCellData(index));
                     // On load une fonction qui récupère la variable d'avant
                     profileController.loadProfile();
-
 
                     // Chargement de la scène avec CustomStage
                     CustomStage stage = ((CustomStage) seeButton.getScene().getWindow());

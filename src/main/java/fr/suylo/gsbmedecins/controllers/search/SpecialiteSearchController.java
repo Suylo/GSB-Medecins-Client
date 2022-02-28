@@ -27,6 +27,7 @@ public class SpecialiteSearchController implements Initializable {
 
 
     public TableView<Medecin> myTable;
+    public MenuButton speChoice;
     @FXML
     public Button searchEnter;
     @FXML
@@ -40,18 +41,16 @@ public class SpecialiteSearchController implements Initializable {
     @FXML
     public Button searchByCountry, searchByDepartment, searchBySpeciality, searchByFLName;
 
-    private String nom;
-    private String prenom;
+    private String specialite;
 
 
     public void searchDepartments() {
         searchEnter.setOnAction(event -> {
-            this.prenom = textField.getText().trim();
-            this.nom = textField.getText().trim();
+            this.specialite = textField.getText().trim().toLowerCase();
 
             HttpResponse<JsonNode> apiResponse = null;
             try {
-                apiResponse = Unirest.get("http://localhost:8080/api/v1/medecins/search?nom=" + this.nom + "&prenom=" + this.prenom).asJson();
+                apiResponse = Unirest.get("http://localhost:8080/api/v1/medecins/specialite?spe=" + this.specialite).asJson();
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
@@ -133,18 +132,6 @@ public class SpecialiteSearchController implements Initializable {
             stage.setTitle("GSB - Recherche d'un médecin par pays");
             stage.changeScene(searchStage);
         });
-/*        searchBySpeciality.setOnAction(event -> {
-            Pane searchStage = null;
-            try {
-                searchStage = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("pays-search.fxml")));
-                searchStage.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            CustomStage stage = ((CustomStage) searchBySpeciality.getScene().getWindow());
-            stage.setTitle("GSB - Recherche d'un médecin par pays");
-            stage.changeScene(searchStage);
-        });*/
         searchByFLName.setOnAction(event -> {
             Pane searchStage = null;
             try {

@@ -16,8 +16,8 @@
     transition: all .2s ease;
     -fx-background-radius: 10px !important;
 }
-#button:hover, #button-active, #buttonReverse{
-    -fx-background-color: rgb(50, 58, 78);
+#button:hover, #button-active{
+    -fx-background-color: rgb(67, 74, 99);
     -fx-cursor: hand;
     transition: all .2s ease;
     -fx-background-radius: 10px !important;
@@ -84,7 +84,7 @@
     -fx-background-color: #202940;
     -fx-text-fill: white;
 }
-.button-see:hover{
+.button-see:hover, #buttonReverse{
     -fx-text-fill: #202940;
     -fx-background-color: white;
     -fx-cursor: hand;
@@ -222,3 +222,9 @@
     -fx-background-color: white;
 }
 
+#accordion{
+}
+#titledAccordion{
+    -fx-border-color: #202940;
+    -fx-text-fill: blue;
+}

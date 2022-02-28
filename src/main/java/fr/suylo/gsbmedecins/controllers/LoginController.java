@@ -18,11 +18,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable{
+public class LoginController implements Initializable {
 
     @FXML
     public TextField loginPassword, loginID;
@@ -57,11 +56,11 @@ public class LoginController implements Initializable{
             String mdp = loginPassword.getText();
 
             // Check si d'abord les champs ne sont pas vides
-            if (!login.isEmpty() && !mdp.isEmpty()){
+            if (!login.isEmpty() && !mdp.isEmpty()) {
                 // On parcours tous les utilisateurs
                 for (User user : data) {
                     // Check si le login et mdp des champs correspondent aux utilisateurs de l'API
-                    if (user.getLogin().equals(login) && user.getMotdepasse().equals(mdp)){
+                    if (user.getLogin().equals(login) && user.getMotdepasse().equals(mdp)) {
                         // Exécution de la fonction connexion(identifiant, motdepasse)
                         connexion(login, mdp);
                         // On sort de la boucle
@@ -80,7 +79,7 @@ public class LoginController implements Initializable{
 
     }
 
-    private void connexion(String login, String passwd){
+    private void connexion(String login, String passwd) {
         // Connexion de l'utilisateur, stockage d'une variable de "session"
         UserSession.getInstace(login, passwd);
         // Debug pour vérifier que les variables de "session" sont réutilisables
@@ -88,7 +87,7 @@ public class LoginController implements Initializable{
         System.out.println("LoginController :: User Passwd : " + UserSession.getUserPassword());
 
         // Check si les deux variables ne sont pas vides, création d'une autre scène
-        if(UserSession.getUserLoggedOn()){
+        if (UserSession.getUserLoggedOn()) {
             Stage currentStage = (Stage) buttonSubmit.getScene().getWindow();
             try {
                 // On récupère la position de l'ancienne fenêtre pour plus d'UX

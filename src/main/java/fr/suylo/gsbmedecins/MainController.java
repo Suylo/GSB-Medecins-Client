@@ -20,9 +20,9 @@ public class MainController implements Initializable {
     public Button navHomeAdmin, navSearchAdmin, navDoctorsAdmin, navAdminLogout;
     // Not connected UI buttons
     @FXML
-    Button navHome, navSearch, navDoctors, navIndex;
+    Button navHome, navSearch, navDoctors, navIndex, navCountry;
     private Pane homeAdmin, searchAdmin, doctorsAdmin;
-    private Pane home, search, doctors, login;
+    private Pane home, search, doctors, login, country;
 
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -39,6 +39,9 @@ public class MainController implements Initializable {
 
             login = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login2.fxml")));
             login.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+
+            country = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("pays.fxml")));
+            country.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
 /*            FXMLLoader loaderLogin = new FXMLLoader(Main.class.getResource("login2.fxml"));
             LoginController loginController = new LoginController();
             loaderLogin.setController(loginController);*/
@@ -73,6 +76,12 @@ public class MainController implements Initializable {
                 CustomStage stage = ((CustomStage) navIndex.getScene().getWindow());
                 stage.setTitle("GSB - Connexion à l'interface d'administration");
                 stage.changeScene(login);
+            });
+
+            navCountry.setOnAction(event -> {
+                CustomStage stage = (CustomStage) navCountry.getScene().getWindow();
+                stage.setTitle("GSB - Liste des pays");
+                stage.changeScene(country);
             });
         } else {
             navHomeAdmin.setOnAction(event -> {

@@ -1,14 +1,10 @@
 package fr.suylo.gsbmedecins;
 
-import fr.suylo.gsbmedecins.controllers.LoginController;
-import fr.suylo.gsbmedecins.controllers.MedecinController;
-import fr.suylo.gsbmedecins.controllers.ProfileController;
-import fr.suylo.gsbmedecins.controllers.SearchController;
 import fr.suylo.gsbmedecins.models.UserSession;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import lk.vivoxalabs.customstage.CustomStage;
 
@@ -17,21 +13,18 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class MainController  implements Initializable {
+public class MainController implements Initializable {
 
     // Admins UI buttons
     @FXML
     public Button navHomeAdmin, navSearchAdmin, navDoctorsAdmin, navAdminLogout;
-    private Pane homeAdmin, searchAdmin, doctorsAdmin;
-
     // Not connected UI buttons
     @FXML
     Button navHome, navSearch, navDoctors, navIndex;
+    private Pane homeAdmin, searchAdmin, doctorsAdmin;
     private Pane home, search, doctors, login;
 
-
     public void initialize(URL location, ResourceBundle resources) {
-
 
         try {
             // Basic
@@ -104,9 +97,5 @@ public class MainController  implements Initializable {
                 UserSession.cleanUserSession();
             });
         }
-
-
     }
-
-
 }

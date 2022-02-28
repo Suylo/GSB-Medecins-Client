@@ -34,34 +34,25 @@ public class MainController  implements Initializable {
 
 
         try {
+            // Basic
             home = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("home.fxml")));
             home.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
-
-            homeAdmin = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("home-admin.fxml")));
-            homeAdmin.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
 
             doctors = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("doctors.fxml")));
             doctors.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
 
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("doctors.fxml"));
-            MedecinController medecinController = new MedecinController();
-            loader.setController(medecinController);
-
             search = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("search.fxml")));
             search.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
 
-            FXMLLoader loaderSearch = new FXMLLoader(Main.class.getResource("search.fxml"));
-            SearchController searchController = new SearchController();
-            loaderSearch.setController(searchController);
-
             login = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login2.fxml")));
             login.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
-
-            FXMLLoader loaderLogin = new FXMLLoader(Main.class.getResource("login2.fxml"));
+/*            FXMLLoader loaderLogin = new FXMLLoader(Main.class.getResource("login2.fxml"));
             LoginController loginController = new LoginController();
-            loaderLogin.setController(loginController);
+            loaderLogin.setController(loginController);*/
 
-
+            // Admin pages
+            homeAdmin = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("home-admin.fxml")));
+            homeAdmin.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
         } catch (IOException e) {
             e.printStackTrace();
         }

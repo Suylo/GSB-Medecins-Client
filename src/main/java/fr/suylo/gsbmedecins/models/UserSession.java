@@ -21,13 +21,13 @@ public class UserSession {
     private static String userID;
     private static String userPassword;
 
-    public static boolean getUserLoggedOn(){
-        return !userID.isEmpty() || !userPassword.isEmpty();
-    }
-
     private UserSession(String id, String passwd) {
         UserSession.userID = id;
         UserSession.userPassword = passwd;
+    }
+
+    public static boolean getUserLoggedOn() {
+        return !userID.isEmpty() || !userPassword.isEmpty();
     }
 
     public static String getUserID() {
@@ -61,7 +61,7 @@ public class UserSession {
                 new Image("fr/suylo/gsbmedecins/img/minus-white.png"),
                 new Image("fr/suylo/gsbmedecins/img/maximize-white.png"),
                 new Image("fr/suylo/gsbmedecins/img/minimize-white.png"));
-        builder.setNavigationPane(Style.DYNAMIC, NavigationType.LEFT, navigationPane,0,0, false);
+        builder.setNavigationPane(Style.DYNAMIC, NavigationType.LEFT, navigationPane, 0, 0, false);
         builder.setWindowColor("#0f3e52");
         builder.setButtonHoverColor("#42506AF4");
         builder.setDimensions(1350, 850, 1350, 850);
@@ -81,7 +81,7 @@ public class UserSession {
     }
 
     public static UserSession getInstace(String userId, String userPasswd) {
-        if(instance == null) {
+        if (instance == null) {
             instance = new UserSession(userId, userPasswd);
         }
         return instance;

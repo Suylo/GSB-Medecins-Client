@@ -147,7 +147,7 @@ public class DepartementSearchController implements Initializable {
         searchByFLName.setOnAction(event -> {
             Pane searchStage = null;
             try {
-                searchStage = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("searchScenes/search.fxml")));
+                searchStage = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("searchScenes/nomprenom-search.fxml")));
                 searchStage.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
             } catch (IOException e) {
                 e.printStackTrace();

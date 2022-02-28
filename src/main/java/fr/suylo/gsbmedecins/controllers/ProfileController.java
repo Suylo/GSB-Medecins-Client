@@ -42,7 +42,7 @@ public class ProfileController {
         Medecin unMedecin = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Medecin.class);
 
         // Ajout des champs du médecin dans les champs FXML
-        doctorID.setText(unMedecin.getId().toString());
+        doctorID.setText("Profil N°" + unMedecin.getId().toString());
         doctorLastName.setText(unMedecin.getNom());
         doctorName.setText(unMedecin.getPrenom());
         doctorAddress.setText(unMedecin.getAdresse());
@@ -50,7 +50,7 @@ public class ProfileController {
 
         // Condition pour vérifier si une spécialité est null
         if (unMedecin.getSpe() == null) {
-            doctorSpe.setText("//");
+            doctorSpe.setText("// Spécialité non renseignée.");
         } else {
             doctorSpe.setText(unMedecin.getSpe());
         }

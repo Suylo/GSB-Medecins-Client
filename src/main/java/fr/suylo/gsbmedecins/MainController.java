@@ -34,7 +34,7 @@ public class MainController implements Initializable {
             doctors = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("doctors.fxml")));
             doctors.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
 
-            search = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("search.fxml")));
+            search = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("searchScenes/search.fxml")));
             search.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
 
             login = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login2.fxml")));

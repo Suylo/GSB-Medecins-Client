@@ -57,7 +57,7 @@ public class MedecinController implements Initializable {
         } catch (UnirestException e) {
             e.printStackTrace();
         }
-        // Récupération au format Json
+        // Récupération au format Json de tous les médecins
         Medecin[] medecinsJson = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Medecin[].class);
 
         // Création d'une collection pour les passer en objet
@@ -80,24 +80,21 @@ public class MedecinController implements Initializable {
                 protected void updateItem(Medecin person, boolean empty) {
                     super.updateItem(person, empty);
 
-                    // On affiche le button dans la table
+                    // On affiche le button dans la table "Voir" permettant de voir le profil du médecin
                     setGraphic(seeButton);
                     // On ajoute du css à ce button
                     seeButton.getStyleClass().add("button-see");
 
                     // On récupère le numéro de la ligne pour pouvoir set un id à un button, exemple ligne 5 = button ID 5
                     int index = Integer.parseInt(String.valueOf(getTableRow().getIndex()));
+                    // Un peu useless
                     seeButton.setId(String.valueOf(index));
 
-                    // Quand on clique sur le bouton
+                    // Quand on clique sur le bouton "Voir"
                     seeButton.setOnAction(event -> {
-
-                        /*
-                            Petit check pour vérif l'état des variables de User"session"
-                         */
+                        // Petit check pour vérif l'état des variables de User"Session"
                         System.out.println("MedecinController :: User ID : " + UserSession.getUserID());
                         System.out.println("MedecinController :: User Passwd : " + UserSession.getUserPassword());
-
 
                         // On charge la vue FXML des infos des docteurs
                         Pane doctors = null;

@@ -33,7 +33,7 @@ public class MedecinController implements Initializable {
     @FXML
     public TableColumn<Medecin, Integer> id;
     @FXML
-    public TableColumn<Medecin, String> nom, prenom, adresse, tel, spe;
+    public TableColumn<Medecin, String> nom, prenom, spe;
     @FXML
     public TableColumn<Medecin, Medecin> action = new TableColumn<>("Action");
 
@@ -66,55 +66,53 @@ public class MedecinController implements Initializable {
         }
 
         action.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        action.setCellFactory(param -> {
-            return new TableCell<>() {
-                public final Button seeButton = new Button("Voir");
+        action.setCellFactory(param -> new TableCell<>() {
+            public final Button seeButton = new Button("Voir");
 
-                // Update
-                protected void updateItem(Medecin person, boolean empty) {
-                    super.updateItem(person, empty);
+            // Update
+            protected void updateItem(Medecin person, boolean empty) {
+                super.updateItem(person, empty);
 
-                    // On affiche le button dans la table "Voir" permettant de voir le profil du médecin
-                    setGraphic(seeButton);
-                    // On ajoute du css à ce button
-                    seeButton.getStyleClass().add("button-see");
+                // On affiche le button dans la table "Voir" permettant de voir le profil du médecin
+                setGraphic(seeButton);
+                // On ajoute du css à ce button
+                seeButton.getStyleClass().add("button-see");
 
-                    // On récupère le numéro de la ligne pour pouvoir set un id à un button, exemple ligne 5 = button ID 5
-                    int index = Integer.parseInt(String.valueOf(getTableRow().getIndex()));
-                    // Un peu useless
-                    seeButton.setId(String.valueOf(index));
+                // On récupère le numéro de la ligne pour pouvoir set un id à un button, exemple ligne 5 = button ID 5
+                int index = Integer.parseInt(String.valueOf(getTableRow().getIndex()));
+                // Un peu useless
+                seeButton.setId(String.valueOf(index));
 
-                    // Quand on clique sur le bouton "Voir"
-                    seeButton.setOnAction(event -> {
-                        // Petit check pour vérif l'état des variables de User"Session"
-                        System.out.println("MedecinController :: User ID : " + UserSession.getUserID());
-                        System.out.println("MedecinController :: User Passwd : " + UserSession.getUserPassword());
+                // Quand on clique sur le bouton "Voir"
+                seeButton.setOnAction(event -> {
+                    // Petit check pour vérif l'état des variables de User"Session"
+                    System.out.println("MedecinController :: User ID : " + UserSession.getUserID());
+                    System.out.println("MedecinController :: User Passwd : " + UserSession.getUserPassword());
 
-                        // On charge la vue FXML des infos des docteurs
-                        Pane doctors = null;
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("doctorInfo.fxml"));
-                        try {
-                            // Chargement du FXML
-                            doctors = loader.load();
-                            doctors.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                    // On charge la vue FXML des infos des docteurs
+                    Pane doctors = null;
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("doctorInfo.fxml"));
+                    try {
+                        // Chargement du FXML
+                        doctors = loader.load();
+                        doctors.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
-                        ProfileController profileController = loader.getController();
-                        // Une fois le controller initialisé on envoie une variable
-                        // On récupère les valeurs de la column avec la variable index
-                        profileController.loadData(id.getCellData(index));
-                        // On load une fonction qui récupère la variable d'avant
-                        profileController.loadProfile();
+                    ProfileController profileController = loader.getController();
+                    // Une fois le controller initialisé on envoie une variable
+                    // On récupère les valeurs de la column avec la variable index
+                    profileController.loadData(id.getCellData(index));
+                    // On load une fonction qui récupère la variable d'avant
+                    profileController.loadProfile();
 
-                        // Chargement de la scène avec CustomStage
-                        CustomStage stage = ((CustomStage) seeButton.getScene().getWindow());
-                        stage.setTitle("GSB - Profil d'un médecin ");
-                        stage.changeScene(doctors);
-                    });
-                }
-            };
+                    // Chargement de la scène avec CustomStage
+                    CustomStage stage = ((CustomStage) seeButton.getScene().getWindow());
+                    stage.setTitle("GSB - Profil d'un médecin ");
+                    stage.changeScene(doctors);
+                });
+            }
         });
         // Erreur de connexion avec l'API
         myTable.setPlaceholder(new Label("Les données n'ont pas pu être récupérée depuis l'API"));

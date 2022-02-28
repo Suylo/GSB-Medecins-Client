@@ -28,7 +28,7 @@ public class HomeController implements Initializable {
         } catch (UnirestException e) {
             e.printStackTrace();
         }
-        // Récupération d'un médecin au format Json
+        // Récupération de l'utilisateur connecté au format Json
         User unAdmin = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), User.class);
 
         // Ajout des champs du médecin dans les champs FXML

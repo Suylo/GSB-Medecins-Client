@@ -1,4 +1,4 @@
-package fr.suylo.gsbmedecins.controllers;
+package fr.suylo.gsbmedecins.controllers.admin;
 
 import com.google.gson.Gson;
 import com.mashape.unirest.http.HttpResponse;

@@ -6,7 +6,6 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.models.Medecin;
-import fr.suylo.gsbmedecins.models.UserSession;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,6 +35,8 @@ public class SearchController implements Initializable {
     public TableColumn<Medecin, Medecin> action = new TableColumn<>("Action");
     @FXML
     public TextField textField;
+    @FXML
+    public Button searchByCountry, searchByDepartment, searchBySpeciality, searchByFLName;
 
     private String nom;
     private String prenom;
@@ -43,6 +44,56 @@ public class SearchController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         searchDoctor();
+
+        // Temporaire en attendant de trouver une autre solution
+        searchByDepartment.setOnAction(event -> {
+            Pane searchStage = null;
+            try {
+                searchStage = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("searchScenes/departement-search.fxml")));
+                searchStage.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            CustomStage stage = ((CustomStage) searchByDepartment.getScene().getWindow());
+            stage.setTitle("GSB - Recherche d'un médecin par département");
+            stage.changeScene(searchStage);
+        });
+        searchByCountry.setOnAction(event -> {
+            Pane searchStage = null;
+            try {
+                searchStage = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("searchScenes/pays-search.fxml")));
+                searchStage.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            CustomStage stage = ((CustomStage) searchByCountry.getScene().getWindow());
+            stage.setTitle("GSB - Recherche d'un médecin par pays");
+            stage.changeScene(searchStage);
+        });
+        searchBySpeciality.setOnAction(event -> {
+            Pane searchStage = null;
+            try {
+                searchStage = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("searchScenes/specialite-search.fxml")));
+                searchStage.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            CustomStage stage = ((CustomStage) searchBySpeciality.getScene().getWindow());
+            stage.setTitle("GSB - Recherche d'un médecin par pays");
+            stage.changeScene(searchStage);
+        });
+/*        searchByFLName.setOnAction(event -> {
+            Pane searchStage = null;
+            try {
+                searchStage = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("search.fxml")));
+                searchStage.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            CustomStage stage = ((CustomStage) searchByFLName.getScene().getWindow());
+            stage.setTitle("GSB - Recherche d'un médecin");
+            stage.changeScene(searchStage);
+        });*/
     }
 
     public void searchDoctor() {
@@ -128,7 +179,6 @@ public class SearchController implements Initializable {
         // Erreur de connexion avec l'API
         myTable.setPlaceholder(new Label("Veuillez commencer votre recherche !"));
     }
-
 
     public String getNom() {
         return nom;

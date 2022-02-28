@@ -50,7 +50,7 @@ public class UserSession {
 
         // Création d'une navbar fix
         AnchorPane navigationPane = null;
-        navigationPane = FXMLLoader.load(Objects.requireNonNull(UserSession.class.getClassLoader().getResource("dashboard-admin.fxml")));
+        navigationPane = FXMLLoader.load(Objects.requireNonNull(UserSession.class.getClassLoader().getResource("dashboards/dashboard-admin.fxml")));
         navigationPane.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
 
         // Construction de la fenêtre avec la lib CustomStage

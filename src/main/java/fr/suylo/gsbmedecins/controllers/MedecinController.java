@@ -39,28 +39,12 @@ public class MedecinController implements Initializable {
     @FXML
     public TableColumn<Medecin, Integer> id;
     @FXML
-    public TableColumn<Medecin, String> nom;
-    @FXML
-    public TableColumn<Medecin, String> prenom;
-    @FXML
-    public TableColumn<Medecin, String> adresse;
-    @FXML
-    public TableColumn<Medecin, String> tel;
-    @FXML
-    public TableColumn<Medecin, String> spe;
+    public TableColumn<Medecin, String> nom, prenom, adresse, tel, spe;
     @FXML
     public TableColumn<Medecin, Medecin> action = new TableColumn<>("Action");
 
-    public static ProfileController profileController;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loadTable();
-    }
-
-    public void loadTable() {
-
-        // Affectation des différents champs
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));

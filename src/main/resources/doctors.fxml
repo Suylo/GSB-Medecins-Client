@@ -7,22 +7,25 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2000.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.suylo.gsbmedecins.controllers.MedecinController">
-   <AnchorPane layoutX="178.0" layoutY="8.0" prefHeight="1038.0" prefWidth="1172.0">
-         <TableView fx:id="myTable" layoutX="42.0" layoutY="174.0" prefHeight="586.0" prefWidth="1106.0" AnchorPane.bottomAnchor="278.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="174.0">
+   <AnchorPane layoutX="178.0" layoutY="8.0" prefHeight="1038.0" prefWidth="1172.0" AnchorPane.leftAnchor="178.0">
+         <TableView fx:id="myTable" layoutX="33.0" layoutY="174.0" prefHeight="586.0" prefWidth="1124.0" AnchorPane.bottomAnchor="278.0" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="174.0">
             <columns>
-               <TableColumn id="col" fx:id="id" editable="false" prefWidth="10.0" styleClass="test" text="#">
+               <TableColumn id="col" fx:id="id" editable="false" maxWidth="1500.0" prefWidth="10.0" styleClass="test" text="#">
                   <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>
                </TableColumn>
-               <TableColumn id="col" fx:id="nom" editable="false" prefWidth="100.0" text="Nom">
+               <TableColumn id="col" fx:id="nom" editable="false" maxWidth="3000.0" prefWidth="100.0" text="Nom">
                   <cellValueFactory><PropertyValueFactory property="nom" /></cellValueFactory>
                </TableColumn>
-               <TableColumn id="col" fx:id="prenom" editable="false" prefWidth="100.0" text="Prénom">
+               <TableColumn id="col" fx:id="prenom" editable="false" maxWidth="3000.0" prefWidth="100.0" text="Prénom">
                   <cellValueFactory><PropertyValueFactory property="prenom" /></cellValueFactory>
+               </TableColumn>
+               <TableColumn id="col" fx:id="adresse" editable="false" minWidth="0.0" prefWidth="200" text="Adresse">
+                  <cellValueFactory><PropertyValueFactory property="adresse" /></cellValueFactory>
                </TableColumn>
                <TableColumn id="col" fx:id="spe" editable="false" minWidth="0.0" prefWidth="200" text="Spécialité">
                   <cellValueFactory><PropertyValueFactory property="spe" /></cellValueFactory>
                </TableColumn>
-               <TableColumn id="col" fx:id="action" editable="false" minWidth="0.0" prefWidth="200" text="Action">
+               <TableColumn id="col" fx:id="action" editable="false" maxWidth="1500.0" minWidth="0.0" prefWidth="200" text="Action">
                   <cellValueFactory><PropertyValueFactory property="Action" /></cellValueFactory>
                </TableColumn>
             </columns>

@@ -33,7 +33,7 @@ public class MedecinController implements Initializable {
     @FXML
     public TableColumn<Medecin, Integer> id;
     @FXML
-    public TableColumn<Medecin, String> nom, prenom, spe;
+    public TableColumn<Medecin, String> nom, prenom, adresse, spe;
     @FXML
     public TableColumn<Medecin, Medecin> action = new TableColumn<>("Action");
 
@@ -41,6 +41,7 @@ public class MedecinController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        adresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
         prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
         spe.setCellValueFactory(new PropertyValueFactory<>("spe"));
 

@@ -32,7 +32,7 @@ public class Main extends Application {
         rootPane.getChildren().add(container);
 
         AnchorPane navigationPane = null;
-        navigationPane = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("dashboard-black-theme.fxml")));
+        navigationPane = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("dashboards/dashboard-black-theme.fxml")));
         navigationPane.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
 
         // Construction de la fenêtre

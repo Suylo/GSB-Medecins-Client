@@ -34,6 +34,7 @@ public class Main extends Application {
         AnchorPane navigationPane = null;
         navigationPane = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("dashboards/dashboard-black-theme.fxml")));
         navigationPane.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+        navigationPane.setEffect(null);
 
         // Construction de la fenêtre
         CustomStageBuilder builder = new CustomStageBuilder();
@@ -45,7 +46,8 @@ public class Main extends Application {
                 new Image("fr/suylo/gsbmedecins/img/minimize-white.png"));
         builder.setNavigationPane(Style.DYNAMIC, NavigationType.LEFT, navigationPane, 0, 0, false);
         builder.setWindowColor("#202940");
-        builder.setButtonHoverColor("#42506AF4");
+        builder.setTitleColor("#ffffff");
+        builder.setButtonHoverColor("#323a4f");
         builder.setDimensions(1350, 850, 1350, 850);
         CustomStage stage = builder.build();
         stage.show();

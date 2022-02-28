@@ -24,21 +24,16 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable{
 
-
     @FXML
-    public TextField loginPassword;
-
-    @FXML
-    public TextField loginID;
-
+    public TextField loginPassword, loginID;
     @FXML
     public Button buttonSubmit;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         // Connexion à l'API
+        // Récupération de tous les utilisateurs
         HttpResponse<JsonNode> apiResponse = null;
         try {
             apiResponse = Unirest.get("http://localhost:8080/api/v1/users").asJson();
@@ -46,28 +41,26 @@ public class LoginController implements Initializable{
             e.printStackTrace();
         }
 
-
         User[] usersJson = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), User[].class);
 
+        // Ajout de tous les utilisateurs dans une collection
         ObservableList<User> data = FXCollections.observableArrayList();
         for (User user : usersJson) {
+            // Un utilisateur = un objet
             data.addAll(new User(user.getId(), user.getLogin(), user.getNom(), user.getPrenom(), user.getMotdepasse(), user.getAdresse(), user.getEmbauche()));
         }
 
+        // Quand on clique sur le bouton "Connexion"
         buttonSubmit.setOnAction(event -> {
-
-            // Récupération des textes des champs
+            // Récupération du texte des champs
             String login = loginID.getText();
             String mdp = loginPassword.getText();
 
-            // Ptit débug
-            System.out.println("Login : " + login + " | Mdp : " + mdp);
-
             // Check si d'abord les champs ne sont pas vides
             if (!login.isEmpty() && !mdp.isEmpty()){
-                // On parcontre tous les utilisateurs
+                // On parcours tous les utilisateurs
                 for (User user : data) {
-                    // Check si le login et mdp donnés correspondent aux utilisateurs
+                    // Check si le login et mdp des champs correspondent aux utilisateurs de l'API
                     if (user.getLogin().equals(login) && user.getMotdepasse().equals(mdp)){
                         // Exécution de la fonction connexion(identifiant, motdepasse)
                         connexion(login, mdp);
@@ -96,18 +89,18 @@ public class LoginController implements Initializable{
 
         // Check si les deux variables ne sont pas vides, création d'une autre scène
         if(UserSession.getUserLoggedOn()){
-            Stage stage1 = (Stage) buttonSubmit.getScene().getWindow();
+            Stage currentStage = (Stage) buttonSubmit.getScene().getWindow();
             try {
                 // On récupère la position de l'ancienne fenêtre pour plus d'UX
-                double x = stage1.getX();
-                double y = stage1.getY();
-                // Chargement de la scène d'administration
+                double x = currentStage.getX();
+                double y = currentStage.getY();
+                // Chargement vers la scène d'administration
                 UserSession.loadUi(x, y);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             // On ferme l'ancienne fenêtre après avoir chargée la nouvelle
-            stage1.close();
+            currentStage.close();
         }
     }
 

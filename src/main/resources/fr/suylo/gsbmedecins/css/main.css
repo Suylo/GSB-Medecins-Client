@@ -6,7 +6,7 @@
     DARK THEME
  */
 #button, #buttonReverse{
-    -fx-font-family: "Montserrat", sans-serif;
+    -fx-font-family: "Roboto", sans-serif;
     -fx-font-size: 1.2em;
     -fx-padding: 10px;
     -fx-font-weight: 500;
@@ -17,16 +17,31 @@
     -fx-background-radius: 10px !important;
 }
 #button:hover, #button-active{
-    -fx-background-color: rgb(67, 74, 99);
+    -fx-background-color: #323a4f;
     -fx-cursor: hand;
     transition: all .2s ease;
     -fx-background-radius: 10px !important;
     -fx-text-fill: #ffffff;
-    -fx-font-family: "Montserrat", sans-serif;
     -fx-font-size: 1.2em;
     -fx-padding: 10px;
     -fx-font-weight: 500;
 
+}
+#buttonConnexion{
+    -fx-font-family: "Roboto", sans-serif;
+    -fx-font-size: 1.2em;
+    -fx-padding: 10px;
+    -fx-font-weight: 500;
+    -fx-text-fill: #ffffff;
+    text-transform: uppercase;
+    -fx-background-color: #018934;
+    transition: all .2s ease;
+    -fx-background-radius: 10px !important;
+}
+#buttonConnexion:hover{
+    -fx-background-color: #42e77d;
+    transition: all .2s ease;
+    -fx-cursor: hand;
 }
 #buttonAdmin, #buttonAdminReverse{
     -fx-font-family: "Montserrat", sans-serif;
@@ -76,13 +91,16 @@
 }
 
 .left-navigation{
-
+    -fx-effect: dropshadow(three-pass-box,red,25,0.55,0.55,02.29) !important;
 }
 .button-see {
-    -fx-padding: 0.3em 1em;
+    -fx-padding: 0.5em 1em;
     -fx-font-size: 18px;
     -fx-background-color: #202940;
     -fx-text-fill: white;
+    -fx-font-family: "Roboto", sans-serif;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
 }
 .button-see:hover, #buttonReverse{
     -fx-text-fill: #202940;
@@ -127,7 +145,7 @@
 
 
 #titleHome{
-    -fx-font-family: "Montserrat", sans-serif;
+    -fx-font-family: "Roboto", sans-serif;
     -fx-font-weight: 500;
     -fx-text-fill: #202940;
     -fx-font-size: 2.4em;

@@ -17,7 +17,7 @@
                   <Rectangle2D />
                </viewport>
                <image>
-                  <Image url="@fr/suylo/gsbmedecins/img/images.png" />
+                  <Image url="@fr/suylo/gsbmedecins/img/gsb.png" />
                </image>
             </ImageView>
             <Label id="titleHome" alignment="CENTER" layoutX="24.0" layoutY="350.0" prefHeight="17.0" prefWidth="1100.0" text="Bienvenue sur Galaxy Swiss Bourdin !" />

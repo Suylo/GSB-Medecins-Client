@@ -38,7 +38,7 @@ public class Main extends Application {
 
         // Construction de la fenêtre
         CustomStageBuilder builder = new CustomStageBuilder();
-        builder.setIcon("fr/suylo/gsbmedecins/img/images.png");
+        builder.setIcon("fr/suylo/gsbmedecins/img/gsb.png");
 
         builder.setActionIcons(new Image("fr/suylo/gsbmedecins/img/close-white.png"),
                 new Image("fr/suylo/gsbmedecins/img/minus-white.png"),

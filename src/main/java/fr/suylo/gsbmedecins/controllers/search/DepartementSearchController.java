@@ -6,6 +6,7 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.controllers.ProfileController;
+import fr.suylo.gsbmedecins.models.Departement;
 import fr.suylo.gsbmedecins.models.Medecin;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -35,35 +36,43 @@ public class DepartementSearchController implements Initializable {
     @FXML
     public TableColumn<Medecin, Medecin> action = new TableColumn<>("Action");
     @FXML
-    public TextField textField;
-    @FXML
     public Button searchByCountry, searchByDepartment, searchBySpeciality, searchByFLName;
+    @FXML
+    public ComboBox<String> selectDepartments;
 
-    private String nom;
-    private String prenom;
-
+    private String nomDepartement;
 
     public void searchDepartments() {
         searchEnter.setOnAction(event -> {
-            this.prenom = textField.getText().trim();
-            this.nom = textField.getText().trim();
+            this.nomDepartement = selectDepartments.getValue();
 
             HttpResponse<JsonNode> apiResponse = null;
             try {
-                apiResponse = Unirest.get("http://localhost:8080/api/v1/medecins/search?nom=" + this.nom + "&prenom=" + this.prenom).asJson();
+                apiResponse = Unirest.get("http://localhost:8080/api/v1/departements/nom?nom=" + this.nomDepartement).asJson();
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
-            Medecin[] medecinsByNomOrPrenom = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Medecin[].class);
+            Departement[] lesDepartements = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Departement[].class);
 
-            ObservableList<Medecin> data = FXCollections.observableArrayList();
-            for (Medecin medecin : medecinsByNomOrPrenom) {
-                data.addAll(new Medecin(medecin.getId(), medecin.getNom(), medecin.getPrenom(), medecin.getAdresse(), medecin.getTel(), medecin.getSpe()));
+            ObservableList<Departement> data = FXCollections.observableArrayList();
+            for (Departement departement : lesDepartements) {
+                data.addAll(
+                        new Departement(
+                                departement.getId(),
+                                departement.getNom(),
+                                departement.getMedecins()
+                        )
+                );
             }
 
             myTable.getItems().clear();
-            for (Medecin medecin : data) {
-                myTable.getItems().add(medecin);
+            for (Departement departement: data) {
+                for (Medecin medecin : departement.getMedecins()) {
+                    myTable.getItems().add(medecin);
+                }
+            }
+            if (data.get(0).getMedecins().isEmpty()){
+                myTable.setPlaceholder(new Label("Aucun médecin n'existe pour ce département !"));
             }
 
             id.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -105,21 +114,12 @@ public class DepartementSearchController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        loadDepartments();
+
         searchDepartments();
 
         // Temporaire en attendant de trouver une autre solution
-/*        searchByDepartment.setOnAction(event -> {
-            Pane searchStage = null;
-            try {
-                searchStage = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("departement-search.fxml")));
-                searchStage.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            CustomStage stage = ((CustomStage) searchByDepartment.getScene().getWindow());
-            stage.setTitle("GSB - Recherche d'un médecin par département");
-            stage.changeScene(searchStage);
-        });*/
         searchByCountry.setOnAction(event -> {
             Pane searchStage = null;
             try {
@@ -156,5 +156,30 @@ public class DepartementSearchController implements Initializable {
             stage.setTitle("GSB - Recherche d'un médecin");
             stage.changeScene(searchStage);
         });
+    }
+
+    private void loadDepartments() {
+        HttpResponse<JsonNode> apiResponse = null;
+        try {
+            apiResponse = Unirest.get("http://localhost:8080/api/v1/departements").asJson();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+        Departement[] lesDepartements = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Departement[].class);
+
+        ObservableList<Departement> data = FXCollections.observableArrayList();
+        for (Departement unDepartement : lesDepartements) {
+            data.addAll(
+                    new Departement(
+                            unDepartement.getId(),
+                            unDepartement.getNom(),
+                            unDepartement.getMedecins()
+            ));
+        }
+
+        for (Departement departement : data) {
+            selectDepartments.getItems().add(departement.getNom());
+        }
+
     }
 }

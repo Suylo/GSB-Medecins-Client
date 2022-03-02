@@ -10,6 +10,7 @@ import fr.suylo.gsbmedecins.models.Medecin;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,20 +38,20 @@ public class SpecialiteSearchController implements Initializable {
     @FXML
     public TableColumn<Medecin, Medecin> action = new TableColumn<>("Action");
     @FXML
-    public TextField textField;
-    @FXML
     public Button searchByCountry, searchByDepartment, searchBySpeciality, searchByFLName;
 
-    private String specialite;
+    private String speciality;
+    @FXML
+    private ComboBox<String> selectSpecialities;
 
 
-    public void searchDepartments() {
+    public void searchSpeciality() {
         searchEnter.setOnAction(event -> {
-            this.specialite = textField.getText().trim().toLowerCase();
+            this.speciality = selectSpecialities.getValue().replace(" ", "+");
 
             HttpResponse<JsonNode> apiResponse = null;
             try {
-                apiResponse = Unirest.get("http://localhost:8080/api/v1/medecins/specialite?spe=" + this.specialite).asJson();
+                apiResponse = Unirest.get("http://localhost:8080/api/v1/medecins/specialite?spe=" + this.speciality).asJson();
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
@@ -105,8 +106,8 @@ public class SpecialiteSearchController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        searchDepartments();
-
+        loadSpecialities();
+        searchSpeciality();
         // Temporaire en attendant de trouver une autre solution
         searchByDepartment.setOnAction(event -> {
             Pane searchStage = null;
@@ -144,5 +145,24 @@ public class SpecialiteSearchController implements Initializable {
             stage.setTitle("GSB - Recherche d'un médecin");
             stage.changeScene(searchStage);
         });
+    }
+
+    private void loadSpecialities() {
+        HttpResponse<JsonNode> apiResponse = null;
+        try {
+            apiResponse = Unirest.get("http://localhost:8080/api/v1/medecins/").asJson();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+        Medecin[] medecinsBySpecialite = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Medecin[].class);
+
+        ObservableSet<String> listSpe = FXCollections.observableSet();
+        for (Medecin medecin : medecinsBySpecialite) {
+            if (medecin.getSpe() != null){
+                listSpe.add(medecin.getSpe());
+            }
+        }
+        System.out.println(listSpe);
+        selectSpecialities.getItems().addAll(listSpe);
     }
 }

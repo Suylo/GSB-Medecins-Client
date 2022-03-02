@@ -10,17 +10,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.suylo.gsbmedecins.controllers.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.suylo.gsbmedecins.controllers.LoginController">
    <children>
       <Pane prefHeight="2000.0" prefWidth="1920.0" style="-fx-background-color: #202940;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Pane layoutY="14.0" prefHeight="2000.0" prefWidth="1920.0">
                <children>
                   <Label id="titleLogin" alignment="CENTER" layoutX="272.0" layoutY="83.0" prefHeight="22.0" prefWidth="1000.0" text="Veuillez vous connecter avant de continuer !" textAlignment="CENTER" textFill="WHITE" textOverrun="WORD_ELLIPSIS" />
-                  <Button id="buttonReverse" fx:id="buttonSubmit" layoutX="692.0" layoutY="548.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="162.0" text="Connexion" />
-                  <TextField fx:id="loginID" layoutX="646.0" layoutY="382.0" prefHeight="38.0" prefWidth="253.0" />
-                  <PasswordField fx:id="loginPassword" layoutX="646.0" layoutY="480.0" prefHeight="38.0" prefWidth="253.0" />
+                  <Button id="buttonConnexionReverse" fx:id="buttonSubmit" layoutX="690.0" layoutY="528.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="162.0" text="Connexion" />
+                  <TextField id="inputLogin" fx:id="loginID" alignment="CENTER" layoutX="647.0" layoutY="373.0" prefHeight="38.0" prefWidth="253.0" promptText="Entrez votre identifiant" />
+                  <PasswordField id="inputLogin" fx:id="loginPassword" alignment="CENTER" layoutX="645.0" layoutY="465.0" prefHeight="38.0" prefWidth="253.0" promptText="Entrez votre mot de passe" />
                   <Label id="titleLogin" alignment="CENTER" layoutX="273.0" layoutY="345.0" prefHeight="22.0" prefWidth="1000.0" text="Identifiant" textAlignment="CENTER" textFill="WHITE" textOverrun="WORD_ELLIPSIS" />
                   <Label id="titleLogin" alignment="CENTER" layoutX="270.0" layoutY="437.0" prefHeight="22.0" prefWidth="1000.0" text="Mot de passe" textAlignment="CENTER" textFill="WHITE" textOverrun="WORD_ELLIPSIS" />
                   <ImageView fitHeight="182.0" fitWidth="174.0" layoutX="686.0" layoutY="144.0" pickOnBounds="true" preserveRatio="true">

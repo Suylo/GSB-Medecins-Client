@@ -5,7 +5,7 @@
 /*
     DARK THEME
  */
-#button, #buttonReverse{
+#button, #buttonReverse, #buttonConnexionReverse{
     -fx-font-family: "Roboto", sans-serif;
     -fx-font-size: 1.2em;
     -fx-padding: 10px;
@@ -27,20 +27,52 @@
     -fx-font-weight: 500;
 
 }
-#buttonConnexion{
+#buttonConnexion, #buttonLogout, .button-see-admin, .button-edit, .button-remove{
     -fx-font-family: "Roboto", sans-serif;
     -fx-font-size: 1.2em;
-    -fx-padding: 10px;
+    -fx-padding: 10px 20px;
+    -fx-min-width: 20px;
+    -fx-min-height: 40px;
     -fx-font-weight: 500;
+    -fx-background-insets: 2px;
     -fx-text-fill: #ffffff;
     text-transform: uppercase;
     -fx-background-color: #018934;
     transition: all .2s ease;
     -fx-background-radius: 10px !important;
 }
-#buttonConnexion:hover{
-    -fx-background-color: #42e77d;
+.button-edit{
+    -fx-background-color: #e67e22;
+}
+.button-edit:hover{
+    -fx-background-color: #d4741f;
+    -fx-cursor: hand;
+}
+#inputLogin {
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-background-color: white;
+    -fx-font-family: "Roboto", sans-serif;
+    -fx-font-weight: 500;
+    -fx-font-size: 1.2em;
+}
+#inputLogin:focused{
+    -fx-background-color: #f1f1f1;
+}
+#inputLogin:row-selection{
+    -fx-background-color: #323a4f;
+    -fx-text-fill: white;
+}
+#buttonLogout, .button-remove{
+    -fx-background-color: #e74c3c;
+}
+#buttonConnexion:hover, #buttonLogout:hover, .button-see-admin:hover{
+    -fx-background-color: #027b2e;
     transition: all .2s ease;
+    -fx-cursor: hand;
+}
+#buttonLogout:hover, .button-remove:hover{
+    -fx-background-color: #c14134;
     -fx-cursor: hand;
 }
 #buttonAdmin, #buttonAdminReverse{
@@ -102,9 +134,19 @@
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
 }
-.button-see:hover, #buttonReverse{
+#buttonReverse, #buttonConnexionReverse{
     -fx-text-fill: #202940;
     -fx-background-color: white;
+    -fx-cursor: hand;
+}
+.button-see:hover{
+    -fx-background-color: #323a4f;
+    -fx-cursor: hand;
+}
+
+
+#buttonConnexionReverse:hover{
+    -fx-background-color: rgba(172, 172, 172, 0.96);
     -fx-cursor: hand;
 }
 
@@ -131,6 +173,8 @@
     -fx-background-color: white;
     -fx-border-color: #202940;
     -fx-border-radius: 10px;
+    -fx-font-family: "Roboto", sans-serif;
+    -fx-font-size: 1.2em;
     -fx-background-radius: 10px;
 }
 #button-white:hover{

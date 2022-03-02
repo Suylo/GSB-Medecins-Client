@@ -18,8 +18,8 @@ public class UserSession {
 
     private static UserSession instance;
 
-    private static String userID;
-    private static String userPassword;
+    public static String userID;
+    public static String userPassword;
 
     private UserSession(String id, String passwd) {
         UserSession.userID = id;
@@ -38,7 +38,7 @@ public class UserSession {
         return userPassword;
     }
 
-    public static void loadUi(Double x, Double y) throws IOException {
+    public static void loadAdminUi(Double x, Double y) throws IOException {
         // Récupération de la page de base : home-admin
         Parent login = FXMLLoader.load(Objects.requireNonNull(UserSession.class.getClassLoader().getResource("home-admin.fxml")));
         VBox container = new VBox(login);
@@ -55,15 +55,16 @@ public class UserSession {
 
         // Construction de la fenêtre avec la lib CustomStage
         CustomStageBuilder builder = new CustomStageBuilder();
-        builder.setIcon("fr/suylo/gsbmedecins/img/images.png");
+        builder.setIcon("fr/suylo/gsbmedecins/img/gsb.png");
 
-        builder.setActionIcons(new Image("fr/suylo/gsbmedecins/img/close-white.png"),
-                new Image("fr/suylo/gsbmedecins/img/minus-white.png"),
-                new Image("fr/suylo/gsbmedecins/img/maximize-white.png"),
-                new Image("fr/suylo/gsbmedecins/img/minimize-white.png"));
+        builder.setActionIcons(new Image("fr/suylo/gsbmedecins/img/icons/x.png"),
+                new Image("fr/suylo/gsbmedecins/img/icons/minus.png"),
+                new Image("fr/suylo/gsbmedecins/img/icons/maximize.png"),
+                new Image("fr/suylo/gsbmedecins/img/icons/minimize.png"));
         builder.setNavigationPane(Style.DYNAMIC, NavigationType.LEFT, navigationPane, 0, 0, false);
-        builder.setWindowColor("#0f3e52");
-        builder.setButtonHoverColor("#42506AF4");
+        builder.setWindowColor("#202940");
+        builder.setTitleColor("#ffffff");
+        builder.setButtonHoverColor("#323a4f");
         builder.setDimensions(1350, 850, 1350, 850);
         CustomStage stage = builder.build();
 
@@ -77,6 +78,43 @@ public class UserSession {
         stage.setTitle("Galaxy Swiss Bourdin ! - Administration");
 
         // On charge la page de base
+        stage.changeScene(rootPane);
+    }
+
+    public static void loadUserUI(Double x, Double y) throws IOException{
+        Parent login = FXMLLoader.load(Objects.requireNonNull(UserSession.class.getClassLoader().getResource("login.fxml")));
+        VBox container = new VBox(login);
+        StackPane rootPane = new StackPane();
+
+        rootPane.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+        rootPane.getChildren().add(container);
+
+        AnchorPane navigationPane = null;
+        navigationPane = FXMLLoader.load(Objects.requireNonNull(UserSession.class.getClassLoader().getResource("dashboards/dashboard-black-theme.fxml")));
+        navigationPane.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+
+        CustomStageBuilder builder = new CustomStageBuilder();
+        builder.setIcon("fr/suylo/gsbmedecins/img/gsb.png");
+
+        builder.setActionIcons(new Image("fr/suylo/gsbmedecins/img/icons/x.png"),
+                new Image("fr/suylo/gsbmedecins/img/icons/minus.png"),
+                new Image("fr/suylo/gsbmedecins/img/icons/maximize.png"),
+                new Image("fr/suylo/gsbmedecins/img/icons/minimize.png"));
+        builder.setNavigationPane(Style.DYNAMIC, NavigationType.LEFT, navigationPane, 0, 0, false);
+        builder.setWindowColor("#202940");
+        builder.setTitleColor("#ffffff");
+        builder.setButtonHoverColor("#323a4f");
+        builder.setDimensions(1350, 850, 1350, 850);
+        CustomStage stage = builder.build();
+
+        stage.show();
+        stage.setX(x);
+        stage.setY(y);
+        stage.setResizable(false);
+        stage.setMaxHeight(850);
+        stage.setMaxWidth(1350);
+        stage.setTitle("Galaxy Swiss Bourdin ! - Administration");
+
         stage.changeScene(rootPane);
     }
 

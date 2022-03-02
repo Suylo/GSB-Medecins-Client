@@ -37,7 +37,7 @@ public class NomSearchController implements Initializable {
     @FXML
     public TextField textField;
     @FXML
-    public Button searchByCountry, searchByDepartment, searchBySpeciality, searchByFLName;
+    public Button searchByCountry, searchByDepartment, searchBySpeciality;
 
     private String nom;
     private String prenom;
@@ -83,18 +83,6 @@ public class NomSearchController implements Initializable {
             stage.setTitle("GSB - Recherche d'un médecin par pays");
             stage.changeScene(searchStage);
         });
-/*        searchByFLName.setOnAction(event -> {
-            Pane searchStage = null;
-            try {
-                searchStage = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("search.fxml")));
-                searchStage.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            CustomStage stage = ((CustomStage) searchByFLName.getScene().getWindow());
-            stage.setTitle("GSB - Recherche d'un médecin");
-            stage.changeScene(searchStage);
-        });*/
     }
 
     public void searchDoctor() {
@@ -107,7 +95,7 @@ public class NomSearchController implements Initializable {
             HttpResponse<JsonNode> apiResponse = null;
             try {
                 // Recherche au niveau de l'API pour savoir si il y a un nom/prenom qui correspond
-                apiResponse = Unirest.get("http://localhost:8080/api/v1/medecins/search?nom=" + this.getNom() + "&prenom=" + this.getPrenom()).asJson();
+                apiResponse = Unirest.get("http://localhost:8080/api/v1/medecins/search?nom=" + this.nom + "&prenom=" + this.prenom).asJson();
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
@@ -181,21 +169,6 @@ public class NomSearchController implements Initializable {
         myTable.setPlaceholder(new Label("Veuillez commencer votre recherche !"));
     }
 
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
 }
 
 

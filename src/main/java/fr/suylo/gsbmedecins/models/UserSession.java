@@ -27,7 +27,11 @@ public class UserSession {
     }
 
     public static boolean getUserLoggedOn() {
-        return !userID.isEmpty() || !userPassword.isEmpty();
+        if (userID == null && userPassword == null){
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public static String getUserID() {

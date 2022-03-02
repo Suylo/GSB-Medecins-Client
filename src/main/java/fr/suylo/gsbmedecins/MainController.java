@@ -17,7 +17,7 @@ public class MainController implements Initializable {
 
     // Admins UI buttons
     @FXML
-    public Button navHomeAdmin, navSearchAdmin, navDoctorsAdmin, navAdminLogout;
+    public Button navHomeAdmin, navSearchAdmin, navDoctorsAdmin, navAdminLogout, navCountryAdmin, navDepartmentAdmin;
     // Not connected UI buttons
     @FXML
     Button navHome, navSearch, navDoctors, navIndex, navCountry, navDepartment;
@@ -37,7 +37,7 @@ public class MainController implements Initializable {
             search = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("searchScenes/search.fxml")));
             search.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
 
-            login = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login2.fxml")));
+            login = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login.fxml")));
             login.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
 
             country = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("pays.fxml")));
@@ -109,9 +109,25 @@ public class MainController implements Initializable {
                 stage.setTitle("GSB - Recherche d'un médecin");
                 stage.changeScene(search);
             });
-
+            navCountryAdmin.setOnAction(event -> {
+                CustomStage stage = ((CustomStage) navCountryAdmin.getScene().getWindow());
+                stage.setTitle("GSB - Recherche d'un médecin");
+                stage.changeScene(country);
+            });
+            navDepartmentAdmin.setOnAction(event -> {
+                CustomStage stage = ((CustomStage) navDepartmentAdmin.getScene().getWindow());
+                stage.setTitle("GSB - Recherche d'un médecin");
+                stage.changeScene(department);
+            });
             navAdminLogout.setOnAction(event -> {
+                CustomStage currentStage = ((CustomStage) navAdminLogout.getScene().getWindow());
                 UserSession.cleanUserSession();
+                try {
+                    UserSession.loadUserUI(currentStage.getX(), currentStage.getY());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                currentStage.close();
             });
         }
     }

@@ -81,7 +81,8 @@ public class LoginController implements Initializable {
 
     private void connexion(String login, String passwd) {
         // Connexion de l'utilisateur, stockage d'une variable de "session"
-        UserSession.getInstace(login, passwd);
+        UserSession.userID = login;
+        UserSession.userPassword = passwd;
         // Debug pour vérifier que les variables de "session" sont réutilisables
         System.out.println("LoginController :: User ID : " + UserSession.getUserID());
         System.out.println("LoginController :: User Passwd : " + UserSession.getUserPassword());
@@ -94,7 +95,7 @@ public class LoginController implements Initializable {
                 double x = currentStage.getX();
                 double y = currentStage.getY();
                 // Chargement vers la scène d'administration
-                UserSession.loadUi(x, y);
+                UserSession.loadAdminUi(x, y);
             } catch (IOException e) {
                 e.printStackTrace();
             }

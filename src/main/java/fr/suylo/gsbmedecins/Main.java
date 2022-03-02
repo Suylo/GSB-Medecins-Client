@@ -40,10 +40,10 @@ public class Main extends Application {
         CustomStageBuilder builder = new CustomStageBuilder();
         builder.setIcon("fr/suylo/gsbmedecins/img/gsb.png");
 
-        builder.setActionIcons(new Image("fr/suylo/gsbmedecins/img/close-white.png"),
-                new Image("fr/suylo/gsbmedecins/img/minus-white.png"),
-                new Image("fr/suylo/gsbmedecins/img/maximize-white.png"),
-                new Image("fr/suylo/gsbmedecins/img/minimize-white.png"));
+        builder.setActionIcons(new Image("fr/suylo/gsbmedecins/img/icons/x.png"),
+                new Image("fr/suylo/gsbmedecins/img/icons/minus.png"),
+                new Image("fr/suylo/gsbmedecins/img/icons/maximize.png"),
+                new Image("fr/suylo/gsbmedecins/img/icons/minimize.png"));
         builder.setNavigationPane(Style.DYNAMIC, NavigationType.LEFT, navigationPane, 0, 0, false);
         builder.setWindowColor("#202940");
         builder.setTitleColor("#ffffff");

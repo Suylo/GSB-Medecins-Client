@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -9,27 +10,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1350.0" style="-fx-background-color: #202940;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.suylo.gsbmedecins.controllers.LoginController">
    <children>
-      <Pane layoutX="472.0" layoutY="144.0" prefHeight="475.0" prefWidth="407.0" style="-fx-background-color: white; -fx-background-radius: 15px;">
+      <Pane prefHeight="2000.0" prefWidth="1920.0" style="-fx-background-color: #202940;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Pane layoutX="13.0" layoutY="238.0" prefHeight="233.0" prefWidth="382.0">
+            <Pane layoutY="14.0" prefHeight="2000.0" prefWidth="1920.0">
                <children>
-                  <TextField fx:id="loginID" layoutX="152.0" layoutY="46.0" />
-                  <Label layoutX="82.0" layoutY="50.0" prefHeight="17.0" prefWidth="70.0" text="Identifiant" textFill="#202940" />
-                  <Label layoutX="73.0" layoutY="102.0" prefHeight="17.0" prefWidth="88.0" text="Mot de passe" textFill="#202940" />
-                  <Button id="button" fx:id="buttonSubmit" layoutX="149.0" layoutY="162.0" mnemonicParsing="false" text="Se connecter" />
-                  <PasswordField layoutX="152.0" layoutY="98.0" />
+                  <Label id="titleLogin" alignment="CENTER" layoutX="272.0" layoutY="83.0" prefHeight="22.0" prefWidth="1000.0" text="Veuillez vous connecter avant de continuer !" textAlignment="CENTER" textFill="WHITE" textOverrun="WORD_ELLIPSIS" />
+                  <Button id="buttonReverse" fx:id="buttonSubmit" layoutX="692.0" layoutY="548.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="162.0" text="Connexion" />
+                  <TextField fx:id="loginID" layoutX="646.0" layoutY="382.0" prefHeight="38.0" prefWidth="253.0" />
+                  <PasswordField fx:id="loginPassword" layoutX="646.0" layoutY="480.0" prefHeight="38.0" prefWidth="253.0" />
+                  <Label id="titleLogin" alignment="CENTER" layoutX="273.0" layoutY="345.0" prefHeight="22.0" prefWidth="1000.0" text="Identifiant" textAlignment="CENTER" textFill="WHITE" textOverrun="WORD_ELLIPSIS" />
+                  <Label id="titleLogin" alignment="CENTER" layoutX="270.0" layoutY="437.0" prefHeight="22.0" prefWidth="1000.0" text="Mot de passe" textAlignment="CENTER" textFill="WHITE" textOverrun="WORD_ELLIPSIS" />
+                  <ImageView fitHeight="182.0" fitWidth="174.0" layoutX="686.0" layoutY="144.0" pickOnBounds="true" preserveRatio="true">
+                     <viewport>
+                        <Rectangle2D />
+                     </viewport>
+                     <image>
+                        <Image url="@fr/suylo/gsbmedecins/img/gsb.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="129.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@fr/suylo/gsbmedecins/img/images.png" />
-               </image>
-            </ImageView>
-            <Label id="titleHome" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="200.0" prefHeight="17.0" prefWidth="407.0" text="CONNEXION" textFill="#202940" />
+
          </children>
       </Pane>
-      <Label id="titleHome" alignment="CENTER" contentDisplay="CENTER" layoutY="79.0" prefHeight="17.0" prefWidth="1350.0" style="-fx-text-fill: white;" text="Veuillez vous connecter avant de continuer !" />
    </children>
 </AnchorPane>

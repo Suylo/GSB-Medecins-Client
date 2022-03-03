@@ -54,6 +54,19 @@ public class MedecinController implements Initializable {
         if(UserSession.getUserLoggedOn()){
             titleBlank.setGraphic(addMedecin);
             addMedecin.setAlignment(Pos.BOTTOM_CENTER);
+            addMedecin.setOnAction(event -> {
+                Pane addDoctor = null;
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("addDoctorInfo.fxml"));
+                try {
+                    addDoctor = loader.load();
+                    addDoctor.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                CustomStage stage = ((CustomStage) addMedecin.getScene().getWindow());
+                stage.setTitle("GSB - Ajout d'un médecin");
+                stage.changeScene(addDoctor);
+            });
         }
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         nom.setCellValueFactory(new PropertyValueFactory<>("nom"));

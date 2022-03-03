@@ -11,8 +11,9 @@
    <children>
       <Pane layoutX="252.0" prefHeight="2000.0" prefWidth="1095.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label id="titleHome" alignment="CENTER" layoutX="24.0" layoutY="81.0" prefHeight="17.0" prefWidth="1100.0" text="Liste des pays :" />
-            <TableView fx:id="tableView" layoutX="404.0" layoutY="119.0" prefHeight="414.0" prefWidth="341.0">
+            <Label id="titleHome" fx:id="titlePays" alignment="CENTER" layoutX="1.0" layoutY="52.0" prefHeight="17.0" prefWidth="1145.0" text="Liste des pays :" />
+            <Label id="titleHome" fx:id="titleBlank" alignment="CENTER" layoutX="1.0" layoutY="98.0" prefHeight="17.0" prefWidth="1145.0" />
+            <TableView fx:id="tableView" layoutX="403.0" layoutY="144.0" prefHeight="414.0" prefWidth="341.0">
                <columns>
                   <TableColumn id="colCountry" fx:id="id" editable="false" maxWidth="1500.0" prefWidth="171.0" sortable="false" text="#" visible="false">
                      <cellValueFactory>

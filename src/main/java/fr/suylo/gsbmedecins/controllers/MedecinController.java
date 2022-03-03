@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import lk.vivoxalabs.customstage.CustomStage;
@@ -40,8 +41,19 @@ public class MedecinController implements Initializable {
     @FXML
     public TableColumn<Medecin, Medecin> action = new TableColumn<>("Action");
 
+    @FXML
+    public Label titleMedecins;
+    public final Button addMedecin = new Button("Ajouter un médecin");
+    @FXML
+    public Label titleBlank;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        addMedecin.getStyleClass().add("button-see");
+        if(UserSession.getUserLoggedOn()){
+            titleBlank.setGraphic(addMedecin);
+            addMedecin.setAlignment(Pos.BOTTOM_CENTER);
+        }
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         adresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));

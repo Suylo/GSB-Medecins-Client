@@ -6,10 +6,12 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.models.Pays;
+import fr.suylo.gsbmedecins.models.UserSession;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -23,14 +25,21 @@ public class PaysController implements Initializable {
     public TableView<Pays> tableView;
     public TableColumn<Pays, String> nom;
     public TableColumn<Pays, Long> id;
+    public Label titlePays, titleBlank;
+    public final Button addPays = new Button("Ajouter un pays");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        addPays.getStyleClass().add("button-see");
+        if(UserSession.getUserLoggedOn()){
+            titleBlank.setGraphic(addPays);
+            addPays.setAlignment(Pos.BOTTOM_CENTER);
+        }
+
         loadCountries();
     }
 
     private void loadCountries() {
-
         HttpResponse<JsonNode> apiResponse = null;
         try {
             apiResponse = Unirest.get("http://localhost:8080/api/v1/pays").asJson();

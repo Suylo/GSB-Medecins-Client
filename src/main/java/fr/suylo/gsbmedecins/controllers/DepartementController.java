@@ -7,10 +7,14 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.models.Departement;
 import fr.suylo.gsbmedecins.models.Pays;
+import fr.suylo.gsbmedecins.models.UserSession;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -27,9 +31,18 @@ public class DepartementController implements Initializable {
     public TableColumn<Departement, Integer> id;
     @FXML
     public TableColumn<Departement, String> nom;
+    @FXML
+    public Label titleDepartements, titleBlank;
+    public final Button addDepartement = new Button("Ajouter un département");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        addDepartement.getStyleClass().add("button-see");
+        if(UserSession.getUserLoggedOn()){
+            titleBlank.setGraphic(addDepartement);
+            addDepartement.setAlignment(Pos.BOTTOM_CENTER);
+        }
+
         loadDepartments();
     }
 

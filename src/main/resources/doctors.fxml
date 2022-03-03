@@ -8,6 +8,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2000.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.suylo.gsbmedecins.controllers.MedecinController">
    <AnchorPane layoutX="178.0" layoutY="8.0" prefHeight="1038.0" prefWidth="1172.0" AnchorPane.leftAnchor="178.0">
+      <Label id="titleHome" fx:id="titleMedecins" alignment="CENTER" layoutX="1.0" layoutY="52.0" prefHeight="17.0" prefWidth="1145.0" text="Liste des médecins :" />
+      <Label id="titleHome" fx:id="titleBlank" alignment="CENTER" layoutX="1.0" layoutY="98.0" prefHeight="17.0" prefWidth="1145.0" />
          <TableView fx:id="myTable" layoutX="33.0" layoutY="174.0" prefHeight="586.0" prefWidth="1124.0" AnchorPane.bottomAnchor="278.0" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="174.0">
             <columns>
                <TableColumn id="col" fx:id="id" editable="false" maxWidth="1500.0" prefWidth="10.0" styleClass="test" text="#">
@@ -33,6 +35,6 @@
                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
          </TableView>
-         <Label id="titleHome" alignment="CENTER" layoutX="22.0" layoutY="75.0" prefHeight="17.0" prefWidth="1145.0" text="Liste des médecins :" />
+
    </AnchorPane>
 </AnchorPane>

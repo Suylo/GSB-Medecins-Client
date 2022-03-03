@@ -1,4 +1,4 @@
-package fr.suylo.gsbmedecins.controllers;
+package fr.suylo.gsbmedecins.controllers.country;
 
 import com.google.gson.Gson;
 import com.mashape.unirest.http.HttpResponse;
@@ -10,11 +10,15 @@ import fr.suylo.gsbmedecins.models.UserSession;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import lk.vivoxalabs.customstage.CustomStage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -34,6 +38,19 @@ public class PaysController implements Initializable {
         if(UserSession.getUserLoggedOn()){
             titleBlank.setGraphic(addPays);
             addPays.setAlignment(Pos.BOTTOM_CENTER);
+            addPays.setOnAction(event -> {
+                Pane addCountry = null;
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("addPays.fxml"));
+                try {
+                    addCountry = loader.load();
+                    addCountry.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                CustomStage stage = ((CustomStage) addPays.getScene().getWindow());
+                stage.setTitle("GSB - Ajout d'un pays");
+                stage.changeScene(addCountry);
+            });
         }
 
         loadCountries();

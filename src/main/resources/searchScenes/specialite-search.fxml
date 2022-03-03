@@ -22,7 +22,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </SVGPath>
-            <TableView fx:id="myTable" layoutX="65.0" layoutY="302.0" prefHeight="433.0" prefWidth="874.0" AnchorPane.bottomAnchor="1265.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="302.0">
+            <TableView fx:id="myTable" layoutY="303.0" prefHeight="433.0" prefWidth="1000.0" AnchorPane.bottomAnchor="1264.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="303.0">
                <columns>
                   <TableColumn id="col" fx:id="id" editable="false" maxWidth="1500.0" prefWidth="10.0" styleClass="test" text="ID">
                      <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>

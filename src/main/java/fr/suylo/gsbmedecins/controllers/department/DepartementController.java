@@ -1,4 +1,4 @@
-package fr.suylo.gsbmedecins.controllers;
+package fr.suylo.gsbmedecins.controllers.department;
 
 import com.google.gson.Gson;
 import com.mashape.unirest.http.HttpResponse;
@@ -11,6 +11,7 @@ import fr.suylo.gsbmedecins.models.UserSession;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -18,7 +19,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import lk.vivoxalabs.customstage.CustomStage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -41,6 +45,19 @@ public class DepartementController implements Initializable {
         if(UserSession.getUserLoggedOn()){
             titleBlank.setGraphic(addDepartement);
             addDepartement.setAlignment(Pos.BOTTOM_CENTER);
+            addDepartement.setOnAction(event -> {
+                Pane addDepartment = null;
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("addDepartement.fxml"));
+                try {
+                    addDepartment = loader.load();
+                    addDepartment.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                CustomStage stage = ((CustomStage) addDepartement.getScene().getWindow());
+                stage.setTitle("GSB - Ajout d'un département");
+                stage.changeScene(addDepartment);
+            });
         }
 
         loadDepartments();

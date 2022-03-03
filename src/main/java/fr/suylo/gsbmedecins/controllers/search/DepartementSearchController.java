@@ -112,7 +112,6 @@ public class DepartementSearchController implements Initializable {
         for (Departement departement : data) {
             selectDepartments.getItems().add(departement.getNom());
         }
-
     }
 
     private void searchDepartments() {

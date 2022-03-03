@@ -219,6 +219,7 @@
 
 .table-view{
     -fx-background-color: #ffffff;
+    -fx-fixed-cell-size : 80;
 }
 .table-view .column-header-background{
 }

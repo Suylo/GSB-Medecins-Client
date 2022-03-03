@@ -200,9 +200,7 @@ public class DepartementSearchController implements Initializable {
 
             myTable.getItems().clear();
             for (Departement departement : lesDepartements) {
-                for (Medecin medecin : departement.getMedecins()) {
-                    myTable.getItems().add(medecin);
-                }
+                myTable.getItems().addAll(departement.getMedecins());
             }
             if (selectDepartments.getValue() == null) {
                 myTable.setPlaceholder(new Label("Veuillez choisir un département avant de lancer la recherche !"));

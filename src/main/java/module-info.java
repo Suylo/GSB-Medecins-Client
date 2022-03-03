@@ -25,4 +25,6 @@ module fr.suylo.gsbmedecins {
     opens fr.suylo.gsbmedecins.controllers.admin to javafx.fxml;
     exports fr.suylo.gsbmedecins.controllers.profile;
     opens fr.suylo.gsbmedecins.controllers.profile to javafx.fxml;
+    exports fr.suylo.gsbmedecins.controllers.country;
+    opens fr.suylo.gsbmedecins.controllers.country to javafx.fxml;
 }

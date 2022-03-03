@@ -5,6 +5,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import fr.suylo.gsbmedecins.controllers.EditProfileController;
 import fr.suylo.gsbmedecins.controllers.ProfileController;
 import fr.suylo.gsbmedecins.models.Departement;
 import fr.suylo.gsbmedecins.models.Medecin;
@@ -171,6 +172,22 @@ public class DepartementSearchController implements Initializable {
                     profileController.loadProfile();
                     CustomStage stage = ((CustomStage) seeButton.getScene().getWindow());
                     stage.setTitle("GSB - Profil d'un médecin ");
+                    stage.changeScene(doctor);
+                });
+                editButton.setOnAction(event -> {
+                    Pane doctor = null;
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("editDoctorInfo.fxml"));
+                    try {
+                        doctor = loader.load();
+                        doctor.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    EditProfileController editProfileController = loader.getController();
+                    editProfileController.loadData(id.getCellData(getTableRow().getIndex()));
+                    editProfileController.loadEditProfile();
+                    CustomStage stage = ((CustomStage) editButton.getScene().getWindow());
+                    stage.setTitle("GSB - Modification d'un médecin ");
                     stage.changeScene(doctor);
                 });
             }

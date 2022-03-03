@@ -27,7 +27,7 @@
     -fx-font-weight: 500;
 
 }
-#buttonConnexion, #buttonLogout, .button-see-admin, .button-edit, .button-remove{
+#buttonConnexion, #buttonSave, #buttonLogout, .button-see-admin, .button-edit, .button-remove{
     -fx-font-family: "Roboto", sans-serif;
     -fx-font-size: 1.2em;
     -fx-padding: 10px 20px;
@@ -66,7 +66,7 @@
 #buttonLogout, .button-remove{
     -fx-background-color: #e74c3c;
 }
-#buttonConnexion:hover, #buttonLogout:hover, .button-see-admin:hover{
+#buttonConnexion:hover, #buttonSave:hover, #buttonLogout:hover, .button-see-admin:hover{
     -fx-background-color: #027b2e;
     transition: all .2s ease;
     -fx-cursor: hand;
@@ -171,8 +171,7 @@
 #searchBar{
     -fx-border-width: 2px;
     -fx-background-color: white;
-    -fx-border-color: #202940;
-    -fx-border-radius: 10px;
+    -fx-border-color: transparent transparent #202940 transparent;
     -fx-font-family: "Roboto", sans-serif;
     -fx-font-size: 1.2em;
     -fx-background-radius: 10px;

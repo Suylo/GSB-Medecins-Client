@@ -112,6 +112,35 @@ public class MedecinController implements Initializable {
                     stage.setTitle("GSB - Profil d'un médecin ");
                     stage.changeScene(doctor);
                 });
+                editButton.setOnAction(event -> {
+                    Pane doctor = null;
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("editDoctorInfo.fxml"));
+                    try {
+                        doctor = loader.load();
+                        doctor.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    EditProfileController editProfileController = loader.getController();
+                    editProfileController.loadData(id.getCellData(getTableRow().getIndex()));
+                    editProfileController.loadEditProfile();
+                    CustomStage stage = ((CustomStage) editButton.getScene().getWindow());
+                    stage.setTitle("GSB - Profil d'un médecin ");
+                    stage.changeScene(doctor);
+                });
+                removeButton.setOnAction(event -> {
+                    Pane doctor = null;
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("delete.fxml"));
+                    try {
+                        doctor = loader.load();
+                        doctor.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    CustomStage stage = ((CustomStage) removeButton.getScene().getWindow());
+                    stage.setTitle("GSB - Médecin supprimé avec succès ");
+                    stage.changeScene(doctor);
+                });
             }
         });
 

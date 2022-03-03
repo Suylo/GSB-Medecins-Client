@@ -25,7 +25,7 @@
                <TableColumn id="col" fx:id="spe" editable="false" minWidth="0.0" prefWidth="200" text="Spécialité">
                   <cellValueFactory><PropertyValueFactory property="spe" /></cellValueFactory>
                </TableColumn>
-               <TableColumn id="col" fx:id="action" editable="false" maxWidth="1500.0" minWidth="0.0" prefWidth="200" text="Action">
+               <TableColumn id="col" fx:id="action" editable="false" minWidth="5.0" text="Action">
                   <cellValueFactory><PropertyValueFactory property="Action" /></cellValueFactory>
                </TableColumn>
             </columns>

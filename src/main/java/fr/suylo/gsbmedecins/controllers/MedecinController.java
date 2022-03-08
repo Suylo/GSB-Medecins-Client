@@ -18,15 +18,18 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
+import javafx.stage.Stage;
 import lk.vivoxalabs.customstage.CustomStage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MedecinController implements Initializable {
@@ -143,21 +146,29 @@ public class MedecinController implements Initializable {
                     stage.changeScene(doctor);
                 });
                 removeButton.setOnAction(event -> {
-                    Pane doctor = null;
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("delete.fxml"));
-                    try {
-                        doctor = loader.load();
-                        doctor.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation de suppresion d'un médecin");
+                    alert.setHeaderText("Êtes-vous sûr de vouloir supprimer le médecin N°" + id.getCellData(getTableRow().getIndex()) + " ?");
+                    Stage stage;
+                    stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(new Image("fr/suylo/gsbmedecins/img/gsb.png"));
+                    Optional<ButtonType> option = alert.showAndWait();
+                    if (option.get() == ButtonType.OK) {
+                        try {
+                            Unirest.delete("http://localhost:8080/api/v1/medecins/delete/" + id.getCellData(getTableRow().getIndex())).asJson();
+                        } catch (UnirestException e) {
+                            e.printStackTrace();
+                        }
+                        myTable.getItems().clear();
+                        loadMedecins();
                     }
-                    CustomStage stage = ((CustomStage) removeButton.getScene().getWindow());
-                    stage.setTitle("GSB - Médecin supprimé avec succès ");
-                    stage.changeScene(doctor);
                 });
             }
         });
+        loadMedecins();
+    }
 
+    private void loadMedecins(){
         HttpResponse<JsonNode> apiResponse = null;
         try {
             apiResponse = Unirest.get("http://localhost:8080/api/v1/medecins").asJson();

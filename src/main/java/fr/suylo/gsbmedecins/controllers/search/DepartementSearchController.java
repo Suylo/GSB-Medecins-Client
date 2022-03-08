@@ -19,15 +19,18 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
+import javafx.stage.Stage;
 import lk.vivoxalabs.customstage.CustomStage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class DepartementSearchController implements Initializable {
@@ -189,6 +192,25 @@ public class DepartementSearchController implements Initializable {
                     CustomStage stage = ((CustomStage) editButton.getScene().getWindow());
                     stage.setTitle("GSB - Modification d'un médecin ");
                     stage.changeScene(doctor);
+                });
+                removeButton.setOnAction(event -> {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation de suppresion d'un médecin");
+                    alert.setHeaderText("Êtes-vous sûr de vouloir supprimer le médecin N°" + id.getCellData(getTableRow().getIndex()) + " ?");
+                    Stage stage;
+                    stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(new Image("fr/suylo/gsbmedecins/img/gsb.png"));
+                    Optional<ButtonType> option = alert.showAndWait();
+                    if (option.get() == ButtonType.OK) {
+                        try {
+                            Unirest.delete("http://localhost:8080/api/v1/medecins/delete/" + id.getCellData(getTableRow().getIndex())).asJson();
+                            System.out.println("Médecin numero : supprimé :: " + id.getCellData(getTableRow().getIndex()));
+                            myTable.getItems().clear();
+                            myTable.setPlaceholder(new Label("Le médecin a bien été supprimé, veuillez reeffectuer la recherche !"));
+                        } catch (UnirestException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 });
             }
         });

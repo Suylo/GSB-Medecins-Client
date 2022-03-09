@@ -14,6 +14,9 @@ public class Departement {
         this.medecins = medecins;
     }
 
+    public Departement(){
+    }
+
     public Departement(Integer id){
         this.id = id;
     }

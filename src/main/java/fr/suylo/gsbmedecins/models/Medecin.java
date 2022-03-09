@@ -9,7 +9,7 @@ public class Medecin {
     private String adresse;
     private String tel;
     private String spe;
-    private Integer departement;
+    private Departement departement;
 
 
     public Medecin(Integer id, String nom, String prenom, String adresse, String tel, String spe) {
@@ -21,13 +21,13 @@ public class Medecin {
         this.spe = spe;
     }
 
-    public Medecin(String nom, String prenom, String adresse, String tel, String spe, Integer departementId) {
+    public Medecin(String nom, String prenom, String adresse, String tel, String spe, Departement departement) {
         this.nom = nom;
         this.prenom = prenom;
         this.adresse = adresse;
         this.tel = tel;
         this.spe = spe;
-        this.departement = departementId;
+        this.departement = departement;
     }
 
     public Medecin(String nom, String prenom, String adresse, String tel, String spe) {
@@ -98,11 +98,11 @@ public class Medecin {
                 '}';
     }
 
-    public Integer getDepartement() {
+    public Departement getDepartement() {
         return departement;
     }
 
-    public void setDepartement(Integer departement) {
+    public void setDepartement(Departement departement) {
         this.departement = departement;
     }
 }

@@ -166,7 +166,7 @@ public class DepartementSearchController implements Initializable {
         });
 
         searchEnter.setOnAction(event -> {
-            this.nomDepartement = selectDepartments.getValue();
+            this.nomDepartement = selectDepartments.getValue().replace(" ", "+");
             HttpResponse<JsonNode> apiResponse = null;
             try {
                 apiResponse = Unirest.get("http://localhost:8080/api/v1/departements/nom?nom=" + this.nomDepartement).asJson();

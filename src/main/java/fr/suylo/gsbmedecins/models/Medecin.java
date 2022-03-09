@@ -20,6 +20,14 @@ public class Medecin {
         this.spe = spe;
     }
 
+    public Medecin(String nom, String prenom, String adresse, String tel, String spe) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.adresse = adresse;
+        this.tel = tel;
+        this.spe = spe;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -95,12 +95,13 @@ public class AddProfileController implements Initializable {
                 doctorAddress.getText(),
                 doctorPhone.getText(),
                 doctorSpe.getValue(),
-                doctorDepartment.getValue()
+                new Departement(doctorDepartment.getValue())
         );
         try {
             Unirest.post("http://localhost:8080/api/v1/medecins/medecins")
                     .header("Content-Type", "application/json")
                     .body(new Gson().toJson(newMedecin)).asJson();
+            System.out.println(new Gson().toJson(newMedecin));
         } catch (UnirestException e) {
             e.printStackTrace();
         }

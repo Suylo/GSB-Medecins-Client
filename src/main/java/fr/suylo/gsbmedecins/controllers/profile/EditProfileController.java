@@ -81,7 +81,7 @@ public class EditProfileController {
         doctorSpe.setValue(unMedecin.getSpe());
         doctorDepartment.getItems().addAll(departements);
 
-         buttonSave.setOnAction(event -> {
+        buttonSave.setOnAction(event -> {
              editProfileWithAPI(unMedecin.getId());
              Pane doctorEditedNewList = null;
              FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("doctors.fxml"));
@@ -104,8 +104,8 @@ public class EditProfileController {
                 doctorAddress.getText(),
                 doctorPhone.getText(),
                 doctorSpe.getValue(),
-                doctorDepartment.getValue()
-                );
+                new Departement(doctorDepartment.getValue())
+        );
         try {
             Unirest.put("http://localhost:8080/api/v1/medecins/medecins/" + id)
                     .header("Content-Type", "application/json")

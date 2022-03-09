@@ -5,6 +5,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import fr.suylo.gsbmedecins.controllers.DeleteController;
 import fr.suylo.gsbmedecins.controllers.profile.EditProfileController;
 import fr.suylo.gsbmedecins.controllers.profile.ProfileController;
 import fr.suylo.gsbmedecins.models.Departement;
@@ -198,26 +199,7 @@ public class PaysSearchController implements Initializable {
                     stage.setTitle("GSB - Modification d'un médecin ");
                     stage.changeScene(doctor);
                 });
-                removeButton.setOnAction(event -> {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Confirmation de suppresion d'un médecin");
-                    alert.setHeaderText("Êtes-vous sûr de vouloir supprimer le médecin N°" + id.getCellData(getTableRow().getIndex()) + " ?");
-                    Stage stage;
-                    stage = (Stage) alert.getDialogPane().getScene().getWindow();
-                    stage.getIcons().add(new Image("fr/suylo/gsbmedecins/img/gsb.png"));
-                    Optional<ButtonType> option = alert.showAndWait();
-                    if (option.get() == ButtonType.OK) {
-                        try {
-                            Unirest.delete("http://localhost:8080/api/v1/medecins/delete/" + id.getCellData(getTableRow().getIndex())).asJson();
-                            System.out.println("Médecin numero : supprimé :: " + id.getCellData(getTableRow().getIndex()));
-                            myTable.getItems().clear();
-                            myTable.setPlaceholder(new Label("Le médecin a bien été supprimé, veuillez reeffectuer la recherche !"));
-                        } catch (UnirestException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-
+                DeleteController.onDelete(removeButton, myTable, id.getCellData(getTableRow().getIndex()));
             }
         });
 

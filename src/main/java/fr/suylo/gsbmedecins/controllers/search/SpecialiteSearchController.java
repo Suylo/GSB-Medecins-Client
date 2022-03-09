@@ -5,6 +5,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import fr.suylo.gsbmedecins.controllers.DeleteController;
 import fr.suylo.gsbmedecins.controllers.profile.EditProfileController;
 import fr.suylo.gsbmedecins.controllers.profile.ProfileController;
 import fr.suylo.gsbmedecins.models.Medecin;
@@ -19,15 +20,18 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
+import javafx.stage.Stage;
 import lk.vivoxalabs.customstage.CustomStage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SpecialiteSearchController implements Initializable {
@@ -186,6 +190,7 @@ public class SpecialiteSearchController implements Initializable {
                     stage.setTitle("GSB - Modification d'un médecin ");
                     stage.changeScene(doctor);
                 });
+                DeleteController.onDelete(removeButton, myTable, id.getCellData(getTableRow().getIndex()));
             }
         });
 

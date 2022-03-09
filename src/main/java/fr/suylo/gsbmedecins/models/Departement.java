@@ -14,6 +14,10 @@ public class Departement {
         this.medecins = medecins;
     }
 
+    public Departement(Integer id){
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

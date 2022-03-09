@@ -5,7 +5,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import fr.suylo.gsbmedecins.controllers.DeleteController;
+import fr.suylo.gsbmedecins.controllers.CRUDController;
 import fr.suylo.gsbmedecins.controllers.profile.EditProfileController;
 import fr.suylo.gsbmedecins.controllers.profile.ProfileController;
 import fr.suylo.gsbmedecins.models.Departement;
@@ -20,18 +20,15 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
-import javafx.stage.Stage;
 import lk.vivoxalabs.customstage.CustomStage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class DepartementSearchController implements Initializable {
@@ -161,40 +158,10 @@ public class DepartementSearchController implements Initializable {
 
                 editButton.getStyleClass().add("button-edit");
                 removeButton.getStyleClass().add("button-remove");
-                int index = Integer.parseInt(String.valueOf(getTableRow().getIndex()));
-                seeButton.setOnAction(event -> {
-                    Pane doctor = null;
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("doctorInfo.fxml"));
-                    try {
-                        doctor = loader.load();
-                        doctor.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    ProfileController profileController = loader.getController();
-                    profileController.loadData(id.getCellData(index));
-                    profileController.loadProfile();
-                    CustomStage stage = ((CustomStage) seeButton.getScene().getWindow());
-                    stage.setTitle("GSB - Profil d'un médecin ");
-                    stage.changeScene(doctor);
-                });
-                editButton.setOnAction(event -> {
-                    Pane doctor = null;
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("editDoctorInfo.fxml"));
-                    try {
-                        doctor = loader.load();
-                        doctor.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    EditProfileController editProfileController = loader.getController();
-                    editProfileController.loadData(id.getCellData(getTableRow().getIndex()));
-                    editProfileController.loadEditProfile();
-                    CustomStage stage = ((CustomStage) editButton.getScene().getWindow());
-                    stage.setTitle("GSB - Modification d'un médecin ");
-                    stage.changeScene(doctor);
-                });
-                DeleteController.onDelete(removeButton, myTable, id.getCellData(getTableRow().getIndex()));
+
+                CRUDController.onRead(seeButton, id.getCellData(getTableRow().getIndex()));
+                CRUDController.onEdit(editButton, id.getCellData(getTableRow().getIndex()));
+                CRUDController.onDelete(removeButton, myTable, id.getCellData(getTableRow().getIndex()));
             }
         });
 

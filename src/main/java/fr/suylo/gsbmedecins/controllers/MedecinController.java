@@ -113,38 +113,8 @@ public class MedecinController implements Initializable {
 
                 editButton.getStyleClass().add("button-edit");
                 removeButton.getStyleClass().add("button-remove");
-                seeButton.setOnAction(event -> {
-                    Pane doctor = null;
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("doctorInfo.fxml"));
-                    try {
-                        doctor = loader.load();
-                        doctor.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    ProfileController profileController = loader.getController();
-                    profileController.loadData(id.getCellData(getTableRow().getIndex()));
-                    profileController.loadProfile();
-                    CustomStage stage = ((CustomStage) seeButton.getScene().getWindow());
-                    stage.setTitle("GSB - Profil d'un médecin ");
-                    stage.changeScene(doctor);
-                });
-                editButton.setOnAction(event -> {
-                    Pane doctor = null;
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("editDoctorInfo.fxml"));
-                    try {
-                        doctor = loader.load();
-                        doctor.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    EditProfileController editProfileController = loader.getController();
-                    editProfileController.loadData(id.getCellData(getTableRow().getIndex()));
-                    editProfileController.loadEditProfile();
-                    CustomStage stage = ((CustomStage) editButton.getScene().getWindow());
-                    stage.setTitle("GSB - Profil d'un médecin ");
-                    stage.changeScene(doctor);
-                });
+                CRUDController.onRead(seeButton, id.getCellData(getTableRow().getIndex()));
+                CRUDController.onEdit(editButton, id.getCellData(getTableRow().getIndex()));
                 removeButton.setOnAction(event -> {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Confirmation de suppresion d'un médecin");

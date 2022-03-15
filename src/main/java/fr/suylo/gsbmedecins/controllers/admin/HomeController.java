@@ -1,10 +1,5 @@
 package fr.suylo.gsbmedecins.controllers.admin;
 
-import com.google.gson.Gson;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.models.APIAccess;
 import fr.suylo.gsbmedecins.models.User;
 import fr.suylo.gsbmedecins.models.UserSession;

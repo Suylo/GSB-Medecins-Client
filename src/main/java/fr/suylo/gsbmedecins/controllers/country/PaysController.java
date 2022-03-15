@@ -8,10 +8,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.controllers.CRUDController;
 import fr.suylo.gsbmedecins.controllers.profile.EditProfileController;
 import fr.suylo.gsbmedecins.controllers.profile.ProfileController;
-import fr.suylo.gsbmedecins.models.Medecin;
-import fr.suylo.gsbmedecins.models.Pays;
-import fr.suylo.gsbmedecins.models.User;
-import fr.suylo.gsbmedecins.models.UserSession;
+import fr.suylo.gsbmedecins.models.*;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -130,7 +127,9 @@ public class PaysController implements Initializable {
                             Unirest.delete("http://localhost:8080/api/v1/pays/delete/" + id.getCellData(getTableRow().getIndex())).asJson();
                             System.out.println("Pays numero : supprimé :: " + id.getCellData(getTableRow().getIndex()));
                             tableView.getItems().clear();
-                            tableView.getItems().addAll(loadCountries());
+                            tableView.getItems().addAll(
+                                    APIAccess.getAllPays()
+                            );
                         } catch (UnirestException e) {
                             e.printStackTrace();
                         }
@@ -140,30 +139,8 @@ public class PaysController implements Initializable {
             }
         });
         tableView.getItems().clear();
-        tableView.getItems().addAll(loadCountries());
-    }
-
-    private ObservableList<Pays> loadCountries() {
-        HttpResponse<JsonNode> apiResponse = null;
-        try {
-            apiResponse = Unirest.get("http://localhost:8080/api/v1/pays").asJson();
-        } catch (UnirestException e) {
-            e.printStackTrace();
-        }
-        // Récupération au format Json de tous les médecins
-        Pays[] paysJson = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Pays[].class);
-
-        // Création d'une collection pour les passer en objet
-        ObservableList<Pays> data = FXCollections.observableArrayList();
-        for (Pays pays: paysJson) {
-            data.addAll(
-                    new Pays(
-                            pays.getId(),
-                            pays.getNom(),
-                            pays.getDepartements()
-                    )
-            );
-        }
-        return data;
+        tableView.getItems().addAll(
+                APIAccess.getAllPays()
+        );
     }
 }

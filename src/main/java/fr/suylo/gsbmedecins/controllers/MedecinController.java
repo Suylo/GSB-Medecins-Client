@@ -158,6 +158,7 @@ public class MedecinController implements Initializable {
                 });
             }
         });
+
         myTable.refresh();
         myTable.getItems().addAll(APIAccess.getAllMedecins());
         myTable.setPlaceholder(new Label("Erreur de chargement des médecins !"));

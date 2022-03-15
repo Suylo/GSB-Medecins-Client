@@ -5,6 +5,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import fr.suylo.gsbmedecins.models.APIAccess;
 import fr.suylo.gsbmedecins.models.User;
 import fr.suylo.gsbmedecins.models.UserSession;
 import javafx.fxml.FXML;
@@ -22,16 +23,10 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        HttpResponse<JsonNode> apiResponse = null;
-        try {
-            apiResponse = Unirest.get("http://localhost:8080/api/v1/users/login?login=" + UserSession.getUserID()).asJson();
-        } catch (UnirestException e) {
-            e.printStackTrace();
-        }
-        // Récupération de l'utilisateur connecté au format Json
-        User unAdmin = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), User.class);
 
-        // Ajout des champs du médecin dans les champs FXML
+        String userLogged = UserSession.getUserID();
+        User unAdmin = APIAccess.getUserInfoByID(userLogged);
+
         userID.setText(String.valueOf(unAdmin.getLogin()));
         userLastName.setText(unAdmin.getNom());
         userFirstName.setText(unAdmin.getPrenom());

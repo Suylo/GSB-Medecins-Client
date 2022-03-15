@@ -7,6 +7,8 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 import java.util.Objects;
 
@@ -69,7 +71,6 @@ public class APIAccess {
                     unPays.getDepartements()
             ));
         }
-        System.out.println("DATA APIAcces :: Pays :" + data);
         return data;
     }
 
@@ -113,5 +114,31 @@ public class APIAccess {
             );
         }
         return data;
+    }
+
+
+
+    // POST
+
+    // POST Add Medecin
+    public static void addMedecin(TextField doctorLastName, TextField doctorName, TextField doctorAddress, TextField doctorPhone, ComboBox doctorSpe, ComboBox doctorDepartment) {
+        Medecin newMedecin = new Medecin(
+                doctorLastName.getText(),
+                doctorName.getText(),
+                doctorAddress.getText(),
+                doctorPhone.getText(),
+                (String) doctorSpe.getValue(),
+                new Departement(
+                        (Integer) doctorDepartment.getValue()
+                )
+        );
+            try {
+                Unirest.post("http://localhost:8080/api/v1/medecins/medecins")
+                        .header("Content-Type", "application/json")
+                        .body(new Gson().toJson(newMedecin)).asJson();
+                System.out.println("Médecin bien ajouté :: " + new Gson().toJson(newMedecin));
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
     }
 }

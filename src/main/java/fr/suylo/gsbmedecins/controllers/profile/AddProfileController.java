@@ -5,6 +5,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import fr.suylo.gsbmedecins.models.APIAccess;
 import fr.suylo.gsbmedecins.models.Departement;
 import fr.suylo.gsbmedecins.models.Medecin;
 import javafx.collections.FXCollections;
@@ -21,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import lk.vivoxalabs.customstage.CustomStage;
 
+import javax.xml.transform.sax.SAXSource;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -40,16 +42,9 @@ public class AddProfileController implements Initializable {
     @FXML
     public Button buttonSave;
 
-    public void loadFields() {
-        HttpResponse<JsonNode> apiResponseSpecialite = null, apiReponseDepartement = null;
-        try {
-            apiResponseSpecialite = Unirest.get("http://localhost:8080/api/v1/medecins").asJson();
-            apiReponseDepartement = Unirest.get("http://localhost:8080/api/v1/departements").asJson();
-        } catch (UnirestException e) {
-            e.printStackTrace();
-        }
-        Medecin[] lesMedecins = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponseSpecialite).getBody().toString()), Medecin[].class);
-        Departement[] lesDepartements = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiReponseDepartement).getBody().toString()), Departement[].class);
+    private void loadFields() {
+        ObservableList<Medecin> lesMedecins = APIAccess.getAllMedecins();
+        ObservableList<Departement> lesDepartements = APIAccess.getAllDepartements();
 
         ObservableSet<String> uniqueData = FXCollections.observableSet();
         uniqueData.add("");
@@ -62,7 +57,6 @@ public class AddProfileController implements Initializable {
         for (Departement de : lesDepartements) {
             departements.addAll(de.getId());
         }
-        System.out.println(departements);
         doctorSpe.getItems().addAll(uniqueData);
         doctorDepartment.getItems().addAll(departements);
     }
@@ -73,7 +67,6 @@ public class AddProfileController implements Initializable {
 
         doctorID.setText("Ajout d'un médecin");
         buttonSave.setOnAction(event -> {
-            addMedecin();
             Pane doctorAdded = null;
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("doctors.fxml"));
             try {
@@ -85,25 +78,9 @@ public class AddProfileController implements Initializable {
             CustomStage stage = ((CustomStage) buttonSave.getScene().getWindow());
             stage.setTitle("GSB - Liste des médecins");
             stage.changeScene(doctorAdded);
-        });
-    }
 
-    private void addMedecin(){
-        Medecin newMedecin = new Medecin(
-                doctorLastName.getText(),
-                doctorName.getText(),
-                doctorAddress.getText(),
-                doctorPhone.getText(),
-                doctorSpe.getValue(),
-                new Departement(doctorDepartment.getValue())
-        );
-        try {
-            Unirest.post("http://localhost:8080/api/v1/medecins/medecins")
-                    .header("Content-Type", "application/json")
-                    .body(new Gson().toJson(newMedecin)).asJson();
-            System.out.println(new Gson().toJson(newMedecin));
-        } catch (UnirestException e) {
-            e.printStackTrace();
-        }
+            // Ajout de médecin
+            APIAccess.addMedecin(doctorLastName, doctorName, doctorAddress, doctorPhone, doctorSpe, doctorDepartment);
+        });
     }
 }

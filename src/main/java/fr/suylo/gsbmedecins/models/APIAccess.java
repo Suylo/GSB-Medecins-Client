@@ -142,7 +142,16 @@ public class APIAccess {
             }
     }
 
+
+    // DELETE
+
+    // DELETE Medecin By ID
     public static void deleteMedecinByID(Integer cellData) throws UnirestException {
         Unirest.delete("http://localhost:8080/api/v1/medecins/delete/" + cellData).asJson();
+    }
+
+    // DELETE Departement By ID (Cascade)
+    public static void deleteDepartementByID(Integer cellData) throws UnirestException{
+        Unirest.delete("http://localhost:8080/api/v1/departements/delete/" + cellData).asJson();
     }
 }

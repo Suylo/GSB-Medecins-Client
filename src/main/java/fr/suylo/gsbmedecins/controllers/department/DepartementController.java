@@ -118,7 +118,7 @@ public class DepartementController implements Initializable {
                     Optional<ButtonType> option = alert.showAndWait();
                     if (option.get() == ButtonType.OK) {
                         try {
-                            Unirest.delete("http://localhost:8080/api/v1/departements/delete/" + id.getCellData(getTableRow().getIndex())).asJson();
+                            APIAccess.deleteDepartementByID(id.getCellData(getTableRow().getIndex()));
                             System.out.println("Département numero : supprimé :: " + id.getCellData(getTableRow().getIndex()));
                             tableView.getItems().clear();
                             tableView.getItems().addAll(APIAccess.getAllDepartements());

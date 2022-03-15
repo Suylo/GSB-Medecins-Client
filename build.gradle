@@ -3,6 +3,7 @@ plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.10'
     id 'org.beryx.jlink' version '2.24.1'
+    id 'org.javamodularity.moduleplugin' version '1.8.10'
 }
 
 group 'fr.suylo'
@@ -15,6 +16,7 @@ repositories {
 ext {
     junitVersion = '5.8.2'
 }
+
 
 sourceCompatibility = '11'
 targetCompatibility = '11'
@@ -34,7 +36,7 @@ javafx {
 }
 
 dependencies {
-    implementation('com.dlsc.formsfx:formsfx-core:11.4.2') {
+    implementation('com.dlsc.formsfx:formsfx-core:11.5.0') {
         exclude(group: 'org.openjfx')
     }
 
@@ -60,4 +62,12 @@ jlink {
 
 jlinkZip {
     group = 'distribution'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'fr.suylo.gsbmedecins.Main'
+        )
+    }
 }

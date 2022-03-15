@@ -89,4 +89,29 @@ public class APIAccess {
         }
         return data;
     }
+
+    // GET * Departements
+    public static ObservableList<Departement> getAllDepartements() {
+        HttpResponse<JsonNode> apiResponse = null;
+        try {
+            apiResponse = Unirest.get("http://localhost:8080/api/v1/departements").asJson();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+        // Récupération au format Json de tous les médecins
+        Departement[] departementJson = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Departement[].class);
+
+        // Création d'une collection pour les passer en objet
+        ObservableList<Departement> data = FXCollections.observableArrayList();
+        for (Departement departement : departementJson) {
+            data.addAll(
+                    new Departement(
+                            departement.getId(),
+                            departement.getNom(),
+                            departement.getMedecins()
+                    )
+            );
+        }
+        return data;
+    }
 }

@@ -1,16 +1,11 @@
 package fr.suylo.gsbmedecins.controllers.department;
 
-import com.google.gson.Gson;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import fr.suylo.gsbmedecins.models.APIAccess;
 import fr.suylo.gsbmedecins.models.Departement;
-import fr.suylo.gsbmedecins.models.Pays;
 import fr.suylo.gsbmedecins.models.UserSession;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,7 +22,6 @@ import lk.vivoxalabs.customstage.CustomStage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -51,6 +45,7 @@ public class DepartementController implements Initializable {
         nom.setText(" ");
         action.setVisible(false);
         id.setVisible(false);
+
         if(UserSession.getUserLoggedOn()){
             titleBlank.setGraphic(addDepartement);
             addDepartement.setAlignment(Pos.BOTTOM_CENTER);
@@ -126,7 +121,7 @@ public class DepartementController implements Initializable {
                             Unirest.delete("http://localhost:8080/api/v1/departements/delete/" + id.getCellData(getTableRow().getIndex())).asJson();
                             System.out.println("Département numero : supprimé :: " + id.getCellData(getTableRow().getIndex()));
                             tableView.getItems().clear();
-                            tableView.getItems().addAll(loadDepartments());
+                            tableView.getItems().addAll(APIAccess.getAllDepartements());
                         } catch (UnirestException e) {
                             e.printStackTrace();
                         }
@@ -135,30 +130,7 @@ public class DepartementController implements Initializable {
             }
         });
         tableView.getItems().clear();
-        tableView.getItems().addAll(loadDepartments());
+        tableView.getItems().addAll(APIAccess.getAllDepartements());
     }
 
-    private ObservableList<Departement> loadDepartments() {
-        HttpResponse<JsonNode> apiResponse = null;
-        try {
-            apiResponse = Unirest.get("http://localhost:8080/api/v1/departements").asJson();
-        } catch (UnirestException e) {
-            e.printStackTrace();
-        }
-        // Récupération au format Json de tous les médecins
-        Departement[] departementJson = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Departement[].class);
-
-        // Création d'une collection pour les passer en objet
-        ObservableList<Departement> data = FXCollections.observableArrayList();
-        for (Departement departement : departementJson) {
-            data.addAll(
-                    new Departement(
-                            departement.getId(),
-                            departement.getNom(),
-                            departement.getMedecins()
-                    )
-            );
-        }
-        return data;
-    }
 }

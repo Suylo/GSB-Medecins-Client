@@ -72,4 +72,21 @@ public class APIAccess {
         System.out.println("DATA APIAcces :: Pays :" + data);
         return data;
     }
+
+    // GET Pays Nom
+    public static ObservableList<String> getAllPaysNom() {
+        HttpResponse<JsonNode> apiResponsePays = null;
+        try {
+            apiResponsePays = Unirest.get("http://localhost:8080/api/v1/pays").asJson();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+        Pays[] lesPays = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponsePays).getBody().toString()), Pays[].class);
+
+        ObservableList<String> data = FXCollections.observableArrayList();
+        for (Pays p : lesPays) {
+            data.add(p.getNom());
+        }
+        return data;
+    }
 }

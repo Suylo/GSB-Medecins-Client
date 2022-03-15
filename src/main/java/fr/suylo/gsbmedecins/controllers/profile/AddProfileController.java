@@ -1,10 +1,5 @@
 package fr.suylo.gsbmedecins.controllers.profile;
 
-import com.google.gson.Gson;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.models.APIAccess;
 import fr.suylo.gsbmedecins.models.Departement;
 import fr.suylo.gsbmedecins.models.Medecin;
@@ -18,15 +13,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import lk.vivoxalabs.customstage.CustomStage;
 
-import javax.xml.transform.sax.SAXSource;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AddProfileController implements Initializable {
@@ -42,7 +33,8 @@ public class AddProfileController implements Initializable {
     @FXML
     public Button buttonSave;
 
-    private void loadFields() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         ObservableList<Medecin> lesMedecins = APIAccess.getAllMedecins();
         ObservableList<Departement> lesDepartements = APIAccess.getAllDepartements();
 
@@ -59,11 +51,6 @@ public class AddProfileController implements Initializable {
         }
         doctorSpe.getItems().addAll(uniqueData);
         doctorDepartment.getItems().addAll(departements);
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        loadFields();
 
         doctorID.setText("Ajout d'un médecin");
         buttonSave.setOnAction(event -> {

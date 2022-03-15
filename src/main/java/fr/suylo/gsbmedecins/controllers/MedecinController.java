@@ -1,9 +1,5 @@
 package fr.suylo.gsbmedecins.controllers;
 
-import com.google.gson.Gson;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.controllers.profile.EditProfileController;
 import fr.suylo.gsbmedecins.controllers.profile.ProfileController;
@@ -11,8 +7,6 @@ import fr.suylo.gsbmedecins.models.APIAccess;
 import fr.suylo.gsbmedecins.models.Medecin;
 import fr.suylo.gsbmedecins.models.UserSession;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -154,7 +148,7 @@ public class MedecinController implements Initializable {
                     Optional<ButtonType> option = alert.showAndWait();
                     if (option.get() == ButtonType.OK) {
                         try {
-                            Unirest.delete("http://localhost:8080/api/v1/medecins/delete/" + id.getCellData(getTableRow().getIndex())).asJson();
+                            APIAccess.deleteMedecinByID(id.getCellData(getTableRow().getIndex()));
                         } catch (UnirestException e) {
                             e.printStackTrace();
                         }

@@ -141,4 +141,8 @@ public class APIAccess {
                 e.printStackTrace();
             }
     }
+
+    public static void deleteMedecinByID(Integer cellData) throws UnirestException {
+        Unirest.delete("http://localhost:8080/api/v1/medecins/delete/" + cellData).asJson();
+    }
 }

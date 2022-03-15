@@ -7,6 +7,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.controllers.profile.EditProfileController;
 import fr.suylo.gsbmedecins.controllers.profile.ProfileController;
+import fr.suylo.gsbmedecins.models.APIAccess;
 import fr.suylo.gsbmedecins.models.Medecin;
 import fr.suylo.gsbmedecins.models.UserSession;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -34,10 +35,8 @@ import java.util.ResourceBundle;
 
 public class MedecinController implements Initializable {
 
-    // Déclaration de la table
     @FXML
     public TableView<Medecin> myTable;
-    // Déclaration des différents champs relié au FXML
     @FXML
     public TableColumn<Medecin, Integer> id;
     @FXML
@@ -160,38 +159,15 @@ public class MedecinController implements Initializable {
                             e.printStackTrace();
                         }
                         myTable.getItems().clear();
-                        myTable.getItems().addAll(loadMedecins());
+                        myTable.getItems().addAll(APIAccess.getAllMedecins());
                     }
                 });
             }
         });
-        myTable.getItems().addAll(loadMedecins());
+        myTable.refresh();
+        myTable.getItems().addAll(APIAccess.getAllMedecins());
         myTable.setPlaceholder(new Label("Erreur de chargement des médecins !"));
     }
 
-    private ObservableList<Medecin> loadMedecins(){
-        HttpResponse<JsonNode> apiResponse = null;
-        try {
-            apiResponse = Unirest.get("http://localhost:8080/api/v1/medecins").asJson();
-        } catch (UnirestException e) {
-            e.printStackTrace();
-        }
-        // Récupération au format Json de tous les médecins, ajout dans un tableau de médecins
-        Medecin[] medecinsJson = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Medecin[].class);
 
-        // Création d'une collection pour les passer en objet
-        ObservableList<Medecin> data = FXCollections.observableArrayList();
-        for (Medecin medecin : medecinsJson) {
-            data.addAll(new Medecin(
-                            medecin.getId(),
-                            medecin.getNom(),
-                            medecin.getPrenom(),
-                            medecin.getAdresse(),
-                            medecin.getTel(),
-                            medecin.getSpe()
-                    )
-            );
-        }
-        return data;
-    }
 }

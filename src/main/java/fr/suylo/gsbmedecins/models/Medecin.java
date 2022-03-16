@@ -12,6 +12,14 @@ public class Medecin {
     private Departement departement;
 
 
+    public Medecin(String nom, String prenom, String adresse, String tel, String spe) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.adresse = adresse;
+        this.tel = tel;
+        this.spe = spe;
+    }
+
     public Medecin(Integer id, String nom, String prenom, String adresse, String tel, String spe) {
         this.id = id;
         this.nom = nom;
@@ -30,12 +38,14 @@ public class Medecin {
         this.departement = departement;
     }
 
-    public Medecin(String nom, String prenom, String adresse, String tel, String spe) {
+    public Medecin(Integer id, String nom, String prenom, String adresse, String tel, String spe, Departement departement) {
+        this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.adresse = adresse;
         this.tel = tel;
         this.spe = spe;
+        this.departement = departement;
     }
 
     public Integer getId() {

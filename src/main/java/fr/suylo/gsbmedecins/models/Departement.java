@@ -7,6 +7,7 @@ public class Departement {
     private Integer id;
     private String nom;
     private List<Medecin> medecins;
+    private Pays pays;
 
     public Departement(Integer id, String nom, List<Medecin> medecins) {
         this.id = id;
@@ -14,8 +15,6 @@ public class Departement {
         this.medecins = medecins;
     }
 
-    public Departement(Object value){
-    }
 
     public Departement(Integer id){
         this.id = id;
@@ -24,6 +23,11 @@ public class Departement {
     public Departement(Integer id, String nom) {
         this.id = id;
         this.nom = nom;
+    }
+
+    public Departement(String nom, Pays pays){
+        this.nom = nom;
+        this.pays = pays;
     }
 
     public Integer getId() {
@@ -57,5 +61,13 @@ public class Departement {
                 ", nom='" + nom + '\'' +
                 ", medecins=" + medecins +
                 '}';
+    }
+
+    public Pays getPays() {
+        return pays;
+    }
+
+    public void setPays(Pays pays) {
+        this.pays = pays;
     }
 }

@@ -198,6 +198,19 @@ public class APIAccess {
             }
     }
 
+    // POST Add Pays
+    public static void addPays(TextField countryName){
+        Pays newPays = new Pays(countryName.getText());
+        try {
+            Unirest.post("http://localhost:8080/api/v1/pays/create")
+                    .header("Content-Type", "application/json")
+                    .body(new Gson().toJson(newPays)).asJson();
+            System.out.println("Pays bien ajouté :: " + new Gson().toJson(newPays));
+        } catch (UnirestException e){
+            e.printStackTrace();
+        }
+    }
+
 
     // UDATE
     // UPDATE Medecin

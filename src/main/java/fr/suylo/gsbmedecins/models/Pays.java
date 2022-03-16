@@ -14,6 +14,10 @@ public class Pays {
         this.departements = departements;
     }
 
+    public Pays(String nom) {
+        this.nom = nom;
+    }
+
     public Long getId() {
         return id;
     }

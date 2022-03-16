@@ -138,6 +138,10 @@ public class PaysController implements Initializable {
                 });
             }
         });
+        reload();
+    }
+
+    public void reload(){
         tableView.getItems().clear();
         tableView.getItems().addAll(
                 APIAccess.getAllPays()

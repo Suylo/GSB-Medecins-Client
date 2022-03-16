@@ -53,6 +53,52 @@ public class APIAccess {
         return new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), User.class);
     }
 
+    // GET Departement By Nom
+    public static ObservableList<Departement> getDepartementByNom(String nom){
+        HttpResponse<JsonNode> apiResponse = null;
+        try {
+            apiResponse = Unirest.get("http://localhost:8080/api/v1/departements/nom?nom=" + nom).asJson();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+        Departement[] lesDepartements = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Departement[].class);
+
+        ObservableList<Departement> data = FXCollections.observableArrayList();
+        for (Departement departement : lesDepartements) {
+            data.addAll(
+                    new Departement(
+                            departement.getId(),
+                            departement.getNom(),
+                            departement.getMedecins()
+                    )
+            );
+        }
+        return data;
+    }
+
+    // GET Pays By Nom
+    public static ObservableList<Pays> getPaysByNom(String nom){
+        HttpResponse<JsonNode> apiResponse = null;
+        try {
+            apiResponse = Unirest.get("http://localhost:8080/api/v1/pays/nom?nom=" + nom).asJson();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+        Pays[] tousLesPays = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Pays[].class);
+
+        ObservableList<Pays> data = FXCollections.observableArrayList();
+        for (Pays pays: tousLesPays) {
+            data.addAll(
+                    new Pays(
+                            pays.getId(),
+                            pays.getNom(),
+                            pays.getDepartements()
+                    )
+            );
+        }
+        return data;
+    }
+
     // GET * Pays
     public static ObservableList<Pays> getAllPays() {
         HttpResponse<JsonNode> apiResponsePays = null;

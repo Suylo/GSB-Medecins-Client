@@ -7,10 +7,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.controllers.CRUDController;
 import fr.suylo.gsbmedecins.controllers.profile.ProfileController;
-import fr.suylo.gsbmedecins.models.Departement;
-import fr.suylo.gsbmedecins.models.Medecin;
-import fr.suylo.gsbmedecins.models.Pays;
-import fr.suylo.gsbmedecins.models.UserSession;
+import fr.suylo.gsbmedecins.models.*;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -172,27 +169,10 @@ public class PaysSearchController implements Initializable {
         searchEnter.setOnAction(event -> {
             this.listCountries = selectCountries.getValue();
 
-            HttpResponse<JsonNode> apiResponse = null;
-            try {
-                apiResponse = Unirest.get("http://localhost:8080/api/v1/pays/nom?nom=" + this.listCountries).asJson();
-            } catch (UnirestException e) {
-                e.printStackTrace();
-            }
-            Pays[] tousLesPays = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Pays[].class);
-
-            ObservableList<Pays> data = FXCollections.observableArrayList();
-            for (Pays pays: tousLesPays) {
-                data.addAll(
-                        new Pays(
-                                pays.getId(),
-                                pays.getNom(),
-                                pays.getDepartements()
-                        )
-                );
-            }
+            ObservableList<Pays> lesPays = APIAccess.getPaysByNom(this.listCountries);
 
             myTable.getItems().clear();
-            for (Pays pays : data) {
+            for (Pays pays : lesPays) {
                 for (Departement dep : pays.getDepartements()) {
                     myTable.getItems().addAll(dep.getMedecins());
                 }
@@ -200,7 +180,7 @@ public class PaysSearchController implements Initializable {
             if (selectCountries.getValue() == null){
                 myTable.setPlaceholder(new Label("Veuillez choisir un pays avant de lancer la recherche !"));
             }
-            if (data.get(0).getDepartements().get(0).getMedecins().isEmpty()){
+            if (lesPays.size() == 1) {
                 myTable.setPlaceholder(new Label("Aucun médecins n'a été trouvé pour ce pays !"));
             }
         });

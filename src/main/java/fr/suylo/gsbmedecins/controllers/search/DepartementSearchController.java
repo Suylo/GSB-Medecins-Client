@@ -8,6 +8,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.controllers.CRUDController;
 import fr.suylo.gsbmedecins.controllers.profile.EditProfileController;
 import fr.suylo.gsbmedecins.controllers.profile.ProfileController;
+import fr.suylo.gsbmedecins.models.APIAccess;
 import fr.suylo.gsbmedecins.models.Departement;
 import fr.suylo.gsbmedecins.models.Medecin;
 import fr.suylo.gsbmedecins.models.UserSession;
@@ -166,36 +167,22 @@ public class DepartementSearchController implements Initializable {
         });
 
         searchEnter.setOnAction(event -> {
-            this.nomDepartement = selectDepartments.getValue().replace(" ", "+");
-            HttpResponse<JsonNode> apiResponse = null;
-            try {
-                apiResponse = Unirest.get("http://localhost:8080/api/v1/departements/nom?nom=" + this.nomDepartement).asJson();
-            } catch (UnirestException e) {
-                e.printStackTrace();
-            }
-            Departement[] lesDepartements = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Departement[].class);
+            if (selectDepartments.getValue() == null){
+                myTable.setPlaceholder(new Label("Veuillez choisir un département avant de débuter la recherche !"));
+            } else {
+                this.nomDepartement = selectDepartments.getValue().replace(" ", "+");
+                ObservableList<Departement> lesDepartements = APIAccess.getDepartementByNom(this.nomDepartement);
 
-            ObservableList<Departement> data = FXCollections.observableArrayList();
-            for (Departement departement : lesDepartements) {
-                data.addAll(
-                        new Departement(
-                                departement.getId(),
-                                departement.getNom(),
-                                departement.getMedecins()
-                        )
-                );
+                myTable.getItems().clear();
+                for (Departement departement : lesDepartements) {
+                    myTable.getItems().addAll(departement.getMedecins());
+                }
+
+                if (lesDepartements.size() == 1) {
+                    myTable.setPlaceholder(new Label("Aucun médecins n'a été trouvé pour ce département !"));
+                }
             }
 
-            myTable.getItems().clear();
-            for (Departement departement : lesDepartements) {
-                myTable.getItems().addAll(departement.getMedecins());
-            }
-            if (selectDepartments.getValue() == null) {
-                myTable.setPlaceholder(new Label("Veuillez choisir un département avant de lancer la recherche !"));
-            }
-            if (data.get(0).getMedecins().isEmpty()) {
-                myTable.setPlaceholder(new Label("Aucun médecin n'existe pour ce département !"));
-            }
         });
         myTable.setPlaceholder(new Label("Veuillez commencer votre recherche !"));
     }

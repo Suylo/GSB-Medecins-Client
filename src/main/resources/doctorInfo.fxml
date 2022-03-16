@@ -29,17 +29,19 @@
                 <Label id="persoInfo" fx:id="doctorName" layoutX="304.0" layoutY="500.0" prefHeight="38.0" prefWidth="665.0" />
                 <Label id="textHome" layoutX="219.0" layoutY="538.0" lineSpacing="2.0" prefHeight="38.0" prefWidth="181.0" text="Adresse : " wrapText="true" />
                 <Label id="persoInfo" fx:id="doctorAddress" layoutX="304.0" layoutY="538.0" prefHeight="38.0" prefWidth="665.0" />
-                <Label id="textHome" layoutX="219.0" layoutY="576.0" lineSpacing="2.0" prefHeight="38.0" prefWidth="181.0" text="Téléphone : " wrapText="true" />
-                <Label id="persoInfo" fx:id="doctorPhone" layoutX="320.0" layoutY="576.0" prefHeight="38.0" prefWidth="665.0">
+                <Label id="textHome" layoutX="219.0" layoutY="614.0" lineSpacing="2.0" prefHeight="38.0" prefWidth="181.0" text="Téléphone : " wrapText="true" />
+                <Label id="persoInfo" fx:id="doctorPhone" layoutX="320.0" layoutY="614.0" prefHeight="38.0" prefWidth="665.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-                <Label id="textHome" layoutX="219.0" layoutY="614.0" lineSpacing="2.0" prefHeight="38.0" prefWidth="289.0" text="Spécialité complémentaire : " wrapText="true" />
-                <Label id="persoInfo" fx:id="doctorSpe" layoutX="463.0" layoutY="614.0" prefHeight="38.0" prefWidth="665.0">
+                <Label id="textHome" layoutX="219.0" layoutY="652.0" lineSpacing="2.0" prefHeight="38.0" prefWidth="289.0" text="Spécialité complémentaire : " wrapText="true" />
+                <Label id="persoInfo" fx:id="doctorSpe" layoutX="463.0" layoutY="652.0" prefHeight="38.0" prefWidth="665.0">
                    <font>
                       <Font name="System Bold" size="12.0" />
                    </font>
                 </Label>
+            <Label id="textHome" layoutX="218.0" layoutY="576.0" lineSpacing="2.0" prefHeight="38.0" prefWidth="181.0" text="Département : " wrapText="true" />
+            <Label id="persoInfo" fx:id="doctorDepartment" layoutX="346.0" layoutY="576.0" prefHeight="38.0" prefWidth="622.0" />
             </children>
         </Pane>
     </children>

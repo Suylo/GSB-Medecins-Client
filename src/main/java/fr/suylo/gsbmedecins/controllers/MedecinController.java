@@ -46,6 +46,7 @@ public class MedecinController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         addMedecin.getStyleClass().add("button-see");
         if(UserSession.getUserLoggedOn()){
             titleBlank.setGraphic(addMedecin);
@@ -159,8 +160,12 @@ public class MedecinController implements Initializable {
             }
         });
 
+        /*
+
         myTable.refresh();
         myTable.getItems().addAll(APIAccess.getAllMedecins());
+         */
+        reload();
         myTable.setPlaceholder(new Label("Erreur de chargement des médecins !"));
     }
 

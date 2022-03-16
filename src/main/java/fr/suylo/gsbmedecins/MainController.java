@@ -35,6 +35,8 @@ public class MainController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("doctors.fxml"));
             doctors = loader.load();
             doctors.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+            MedecinController medecinController = loader.getController();
+            medecinController.reload();
 
             search = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("searchScenes/search.fxml")));
             search.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
@@ -66,6 +68,7 @@ public class MainController implements Initializable {
                 CustomStage stage = ((CustomStage) navDoctors.getScene().getWindow());
                 stage.setTitle("GSB - Liste des médecins");
                 stage.changeScene(doctors);
+
             });
 
             navSearch.setOnAction(event -> {

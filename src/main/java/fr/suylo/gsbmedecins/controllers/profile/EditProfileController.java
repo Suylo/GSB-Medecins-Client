@@ -1,10 +1,7 @@
 package fr.suylo.gsbmedecins.controllers.profile;
 
-import com.google.gson.Gson;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
+import fr.suylo.gsbmedecins.controllers.MedecinController;
+import fr.suylo.gsbmedecins.models.APIAccess;
 import fr.suylo.gsbmedecins.models.Departement;
 import fr.suylo.gsbmedecins.models.Medecin;
 import javafx.collections.FXCollections;
@@ -47,17 +44,10 @@ public class EditProfileController {
     }
 
     public void loadEditProfile() {
-        HttpResponse<JsonNode> apiResponseMedecins = null, apiResponseSpecialite = null, apiReponseDepartement = null;
-        try {
-            apiResponseMedecins = Unirest.get("http://localhost:8080/api/v1/medecins/" + getId().toString()).asJson();
-            apiResponseSpecialite = Unirest.get("http://localhost:8080/api/v1/medecins").asJson();
-            apiReponseDepartement = Unirest.get("http://localhost:8080/api/v1/departements").asJson();
-        } catch (UnirestException e) {
-            e.printStackTrace();
-        }
-        Medecin unMedecin = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponseMedecins).getBody().toString()), Medecin.class);
-        Medecin[] lesMedecins = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponseSpecialite).getBody().toString()), Medecin[].class);
-        Departement[] lesDepartements = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiReponseDepartement).getBody().toString()), Departement[].class);
+
+        ObservableList<Departement> lesDepartements = APIAccess.getAllDepartements();
+        ObservableList<Medecin> lesMedecins = APIAccess.getAllMedecins();
+        Medecin unMedecin = APIAccess.getMedecinByID(getId());
 
         ObservableSet<String> uniqueData = FXCollections.observableSet();
         uniqueData.add("");
@@ -82,37 +72,30 @@ public class EditProfileController {
         doctorDepartment.getItems().addAll(departements);
 
         buttonSave.setOnAction(event -> {
-             editProfileWithAPI(unMedecin.getId());
-             Pane doctorEditedNewList = null;
-             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("doctors.fxml"));
-             try {
-                 doctorEditedNewList = loader.load();
-                 doctorEditedNewList.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
-             } catch (IOException e) {
-                 e.printStackTrace();
-             }
-             CustomStage stage = ((CustomStage) buttonSave.getScene().getWindow());
-             stage.setTitle("GSB - Liste des médecins");
-             stage.changeScene(doctorEditedNewList);
-         });
-    }
 
-    private void editProfileWithAPI(Integer id){
-        Medecin newMedecin = new Medecin(
-                doctorLastName.getText(),
-                doctorName.getText(),
-                doctorAddress.getText(),
-                doctorPhone.getText(),
-                doctorSpe.getValue(),
-                new Departement(doctorDepartment.getValue())
-        );
-        try {
-            Unirest.put("http://localhost:8080/api/v1/medecins/medecins/" + id)
-                    .header("Content-Type", "application/json")
-                    .body(new Gson().toJson(newMedecin)).asJson();
-        } catch (UnirestException e) {
-            e.printStackTrace();
-        }
+            Pane doctorEditedNewList = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("doctors.fxml"));
+            try {
+                doctorEditedNewList = loader.load();
+                doctorEditedNewList.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            CustomStage stage = ((CustomStage) buttonSave.getScene().getWindow());
+            stage.setTitle("GSB - Liste des médecins");
+            stage.changeScene(doctorEditedNewList);
+
+            APIAccess.updateMedecin(
+                    unMedecin.getId(),
+                    doctorLastName,
+                    doctorName,
+                    doctorAddress,
+                    doctorPhone,
+                    doctorSpe);
+
+            MedecinController medecinController = loader.getController();
+            medecinController.reload();
+        });
     }
 
 }

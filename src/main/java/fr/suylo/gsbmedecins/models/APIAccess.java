@@ -41,6 +41,16 @@ public class APIAccess {
         return data;
     }
 
+    public static Medecin getMedecinByID(Integer id) {
+        HttpResponse<JsonNode> apiResponseMedecins = null;
+        try {
+            apiResponseMedecins = Unirest.get("http://localhost:8080/api/v1/medecins/" + id.toString()).asJson();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+        return new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponseMedecins).getBody().toString()), Medecin.class);
+    }
+
     // GET User infos By ID
     public static User getUserInfoByID(String userID) {
         HttpResponse<JsonNode> apiResponse = null;
@@ -189,6 +199,26 @@ public class APIAccess {
     }
 
 
+    // UDATE
+    // UPDATE Medecin
+    public static void updateMedecin(Integer id, TextField doctorLastName, TextField doctorName, TextField doctorAddress, TextField doctorPhone, ComboBox doctorSpe) {
+        Medecin updatedMedecin = new Medecin(
+                doctorLastName.getText(),
+                doctorName.getText(),
+                doctorAddress.getText(),
+                doctorPhone.getText(),
+                (String) doctorSpe.getValue()
+        );
+        try {
+            Unirest.put("http://localhost:8080/api/v1/medecins/medecins/" + id)
+                    .header("Content-Type", "application/json")
+                    .body(new Gson().toJson(updatedMedecin)).asJson();
+            System.out.println("Médecin mis à jour :: " + new Gson().toJson(updatedMedecin));
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+    }
+
     // DELETE
 
     // DELETE Medecin By ID
@@ -200,4 +230,6 @@ public class APIAccess {
     public static void deleteDepartementByID(Integer cellData) throws UnirestException{
         Unirest.delete("http://localhost:8080/api/v1/departements/delete/" + cellData).asJson();
     }
+
+
 }

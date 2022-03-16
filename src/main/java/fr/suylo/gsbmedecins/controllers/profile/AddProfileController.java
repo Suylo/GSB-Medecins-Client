@@ -77,7 +77,6 @@ public class AddProfileController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("doctors.fxml"));
             try {
                 doctorAdded = loader.load();
-
                 doctorAdded.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
             } catch (IOException e) {
                 e.printStackTrace();

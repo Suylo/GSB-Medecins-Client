@@ -1,5 +1,6 @@
 package fr.suylo.gsbmedecins;
 
+import fr.suylo.gsbmedecins.controllers.MedecinController;
 import fr.suylo.gsbmedecins.models.UserSession;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +32,8 @@ public class MainController implements Initializable {
             home = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("home.fxml")));
             home.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
 
-            doctors = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("doctors.fxml")));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("doctors.fxml"));
+            doctors = loader.load();
             doctors.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
 
             search = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("searchScenes/search.fxml")));
@@ -45,9 +47,6 @@ public class MainController implements Initializable {
 
             department = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("departements.fxml")));
             department.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
-            /*            FXMLLoader loaderLogin = new FXMLLoader(Main.class.getResource("login2.fxml"));
-            LoginController loginController = new LoginController();
-            loaderLogin.setController(loginController);*/
 
             // Admin pages
             homeAdmin = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("home-admin.fxml")));

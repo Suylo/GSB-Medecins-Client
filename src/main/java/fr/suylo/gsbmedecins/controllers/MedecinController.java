@@ -165,4 +165,8 @@ public class MedecinController implements Initializable {
     }
 
 
+    public void reload() {
+        myTable.getItems().clear();
+        myTable.getItems().addAll(APIAccess.getAllMedecins());
+    }
 }

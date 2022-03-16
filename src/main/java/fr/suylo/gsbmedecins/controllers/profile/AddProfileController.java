@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import lk.vivoxalabs.customstage.CustomStage;
+import fr.suylo.gsbmedecins.controllers.MedecinController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -58,6 +59,7 @@ public class AddProfileController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("doctors.fxml"));
             try {
                 doctorAdded = loader.load();
+
                 doctorAdded.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -68,6 +70,9 @@ public class AddProfileController implements Initializable {
 
             // Ajout de médecin
             APIAccess.addMedecin(doctorLastName, doctorName, doctorAddress, doctorPhone, doctorSpe, doctorDepartment);
+
+            MedecinController medecinController = loader.getController();
+            medecinController.reload();
         });
     }
 }

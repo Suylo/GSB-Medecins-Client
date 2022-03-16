@@ -94,25 +94,9 @@ public class DepartementSearchController implements Initializable {
     }
 
     private void loadDepartments() {
-        HttpResponse<JsonNode> apiResponse = null;
-        try {
-            apiResponse = Unirest.get("http://localhost:8080/api/v1/departements").asJson();
-        } catch (UnirestException e) {
-            e.printStackTrace();
-        }
-        Departement[] lesDepartements = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Departement[].class);
+        ObservableList<Departement> lesDepartements = APIAccess.getAllDepartements();
 
-        ObservableList<Departement> data = FXCollections.observableArrayList();
-        for (Departement unDepartement : lesDepartements) {
-            data.addAll(
-                    new Departement(
-                            unDepartement.getId(),
-                            unDepartement.getNom(),
-                            unDepartement.getMedecins()
-                    ));
-        }
-
-        for (Departement departement : data) {
+        for (Departement departement : lesDepartements) {
             selectDepartments.getItems().add(departement.getNom());
         }
     }

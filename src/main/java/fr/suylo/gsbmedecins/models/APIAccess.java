@@ -121,7 +121,7 @@ public class APIAccess {
     // POST
 
     // POST Add Medecin
-    public static void addMedecin(TextField doctorLastName, TextField doctorName, TextField doctorAddress, TextField doctorPhone, ComboBox doctorSpe, ComboBox doctorDepartment) {
+    public static void addMedecin(TextField doctorLastName, TextField doctorName, TextField doctorAddress, TextField doctorPhone, ComboBox doctorSpe, Integer doctorDepartment) {
         Medecin newMedecin = new Medecin(
                 doctorLastName.getText(),
                 doctorName.getText(),
@@ -129,7 +129,7 @@ public class APIAccess {
                 doctorPhone.getText(),
                 (String) doctorSpe.getValue(),
                 new Departement(
-                        (Integer) doctorDepartment.getValue()
+                        doctorDepartment
                 )
         );
             try {

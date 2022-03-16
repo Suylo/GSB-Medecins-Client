@@ -14,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.util.StringConverter;
 import lk.vivoxalabs.customstage.CustomStage;
 import fr.suylo.gsbmedecins.controllers.MedecinController;
 
@@ -30,9 +31,10 @@ public class AddProfileController implements Initializable {
     @FXML
     public ComboBox<String> doctorSpe;
     @FXML
-    public ComboBox<Integer> doctorDepartment;
+    public ComboBox<Departement> doctorDepartment;
     @FXML
     public Button buttonSave;
+    private Integer valueDepartment;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -46,12 +48,28 @@ public class AddProfileController implements Initializable {
                 uniqueData.add(m.getSpe());
             }
         }
-        ObservableList<Integer> departements = FXCollections.observableArrayList();
+        ObservableList<Departement> departements = FXCollections.observableArrayList();
         for (Departement de : lesDepartements) {
-            departements.addAll(de.getId());
+            departements.addAll(new Departement(de.getId(), de.getNom()));
         }
         doctorSpe.getItems().addAll(uniqueData);
         doctorDepartment.getItems().addAll(departements);
+        doctorDepartment.setConverter(new StringConverter<Departement>() {
+            @Override
+            public String toString(Departement object) {
+                return object.getNom();
+            }
+
+            @Override
+            public Departement fromString(String string) {
+                return doctorDepartment.getItems().stream().filter(ap -> ap.getNom().equals(string)).findFirst().orElse(null);
+            }
+        });
+        doctorDepartment.valueProperty().addListener((obs, oldval, newval) -> {
+            if (newval != null) {
+                this.valueDepartment = newval.getId();
+            }
+        });
 
         doctorID.setText("Ajout d'un médecin");
         buttonSave.setOnAction(event -> {
@@ -69,8 +87,7 @@ public class AddProfileController implements Initializable {
             stage.changeScene(doctorAdded);
 
             // Ajout de médecin
-            APIAccess.addMedecin(doctorLastName, doctorName, doctorAddress, doctorPhone, doctorSpe, doctorDepartment);
-
+            APIAccess.addMedecin(doctorLastName, doctorName, doctorAddress, doctorPhone, doctorSpe, this.valueDepartment);
             MedecinController medecinController = loader.getController();
             medecinController.reload();
         });

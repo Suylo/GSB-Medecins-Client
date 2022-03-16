@@ -1,6 +1,5 @@
 package fr.suylo.gsbmedecins.controllers.department;
 
-import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.models.APIAccess;
 import fr.suylo.gsbmedecins.models.Departement;

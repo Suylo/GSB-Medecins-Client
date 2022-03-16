@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {

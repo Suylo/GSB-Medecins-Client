@@ -14,11 +14,16 @@ public class Departement {
         this.medecins = medecins;
     }
 
-    public Departement(){
+    public Departement(Object value){
     }
 
     public Departement(Integer id){
         this.id = id;
+    }
+
+    public Departement(Integer id, String nom) {
+        this.id = id;
+        this.nom = nom;
     }
 
     public Integer getId() {

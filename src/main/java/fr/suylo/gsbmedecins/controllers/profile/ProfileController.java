@@ -14,7 +14,7 @@ import java.util.Objects;
 public class ProfileController {
 
     @FXML
-    public Label doctorLastName, doctorName, doctorAddress, doctorPhone, doctorSpe, doctorID;
+    public Label doctorLastName, doctorName, doctorAddress, doctorPhone, doctorSpe, doctorID, doctorDepartment;
 
     private Integer id;
 
@@ -47,6 +47,7 @@ public class ProfileController {
         doctorName.setText(unMedecin.getPrenom());
         doctorAddress.setText(unMedecin.getAdresse());
         doctorPhone.setText(unMedecin.getTel());
+        doctorDepartment.setText(unMedecin.getDepartement().getNom() + " (" + unMedecin.getDepartement().getPays().getNom() + ")");
 
         // Condition pour vérifier si une spécialité est null
         if (unMedecin.getSpe() == null) {

@@ -132,4 +132,8 @@ public class DepartementController implements Initializable {
         tableView.getItems().addAll(APIAccess.getAllDepartements());
     }
 
+    public void reload() {
+        tableView.getItems().clear();
+        tableView.getItems().addAll(APIAccess.getAllDepartements());
+    }
 }

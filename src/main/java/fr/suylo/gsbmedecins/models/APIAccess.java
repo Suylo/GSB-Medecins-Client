@@ -28,13 +28,18 @@ public class APIAccess {
 
         ObservableList<Medecin> data = FXCollections.observableArrayList();
         for (Medecin medecin : medecinsJson) {
-            data.addAll(new Medecin(
+            data.addAll(
+                    new Medecin(
                             medecin.getId(),
                             medecin.getNom(),
                             medecin.getPrenom(),
                             medecin.getAdresse(),
                             medecin.getTel(),
-                            medecin.getSpe()
+                            medecin.getSpe(),
+                            new Departement(
+                                    medecin.getDepartement().getId(),
+                                    medecin.getDepartement().getNom()
+                            )
                     )
             );
         }
@@ -211,6 +216,25 @@ public class APIAccess {
         }
     }
 
+    // POST Add Departement
+    public static void addDepartement(TextField departmentName, ComboBox<Pays> countrySelect) {
+        Departement newDepartement =
+                new Departement(
+                        departmentName.getText(),
+                        new Pays(
+                                countrySelect.getValue().getId()
+                        )
+                );
+
+        try {
+            Unirest.post("http://localhost:8080/api/v1/departements/create")
+                    .header("Content-Type", "application/json")
+                    .body(new Gson().toJson(newDepartement)).asJson();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     // UDATE
     // UPDATE Medecin
@@ -243,6 +267,7 @@ public class APIAccess {
     public static void deleteDepartementByID(Integer cellData) throws UnirestException{
         Unirest.delete("http://localhost:8080/api/v1/departements/delete/" + cellData).asJson();
     }
+
 
 
 }

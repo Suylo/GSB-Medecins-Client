@@ -353,3 +353,38 @@
     -fx-border-radius :2.0em;
 
 }
+
+
+/*.combo-box-base {*/
+/*    -fx-border-radius: 5.0;*/
+/*    -fx-background-radius: 5.0;*/
+/*}*/
+
+/*.combo-box-base:showing {*/
+/*    -fx-border-radius: 5.0 5.0 0.0 0.0;*/
+/*    -fx-background-radius: 5.0 5.0 0.0 0.0;*/
+/*}*/
+
+.combo-box .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #202940;
+    -fx-font-family: "Open Sans", sans-serif;
+    -fx-padding: 10px;
+
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #202940;
+    -fx-text-fill: white;
+    -fx-border-radius: 5.0;
+    -fx-background-radius: 5.0;
+    -fx-cursor: hand;
+}
+
+.combo-box .list-view {
+    -fx-border-radius: 5.0;
+    -fx-background-radius: 5.0;
+    -fx-border-color: white;
+    -fx-border-insets: 0;
+    -fx-font-family: "Open Sans", sans-serif;
+}

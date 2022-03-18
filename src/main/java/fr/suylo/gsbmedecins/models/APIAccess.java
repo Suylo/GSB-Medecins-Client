@@ -10,6 +10,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class APIAccess {
@@ -91,10 +93,23 @@ public class APIAccess {
         return data;
     }
 
+    // GET * Medecins by Department
     public static Medecin[] getMedecinsByDepartementID(Integer id){
         HttpResponse<JsonNode> apiResponse = null;
         try {
             apiResponse = Unirest.get("http://localhost:8080/api/v1/departements/" + id + "/medecins").asJson();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+        return new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Medecin[].class);
+    }
+
+    // GET * Medecins By Pays
+    public static Medecin[] getMedecinsByPays(Long id){
+        HttpResponse<JsonNode> apiResponse = null;
+        try {
+            apiResponse = Unirest.get("http://localhost:8080/api/v1/pays/"+ id +"/departements/medecins").asJson();
         } catch (UnirestException e) {
             e.printStackTrace();
         }
@@ -278,7 +293,5 @@ public class APIAccess {
     public static void deleteDepartementByID(Integer cellData) throws UnirestException{
         Unirest.delete("http://localhost:8080/api/v1/departements/delete/" + cellData).asJson();
     }
-
-
 
 }

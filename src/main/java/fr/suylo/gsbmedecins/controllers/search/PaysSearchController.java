@@ -21,10 +21,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
+import javafx.util.StringConverter;
 import lk.vivoxalabs.customstage.CustomStage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -46,9 +48,9 @@ public class PaysSearchController implements Initializable {
     public Button searchByCountry, searchByDepartment, searchBySpeciality, searchByFLName;
 
     @FXML
-    public ComboBox<String> selectCountries;
+    public ComboBox<Pays> selectCountries;
     private String listCountries;
-
+    private Long valueCountry;
 
 
     @Override
@@ -94,27 +96,27 @@ public class PaysSearchController implements Initializable {
     }
 
     private void loadCountries() {
-        HttpResponse<JsonNode> apiResponse = null;
-        try {
-            apiResponse = Unirest.get("http://localhost:8080/api/v1/pays").asJson();
-        } catch (UnirestException e) {
-            e.printStackTrace();
-        }
-        Pays[] lesPays = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Pays[].class);
+        ObservableList<Pays> lesMedecinsDunPays = APIAccess.getAllPays();
 
-        ObservableList<Pays> data = FXCollections.observableArrayList();
-        for (Pays unPays : lesPays) {
-            data.addAll(
-                    new Pays(
-                            unPays.getId(),
-                            unPays.getNom(),
-                            unPays.getDepartements()
-                    ));
+        for (Pays unPays : lesMedecinsDunPays) {
+            selectCountries.getItems().add(unPays);
         }
+        selectCountries.setConverter(new StringConverter<Pays>() {
+            @Override
+            public String toString(Pays object) {
+                return object.getNom();
+            }
 
-        for (Pays unPays : data) {
-            selectCountries.getItems().add(unPays.getNom());
-        }
+            @Override
+            public Pays fromString(String string) {
+                return selectCountries.getItems().stream().filter(ap -> ap.getNom().equals(string)).findFirst().orElse(null);
+            }
+        });
+        selectCountries.valueProperty().addListener((obs, oldval, newval) -> {
+            if (newval != null) {
+                this.valueCountry = newval.getId();
+            }
+        });
     }
 
     private void searchCountries() {
@@ -167,20 +169,14 @@ public class PaysSearchController implements Initializable {
         });
 
         searchEnter.setOnAction(event -> {
-            this.listCountries = selectCountries.getValue();
-
-            ObservableList<Pays> lesPays = APIAccess.getPaysByNom(this.listCountries);
+            Medecin[] medecins = APIAccess.getMedecinsByPays(this.valueCountry);
 
             myTable.getItems().clear();
-            for (Pays pays : lesPays) {
-                for (Departement dep : pays.getDepartements()) {
-                    myTable.getItems().addAll(dep.getMedecins());
-                }
-            }
+            myTable.getItems().addAll(medecins);
             if (selectCountries.getValue() == null){
                 myTable.setPlaceholder(new Label("Veuillez choisir un pays avant de lancer la recherche !"));
             }
-            if (lesPays.size() == 1) {
+            if (medecins.length == 0) {
                 myTable.setPlaceholder(new Label("Aucun médecins n'a été trouvé pour ce pays !"));
             }
         });

@@ -170,7 +170,7 @@ public class DepartementSearchController implements Initializable {
                     myTable.getItems().addAll(medecin);
                 }
 
-                if (lesMedecins.length == 1) {
+                if (lesMedecins.length == 0) {
                     myTable.setPlaceholder(new Label("Aucun médecins n'a été trouvé pour ce département !"));
                 }
             }

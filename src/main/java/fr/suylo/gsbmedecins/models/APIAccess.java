@@ -109,7 +109,7 @@ public class APIAccess {
     public static Medecin[] getMedecinsByPays(Long id){
         HttpResponse<JsonNode> apiResponse = null;
         try {
-            apiResponse = Unirest.get("http://localhost:8080/api/v1/pays/"+ id +"/departements/medecins").asJson();
+            apiResponse = Unirest.get("http://localhost:8080/api/v1/pays/"+ id +"/medecins").asJson();
         } catch (UnirestException e) {
             e.printStackTrace();
         }

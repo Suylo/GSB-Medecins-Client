@@ -4,6 +4,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.controllers.profile.EditProfileController;
 import fr.suylo.gsbmedecins.controllers.profile.ProfileController;
+import fr.suylo.gsbmedecins.models.APIAccess;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -27,7 +28,7 @@ public class CRUDController {
             Optional<ButtonType> option = alert.showAndWait();
             if (option.get() == ButtonType.OK) {
                 try {
-                    Unirest.delete("http://localhost:8080/api/v1/medecins/delete/" + index).asJson();
+                    APIAccess.deleteMedecinByID(index);
                     System.out.println("Médecin numero : supprimé :: " + index);
                     myTable.getItems().clear();
                     myTable.setPlaceholder(new Label("Le médecin a bien été supprimé, veuillez reeffectuer la recherche !"));

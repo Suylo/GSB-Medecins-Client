@@ -1,19 +1,11 @@
 package fr.suylo.gsbmedecins.controllers.search;
 
-import com.google.gson.Gson;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.controllers.CRUDController;
-import fr.suylo.gsbmedecins.controllers.profile.EditProfileController;
-import fr.suylo.gsbmedecins.controllers.profile.ProfileController;
 import fr.suylo.gsbmedecins.models.APIAccess;
 import fr.suylo.gsbmedecins.models.Departement;
 import fr.suylo.gsbmedecins.models.Medecin;
 import fr.suylo.gsbmedecins.models.UserSession;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
+import javafx.util.StringConverter;
 import lk.vivoxalabs.customstage.CustomStage;
 
 import java.io.IOException;
@@ -46,9 +39,9 @@ public class DepartementSearchController implements Initializable {
     @FXML
     public Button searchByCountry, searchBySpeciality, searchByFLName;
     @FXML
-    public ComboBox<String> selectDepartments;
+    public ComboBox<Departement> selectDepartments;
 
-    private String nomDepartement;
+    private Integer valueDepartment;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -97,8 +90,24 @@ public class DepartementSearchController implements Initializable {
         ObservableList<Departement> lesDepartements = APIAccess.getAllDepartements();
 
         for (Departement departement : lesDepartements) {
-            selectDepartments.getItems().add(departement.getNom());
+            selectDepartments.getItems().add(departement);
         }
+        selectDepartments.setConverter(new StringConverter<Departement>() {
+            @Override
+            public String toString(Departement object) {
+                return object.getNom();
+            }
+
+            @Override
+            public Departement fromString(String string) {
+                return selectDepartments.getItems().stream().filter(ap -> ap.getNom().equals(string)).findFirst().orElse(null);
+            }
+        });
+        selectDepartments.valueProperty().addListener((obs, oldval, newval) -> {
+            if (newval != null) {
+                this.valueDepartment = newval.getId();
+            }
+        });
     }
 
     private void searchDepartments() {
@@ -154,15 +163,14 @@ public class DepartementSearchController implements Initializable {
             if (selectDepartments.getValue() == null){
                 myTable.setPlaceholder(new Label("Veuillez choisir un département avant de débuter la recherche !"));
             } else {
-                this.nomDepartement = selectDepartments.getValue().replace(" ", "+");
-                ObservableList<Departement> lesDepartements = APIAccess.getDepartementByNom(this.nomDepartement);
+                Medecin[] lesMedecins = APIAccess.getMedecinsByDepartementID(this.valueDepartment);
 
                 myTable.getItems().clear();
-                for (Departement departement : lesDepartements) {
-                    myTable.getItems().addAll(departement.getMedecins());
+                for (Medecin medecin : lesMedecins) {
+                    myTable.getItems().addAll(medecin);
                 }
 
-                if (lesDepartements.size() == 1) {
+                if (lesMedecins.length == 1) {
                     myTable.setPlaceholder(new Label("Aucun médecins n'a été trouvé pour ce département !"));
                 }
             }

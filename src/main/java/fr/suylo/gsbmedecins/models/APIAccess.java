@@ -91,6 +91,17 @@ public class APIAccess {
         return data;
     }
 
+    public static Medecin[] getMedecinsByDepartementID(Integer id){
+        HttpResponse<JsonNode> apiResponse = null;
+        try {
+            apiResponse = Unirest.get("http://localhost:8080/api/v1/departements/" + id + "/medecins").asJson();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+        return new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Medecin[].class);
+    }
+
     // GET Pays By Nom
     public static ObservableList<Pays> getPaysByNom(String nom){
         HttpResponse<JsonNode> apiResponse = null;

@@ -10,8 +10,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class APIAccess {
@@ -71,7 +69,7 @@ public class APIAccess {
     }
 
     // GET Departement By Nom
-    public static ObservableList<Departement> getDepartementByNom(String nom){
+    public static ObservableList<Integer> getDepartementByNom(String nom){
         HttpResponse<JsonNode> apiResponse = null;
         try {
             apiResponse = Unirest.get("http://localhost:8080/api/v1/departements/nom?nom=" + nom).asJson();
@@ -80,17 +78,11 @@ public class APIAccess {
         }
         Departement[] lesDepartements = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Departement[].class);
 
-        ObservableList<Departement> data = FXCollections.observableArrayList();
-        for (Departement departement : lesDepartements) {
-            data.addAll(
-                    new Departement(
-                            departement.getId(),
-                            departement.getNom(),
-                            departement.getMedecins()
-                    )
-            );
+        ObservableList<Integer> departementObservableList = FXCollections.observableArrayList();
+        for (Departement departement : lesDepartements){
+            departementObservableList.add(departement.getId());
         }
-        return data;
+        return departementObservableList;
     }
 
     // GET * Medecins by Department
@@ -208,19 +200,19 @@ public class APIAccess {
     // POST
 
     // POST Add Medecin
-    public static void addMedecin(TextField doctorLastName, TextField doctorName, TextField doctorAddress, TextField doctorPhone, ComboBox doctorSpe, Integer doctorDepartment) {
+    public static void addMedecin(TextField doctorLastName, TextField doctorName, TextField doctorAddress, TextField doctorPhone, ComboBox<String> doctorSpe, Integer doctorDepartment) {
         Medecin newMedecin = new Medecin(
                 doctorLastName.getText(),
                 doctorName.getText(),
                 doctorAddress.getText(),
                 doctorPhone.getText(),
-                (String) doctorSpe.getValue(),
+                doctorSpe.getValue(),
                 new Departement(
                         doctorDepartment
                 )
         );
             try {
-                Unirest.post("http://localhost:8080/api/v1/medecins/medecins")
+                Unirest.post("http://localhost:8080/api/v1/medecins/")
                         .header("Content-Type", "application/json")
                         .body(new Gson().toJson(newMedecin)).asJson();
                 System.out.println("Médecin bien ajouté :: " + new Gson().toJson(newMedecin));
@@ -264,16 +256,19 @@ public class APIAccess {
 
     // UDATE
     // UPDATE Medecin
-    public static void updateMedecin(Integer id, TextField doctorLastName, TextField doctorName, TextField doctorAddress, TextField doctorPhone, ComboBox doctorSpe) {
+    public static void updateMedecin(Integer id, TextField doctorLastName, TextField doctorName, TextField doctorAddress, TextField doctorPhone, ComboBox<String> doctorSpe, Integer departmentValue) {
         Medecin updatedMedecin = new Medecin(
                 doctorLastName.getText(),
                 doctorName.getText(),
                 doctorAddress.getText(),
                 doctorPhone.getText(),
-                (String) doctorSpe.getValue()
+                doctorSpe.getValue(),
+                new Departement(
+                        departmentValue
+                )
         );
         try {
-            Unirest.put("http://localhost:8080/api/v1/medecins/medecins/" + id)
+            Unirest.put("http://localhost:8080/api/v1/medecins/edit/" + id)
                     .header("Content-Type", "application/json")
                     .body(new Gson().toJson(updatedMedecin)).asJson();
             System.out.println("Médecin mis à jour :: " + new Gson().toJson(updatedMedecin));

@@ -69,7 +69,6 @@ public class PaysController implements Initializable {
                 stage.changeScene(addCountry);
             });
             action.setVisible(true);
-            id.setVisible(true);
             nom.setText("Nom");
         }
 

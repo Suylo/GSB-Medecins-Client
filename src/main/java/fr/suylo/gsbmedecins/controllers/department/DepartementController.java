@@ -62,7 +62,6 @@ public class DepartementController implements Initializable {
                 stage.changeScene(addCountry);
             });
             action.setVisible(true);
-            id.setVisible(true);
             nom.setText("Nom");
         }
 

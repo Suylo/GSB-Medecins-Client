@@ -94,17 +94,20 @@ public class DepartementController implements Initializable {
                 editButton.getStyleClass().add("button-edit");
                 removeButton.getStyleClass().add("button-remove");
                 editButton.setOnAction(event -> {
-                    Pane doctor = null;
+                    Pane department = null;
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("editDepartement.fxml"));
                     try {
-                        doctor = loader.load();
-                        doctor.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                        department = loader.load();
+                        department.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    EditDepartementController editDepartementController = loader.getController();
+                    editDepartementController.loadData(id.getCellData(getTableRow().getIndex()));
+                    editDepartementController.loadEditProfile();
                     CustomStage stage = ((CustomStage) editButton.getScene().getWindow());
-                    stage.setTitle("GSB - Profil d'un médecin ");
-                    stage.changeScene(doctor);
+                    stage.setTitle("GSB - Modification d'un département ");
+                    stage.changeScene(department);
                 });
                 removeButton.setOnAction(event -> {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

@@ -10,16 +10,14 @@ public class User {
     private String prenom;
     private String motdepasse;
     private String adresse;
-    private String embauche;
 
-    public User(Integer id, String login, String nom, String prenom, String motdepasse, String adresse, String embauche) {
+    public User(Integer id, String login, String nom, String prenom, String motdepasse, String adresse) {
         this.id = id;
         this.login = login;
         this.nom = nom;
         this.prenom = prenom;
         this.motdepasse = motdepasse;
         this.adresse = adresse;
-        this.embauche = embauche;
     }
 
     public Integer getId() {
@@ -62,13 +60,6 @@ public class User {
         this.adresse = adresse;
     }
 
-    public String getEmbauche() {
-        return this.embauche;
-    }
-
-    public void setEmbauche(String embauche) {
-        this.embauche = embauche;
-    }
 
     public String getMotdepasse() {
         return motdepasse;
@@ -87,7 +78,6 @@ public class User {
                 ", prenom='" + prenom + '\'' +
                 ", mdp='" + motdepasse + '\'' +
                 ", adresse='" + adresse + '\'' +
-                ", embauche='" + embauche + '\'' +
                 '}';
     }
 }

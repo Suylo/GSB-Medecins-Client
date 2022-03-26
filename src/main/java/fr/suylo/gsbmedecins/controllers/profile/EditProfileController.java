@@ -31,7 +31,7 @@ public class EditProfileController {
 
     private Integer id;
     private Integer valueDepartment;
-    private String speIsNull = "// Aucune spécialité complémentaire.";
+    private final String speIsNull = "// Aucune spécialité complémentaire.";
 
     public void loadData(Integer index) {
         this.setId(index);

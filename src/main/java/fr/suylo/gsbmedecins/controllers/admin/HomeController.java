@@ -26,7 +26,6 @@ public class HomeController implements Initializable {
         userFirstName.setText(unAdmin.getPrenom());
         userTitle.setText("Bienvenue " + unAdmin.getNom() + " " + unAdmin.getPrenom() + " !");
         userAddress.setText(unAdmin.getAdresse());
-        userEmbauche.setText(unAdmin.getEmbauche());
     }
 
 }

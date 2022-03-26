@@ -30,6 +30,16 @@ public class Departement {
         this.pays = pays;
     }
 
+    public Departement(Integer id, String nom, Pays pays) {
+        this.id = id;
+        this.nom = nom;
+        this.pays = pays;
+    }
+
+    public Departement(String nom) {
+        this.nom = nom;
+    }
+
     public Integer getId() {
         return id;
     }

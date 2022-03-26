@@ -23,12 +23,12 @@ import lk.vivoxalabs.customstage.CustomStage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MedecinController implements Initializable {
 
+    public final Button addMedecin = new Button("Ajouter un médecin");
     @FXML
     public TableView<Medecin> myTable;
     @FXML
@@ -37,10 +37,8 @@ public class MedecinController implements Initializable {
     public TableColumn<Medecin, String> nom, prenom, adresse, spe;
     @FXML
     public TableColumn<Medecin, Medecin> action = new TableColumn<>("Action");
-
     @FXML
     public Label titleMedecins;
-    public final Button addMedecin = new Button("Ajouter un médecin");
     @FXML
     public Label titleBlank;
 
@@ -48,7 +46,7 @@ public class MedecinController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         addMedecin.getStyleClass().add("button-see");
-        if(UserSession.getUserLoggedOn()){
+        if (UserSession.getUserLoggedOn()) {
             titleBlank.setGraphic(addMedecin);
             addMedecin.setAlignment(Pos.BOTTOM_CENTER);
             addMedecin.setOnAction(event -> {
@@ -109,6 +107,41 @@ public class MedecinController implements Initializable {
 
                 editButton.getStyleClass().add("button-edit");
                 removeButton.getStyleClass().add("button-remove");
+                removeButton.setOnAction(event -> {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation de suppresion d'un médecin");
+                    alert.setHeaderText("Êtes-vous sûr de vouloir supprimer le médecin N°" + id.getCellData(getTableRow().getIndex()) + " ?");
+                    Stage stage;
+                    stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(new Image("fr/suylo/gsbmedecins/img/gsb.png"));
+                    Optional<ButtonType> option = alert.showAndWait();
+                    if (option.get() == ButtonType.OK) {
+                        try {
+                            APIAccess.deleteMedecinByID(id.getCellData(getTableRow().getIndex()));
+                            System.out.println("Médecin numero : supprimé :: " + id.getCellData(getTableRow().getIndex()));
+                            reload();
+                        } catch (UnirestException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                editButton.setOnAction(event -> {
+                    Pane doctor = null;
+                    FXMLLoader loader = new FXMLLoader(CRUDController.class.getClassLoader().getResource("editDoctorInfo.fxml"));
+                    try {
+                        doctor = loader.load();
+                        doctor.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    EditProfileController editProfileController = loader.getController();
+                    editProfileController.loadData(id.getCellData(getTableRow().getIndex()));
+                    editProfileController.loadEditProfile();
+                    reload();
+                    CustomStage stage = ((CustomStage) editButton.getScene().getWindow());
+                    stage.setTitle("GSB - Modification d'un médecin ");
+                    stage.changeScene(doctor);
+                });
                 seeButton.setOnAction(event -> {
                     Pane doctor = null;
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("doctorInfo.fxml"));

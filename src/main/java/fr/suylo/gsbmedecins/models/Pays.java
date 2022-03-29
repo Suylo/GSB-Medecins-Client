@@ -18,7 +18,7 @@ public class Pays {
         this.nom = nom;
     }
 
-    public Pays(Long id){
+    public Pays(Long id) {
         this.id = id;
     }
 

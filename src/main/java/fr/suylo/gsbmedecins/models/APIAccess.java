@@ -17,7 +17,7 @@ public class APIAccess {
     // GET
 
     // GET * Medecins
-    public static ObservableList<Medecin> getAllMedecins(){
+    public static ObservableList<Medecin> getAllMedecins() {
         HttpResponse<JsonNode> apiResponse = null;
         try {
             apiResponse = Unirest.get("http://localhost:8080/api/v1/medecins").asJson();
@@ -56,6 +56,18 @@ public class APIAccess {
         return new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponseMedecins).getBody().toString()), Medecin.class);
     }
 
+    // GET Pays By Id
+    public static Pays getPaysById(Integer id) {
+        HttpResponse<JsonNode> apiResponse = null;
+        try {
+            apiResponse = Unirest.get("http://localhost:8080/api/v1/pays/" + id.toString()).asJson();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+        return new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Pays.class);
+    }
+
     // GET User infos By ID
     public static User getUserInfoByID(String userID) {
         HttpResponse<JsonNode> apiResponse = null;
@@ -69,7 +81,7 @@ public class APIAccess {
     }
 
     // GET Departement By Nom
-    public static ObservableList<Integer> getDepartementByNom(String nom){
+    public static ObservableList<Integer> getDepartementByNom(String nom) {
         HttpResponse<JsonNode> apiResponse = null;
         try {
             apiResponse = Unirest.get("http://localhost:8080/api/v1/departements/nom?nom=" + nom).asJson();
@@ -79,14 +91,14 @@ public class APIAccess {
         Departement[] lesDepartements = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Departement[].class);
 
         ObservableList<Integer> departementObservableList = FXCollections.observableArrayList();
-        for (Departement departement : lesDepartements){
+        for (Departement departement : lesDepartements) {
             departementObservableList.add(departement.getId());
         }
         return departementObservableList;
     }
 
     // GET * Medecins by Department
-    public static Medecin[] getMedecinsByDepartementID(Integer id){
+    public static Medecin[] getMedecinsByDepartementID(Integer id) {
         HttpResponse<JsonNode> apiResponse = null;
         try {
             apiResponse = Unirest.get("http://localhost:8080/api/v1/departements/" + id + "/medecins").asJson();
@@ -98,10 +110,10 @@ public class APIAccess {
     }
 
     // GET * Medecins By Pays
-    public static Medecin[] getMedecinsByPays(Long id){
+    public static Medecin[] getMedecinsByPays(Long id) {
         HttpResponse<JsonNode> apiResponse = null;
         try {
-            apiResponse = Unirest.get("http://localhost:8080/api/v1/pays/"+ id +"/medecins").asJson();
+            apiResponse = Unirest.get("http://localhost:8080/api/v1/pays/" + id + "/medecins").asJson();
         } catch (UnirestException e) {
             e.printStackTrace();
         }
@@ -110,7 +122,7 @@ public class APIAccess {
     }
 
     // GET Pays By Nom
-    public static ObservableList<Pays> getPaysByNom(String nom){
+    public static ObservableList<Integer> getPaysByNom(String nom) {
         HttpResponse<JsonNode> apiResponse = null;
         try {
             apiResponse = Unirest.get("http://localhost:8080/api/v1/pays/nom?nom=" + nom).asJson();
@@ -119,15 +131,9 @@ public class APIAccess {
         }
         Pays[] tousLesPays = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Pays[].class);
 
-        ObservableList<Pays> data = FXCollections.observableArrayList();
-        for (Pays pays: tousLesPays) {
-            data.addAll(
-                    new Pays(
-                            pays.getId(),
-                            pays.getNom(),
-                            pays.getDepartements()
-                    )
-            );
+        ObservableList<Integer> data = FXCollections.observableArrayList();
+        for (Pays pays : tousLesPays) {
+            data.add(Math.toIntExact(pays.getId()));
         }
         return data;
     }
@@ -143,9 +149,9 @@ public class APIAccess {
         Pays[] lesPays = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponsePays).getBody().toString()), Pays[].class);
 
         ObservableList<Pays> data = FXCollections.observableArrayList();
-        for (Pays unPays : lesPays){
+        for (Pays unPays : lesPays) {
             data.addAll(new Pays(
-                unPays.getId(),
+                    unPays.getId(),
                     unPays.getNom(),
                     unPays.getDepartements()
             ));
@@ -196,11 +202,11 @@ public class APIAccess {
     }
 
 
-
     // POST
 
     // POST Add Medecin
-    public static void addMedecin(TextField doctorLastName, TextField doctorName, TextField doctorAddress, TextField doctorPhone, ComboBox<String> doctorSpe, Integer doctorDepartment) {
+    public static void addMedecin(TextField doctorLastName, TextField doctorName, TextField doctorAddress,
+                                  TextField doctorPhone, ComboBox<String> doctorSpe, Integer doctorDepartment) {
         Medecin newMedecin = new Medecin(
                 doctorLastName.getText(),
                 doctorName.getText(),
@@ -211,25 +217,25 @@ public class APIAccess {
                         doctorDepartment
                 )
         );
-            try {
-                Unirest.post("http://localhost:8080/api/v1/medecins/")
-                        .header("Content-Type", "application/json")
-                        .body(new Gson().toJson(newMedecin)).asJson();
-                System.out.println("Médecin bien ajouté :: " + new Gson().toJson(newMedecin));
-            } catch (UnirestException e) {
-                e.printStackTrace();
-            }
+        try {
+            Unirest.post("http://localhost:8080/api/v1/medecins/")
+                    .header("Content-Type", "application/json")
+                    .body(new Gson().toJson(newMedecin)).asJson();
+            System.out.println("Médecin bien ajouté :: " + new Gson().toJson(newMedecin));
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
     }
 
     // POST Add Pays
-    public static void addPays(TextField countryName){
+    public static void addPays(TextField countryName) {
         Pays newPays = new Pays(countryName.getText());
         try {
             Unirest.post("http://localhost:8080/api/v1/pays/create")
                     .header("Content-Type", "application/json")
                     .body(new Gson().toJson(newPays)).asJson();
             System.out.println("Pays bien ajouté :: " + new Gson().toJson(newPays));
-        } catch (UnirestException e){
+        } catch (UnirestException e) {
             e.printStackTrace();
         }
     }
@@ -256,7 +262,8 @@ public class APIAccess {
 
     // UDATE
     // UPDATE Medecin
-    public static void updateMedecin(Integer id, TextField doctorLastName, TextField doctorName, TextField doctorAddress, TextField doctorPhone, ComboBox<String> doctorSpe, Integer departmentValue) {
+    public static void updateMedecin(Integer id, TextField doctorLastName, TextField doctorName, TextField doctorAddress,
+                                     TextField doctorPhone, ComboBox<String> doctorSpe, Integer departmentValue) {
         Medecin updatedMedecin = new Medecin(
                 doctorLastName.getText(),
                 doctorName.getText(),
@@ -285,8 +292,51 @@ public class APIAccess {
     }
 
     // DELETE Departement By ID (Cascade)
-    public static void deleteDepartementByID(Integer cellData) throws UnirestException{
+    public static void deleteDepartementByID(Integer cellData) throws UnirestException {
         Unirest.delete("http://localhost:8080/api/v1/departements/delete/" + cellData).asJson();
+    }
+
+    public static Departement getDepartementById(Integer id) {
+        HttpResponse<JsonNode> apiResponseDepartements = null;
+        try {
+            apiResponseDepartements = Unirest.get("http://localhost:8080/api/v1/departements/" + id.toString()).asJson();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+        return new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponseDepartements).getBody().toString()), Departement.class);
+    }
+
+
+    public static void updateDepartement(Integer id, String departmentName, Long countryValue) {
+        Departement updateDepartement = new Departement(
+                departmentName,
+                new Pays(
+                        countryValue
+                )
+        );
+        try {
+            Unirest.put("http://localhost:8080/api/v1/departements/put/" + id)
+                    .header("Content-Type", "application/json")
+                    .body(new Gson().toJson(updateDepartement)).asJson();
+            System.out.println("Département mis à jour :: " + new Gson().toJson(updateDepartement));
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void updatePays(Integer id, String countryName) {
+        Pays updatePays = new Pays(
+                countryName
+        );
+        try {
+            Unirest.put("http://localhost:8080/api/v1/pays/put/" + id)
+                    .header("Content-Type", "application/json")
+                    .body(new Gson().toJson(updatePays)).asJson();
+            System.out.println("Pays mis à jour :: " + new Gson().toJson(updatePays));
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
     }
 
 }

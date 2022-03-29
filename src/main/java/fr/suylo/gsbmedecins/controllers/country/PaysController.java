@@ -92,17 +92,20 @@ public class PaysController implements Initializable {
                 editButton.getStyleClass().add("button-edit");
                 removeButton.getStyleClass().add("button-remove");
                 editButton.setOnAction(event -> {
-                    Pane doctor = null;
+                    Pane editPaysView = null;
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("editPays.fxml"));
                     try {
-                        doctor = loader.load();
-                        doctor.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                        editPaysView = loader.load();
+                        editPaysView.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    EditPaysController editPaysController = loader.getController();
+                    editPaysController.loadData(Math.toIntExact(id.getCellData(getTableRow().getIndex())));
+                    editPaysController.loadEditPays();
                     CustomStage stage = ((CustomStage) editButton.getScene().getWindow());
                     stage.setTitle("GSB - Profil d'un médecin ");
-                    stage.changeScene(doctor);
+                    stage.changeScene(editPaysView);
                 });
                 removeButton.setOnAction(event -> {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

@@ -23,6 +23,8 @@ public class AddDepartementController implements Initializable {
     @FXML
     public TextField departmentName;
     @FXML
+    public Label departmentNameError, countrySelectError;
+    @FXML
     public Label departmentID;
     @FXML
     public Button buttonSave;
@@ -32,6 +34,9 @@ public class AddDepartementController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        departmentNameError.styleProperty().set("-fx-text-fill: red");
+        countrySelectError.styleProperty().set("-fx-text-fill: red");
+
         ObservableList<Pays> lesPaysNom = APIAccess.getAllPays();
 
         departmentID.setText("Ajout d'un département");
@@ -54,22 +59,42 @@ public class AddDepartementController implements Initializable {
         });
 
         buttonSave.setOnAction(event -> {
-            Pane doctorAdded = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("departements.fxml"));
-            try {
-                doctorAdded = loader.load();
-                doctorAdded.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            CustomStage stage = ((CustomStage) buttonSave.getScene().getWindow());
-            stage.setTitle("GSB - Liste des départements");
-            stage.changeScene(doctorAdded);
+            ObservableList<Integer> departmentIfExist = APIAccess.getDepartementByNom(departmentName.getText());
 
-            APIAccess.addDepartement(departmentName, countrySelect);
-            // Ajout de médecin
-            DepartementController departementController = loader.getController();
-            departementController.reload();
+            if (departmentName.getText().isEmpty() || departmentName.getText().trim().isEmpty() && countrySelect.getValue() == null) {
+                departmentNameError.setVisible(true);
+                countrySelectError.setVisible(true);
+                departmentNameError.setText("Le nom du département est obligatoire");
+                countrySelectError.setText("Le pays est obligatoire");
+            } else if (!departmentName.getText().isEmpty() && countrySelect.getValue() == null) {
+                departmentNameError.setVisible(false);
+                countrySelectError.setText("Le pays est obligatoire");
+            } else {
+                if (departmentIfExist.size() == 0) {
+                    if (departmentName.getText().length() >= 3 && departmentName.getText().length() < 50) {
+                        Pane doctorAdded = null;
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("departements.fxml"));
+                        try {
+                            doctorAdded = loader.load();
+                            doctorAdded.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        CustomStage stage = ((CustomStage) buttonSave.getScene().getWindow());
+                        stage.setTitle("GSB - Liste des départements");
+                        stage.changeScene(doctorAdded);
+
+                        APIAccess.addDepartement(departmentName, countrySelect);
+                        DepartementController departementController = loader.getController();
+                        departementController.reload();
+                    } else {
+                        departmentNameError.setText("Le nom du département doit contenir entre 3 et 50 caractères");
+                    }
+                } else {
+                    departmentNameError.setText("Le nom du département existe déjà");
+                }
+            }
+
         });
     }
 }

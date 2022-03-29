@@ -24,12 +24,15 @@ public class EditDepartementController {
     @FXML
     public TextField departmentName;
     @FXML
+    public Label departmentNameError;
+    @FXML
     public Button buttonSave;
     @FXML
     public Label departmentID;
 
     private Integer id;
     private Long countryValue;
+    private String departmentOldValue;
 
     public void loadData(Integer index) {
         this.setId(index);
@@ -44,6 +47,8 @@ public class EditDepartementController {
     }
 
     public void loadEditProfile() {
+
+        departmentNameError.styleProperty().set("-fx-text-fill: red");
 
         ObservableList<Pays> lesPays = APIAccess.getAllPays();
         Departement unDepartement = APIAccess.getDepartementById(getId());
@@ -71,24 +76,41 @@ public class EditDepartementController {
         });
         countrySelect.setValue(unDepartement.getPays());
 
+        this.departmentOldValue = departmentName.getText();
+
         buttonSave.setOnAction(event -> {
-            Pane departmentEditedNewList = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("departements.fxml"));
-            try {
-                departmentEditedNewList = loader.load();
-                departmentEditedNewList.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
-            } catch (IOException e) {
-                e.printStackTrace();
+            ObservableList<Integer> departmentIfExist = APIAccess.getDepartementByNom(departmentName.getText());
+
+            if (departmentName.getText().isEmpty() || departmentName.getText().trim().isEmpty()) {
+                departmentNameError.setText("Le nom du département est obligatoire");
+            } else {
+                if (departmentIfExist.size() == 0 || departmentIfExist.size() == 1 && departmentName.getText().equals(departmentOldValue)) {
+                    if (departmentName.getText().length() >= 3 && departmentName.getText().length() < 50) {
+                        Pane departmentEditedNewList = null;
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("departements.fxml"));
+                        try {
+                            departmentEditedNewList = loader.load();
+                            departmentEditedNewList.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        CustomStage stage = ((CustomStage) buttonSave.getScene().getWindow());
+                        stage.setTitle("GSB - Liste des départements");
+                        stage.changeScene(departmentEditedNewList);
+
+                        ObservableList<Integer> valueID = APIAccess.getPaysByNom(countrySelect.getValue().getNom());
+                        APIAccess.updateDepartement(unDepartement.getId(), departmentName.getText(), valueID.get(0).longValue());
+
+                        DepartementController departementController = loader.getController();
+                        departementController.reload();
+                    } else {
+                        departmentNameError.setText("Le nom du département doit contenir entre 3 et 50 caractères");
+                    }
+                } else {
+                    departmentNameError.setText("Le nom de ce département existe déjà !");
+                }
             }
-            CustomStage stage = ((CustomStage) buttonSave.getScene().getWindow());
-            stage.setTitle("GSB - Liste des départements");
-            stage.changeScene(departmentEditedNewList);
 
-            ObservableList<Integer> valueID = APIAccess.getPaysByNom(countrySelect.getValue().getNom());
-            APIAccess.updateDepartement(unDepartement.getId(), departmentName.getText(), valueID.get(0).longValue());
-
-            DepartementController departementController = loader.getController();
-            departementController.reload();
         });
     }
 

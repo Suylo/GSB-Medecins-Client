@@ -1,6 +1,7 @@
 package fr.suylo.gsbmedecins.controllers.country;
 
 import fr.suylo.gsbmedecins.models.APIAccess;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +20,8 @@ public class AddPaysController implements Initializable {
     @FXML
     public TextField countryName;
     @FXML
+    public Label countryNameError;
+    @FXML
     public Label countryID;
     @FXML
     public Button buttonSave;
@@ -27,24 +30,39 @@ public class AddPaysController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         countryID.setText("Ajout d'un pays");
+        countryNameError.styleProperty().set("-fx-text-fill: red");
+
 
         buttonSave.setOnAction(event -> {
-            Pane addCountry = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("pays.fxml"));
-            try {
-                addCountry = loader.load();
-                addCountry.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (countryName.getText().isEmpty() || countryName.getText().trim().isEmpty()) {
+                countryNameError.setText("Le nom du pays est obligatoire et ne peut être vide !");
+            } else {
+                ObservableList<Integer> paysValue = APIAccess.getPaysByNom(countryName.getText());
+                if (paysValue.size() == 0) {
+                    if (countryName.getText().length() < 40 && countryName.getText().length() > 4){
+                        Pane addCountry = null;
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("pays.fxml"));
+                        try {
+                            addCountry = loader.load();
+                            addCountry.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        CustomStage stage = ((CustomStage) buttonSave.getScene().getWindow());
+                        stage.setTitle("GSB - Liste des pays");
+                        stage.changeScene(addCountry);
+
+                        APIAccess.addPays(countryName);
+
+                        PaysController paysController = loader.getController();
+                        paysController.reload();
+                    } else {
+                        countryNameError.setText("Le nom du pays doit contenir entre 4 et 40 caractères !");
+                    }
+                } else {
+                    countryNameError.setText("Le pays existe déjà !");
+                }
             }
-            CustomStage stage = ((CustomStage) buttonSave.getScene().getWindow());
-            stage.setTitle("GSB - Liste des pays");
-            stage.changeScene(addCountry);
-
-            APIAccess.addPays(countryName);
-
-            PaysController paysController = loader.getController();
-            paysController.reload();
         });
     }
 }

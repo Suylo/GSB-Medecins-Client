@@ -26,6 +26,7 @@ import java.util.ResourceBundle;
 
 public class DepartementController implements Initializable {
 
+    public final Button addDepartement = new Button("Ajouter un département");
     @FXML
     public TableView<Departement> tableView;
     @FXML
@@ -36,7 +37,6 @@ public class DepartementController implements Initializable {
     public Label titleDepartements, titleBlank;
     @FXML
     public TableColumn<Departement, Departement> action = new TableColumn<>("Action");
-    public final Button addDepartement = new Button("Ajouter un département");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -45,21 +45,21 @@ public class DepartementController implements Initializable {
         action.setVisible(false);
         id.setVisible(false);
 
-        if(UserSession.getUserLoggedOn()){
+        if (UserSession.getUserLoggedOn()) {
             titleBlank.setGraphic(addDepartement);
             addDepartement.setAlignment(Pos.BOTTOM_CENTER);
             addDepartement.setOnAction(event -> {
-                Pane addCountry = null;
+                Pane addDepartment = null;
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("addDepartement.fxml"));
                 try {
-                    addCountry = loader.load();
-                    addCountry.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                    addDepartment = loader.load();
+                    addDepartment.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 CustomStage stage = ((CustomStage) addDepartement.getScene().getWindow());
                 stage.setTitle("GSB - Ajout d'un département");
-                stage.changeScene(addCountry);
+                stage.changeScene(addDepartment);
             });
             action.setVisible(true);
             nom.setText("Nom");
@@ -94,11 +94,11 @@ public class DepartementController implements Initializable {
                 editButton.getStyleClass().add("button-edit");
                 removeButton.getStyleClass().add("button-remove");
                 editButton.setOnAction(event -> {
-                    Pane department = null;
+                    Pane editDepartmentView = null;
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("editDepartement.fxml"));
                     try {
-                        department = loader.load();
-                        department.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                        editDepartmentView = loader.load();
+                        editDepartmentView.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -107,12 +107,12 @@ public class DepartementController implements Initializable {
                     editDepartementController.loadEditProfile();
                     CustomStage stage = ((CustomStage) editButton.getScene().getWindow());
                     stage.setTitle("GSB - Modification d'un département ");
-                    stage.changeScene(department);
+                    stage.changeScene(editDepartmentView);
                 });
                 removeButton.setOnAction(event -> {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Confirmation de suppresion d'un département");
-                    alert.setHeaderText("Êtes-vous sûr de vouloir supprimer le département N°" +  id.getCellData(getTableRow().getIndex()) + " ?");
+                    alert.setHeaderText("Êtes-vous sûr de vouloir supprimer le département N°" + id.getCellData(getTableRow().getIndex()) + " ?");
                     Stage stage;
                     stage = (Stage) alert.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(new Image("fr/suylo/gsbmedecins/img/gsb.png"));
@@ -130,8 +130,7 @@ public class DepartementController implements Initializable {
                 });
             }
         });
-        tableView.getItems().clear();
-        tableView.getItems().addAll(APIAccess.getAllDepartements());
+        reload();
     }
 
     public void reload() {

@@ -1,6 +1,5 @@
 package fr.suylo.gsbmedecins.controllers;
 
-import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.controllers.profile.EditProfileController;
 import fr.suylo.gsbmedecins.controllers.profile.ProfileController;
@@ -17,11 +16,11 @@ import java.util.Optional;
 
 public class CRUDController {
 
-    public static void onDelete(Button btn, TableView myTable, Integer index){
+    public static void onDelete(Button btn, TableView myTable, Integer index) {
         btn.setOnAction(event -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation de suppresion d'un médecin");
-            alert.setHeaderText("Êtes-vous sûr de vouloir supprimer le médecin N°" +  index + " ?");
+            alert.setHeaderText("Êtes-vous sûr de vouloir supprimer le médecin N°" + index + " ?");
             Stage stage;
             stage = (Stage) alert.getDialogPane().getScene().getWindow();
             stage.getIcons().add(new Image("fr/suylo/gsbmedecins/img/gsb.png"));
@@ -39,7 +38,7 @@ public class CRUDController {
         });
     }
 
-    public static void onEdit(Button editBtn, Integer index){
+    public static void onEdit(Button editBtn, Integer index) {
         editBtn.setOnAction(event -> {
             Pane doctor = null;
             FXMLLoader loader = new FXMLLoader(CRUDController.class.getClassLoader().getResource("editDoctorInfo.fxml"));
@@ -58,7 +57,7 @@ public class CRUDController {
         });
     }
 
-    public static void onRead(Button readBtn, Integer index){
+    public static void onRead(Button readBtn, Integer index) {
         readBtn.setOnAction(event -> {
             Pane doctor = null;
             FXMLLoader loader = new FXMLLoader(CRUDController.class.getClassLoader().getResource("doctorInfo.fxml"));

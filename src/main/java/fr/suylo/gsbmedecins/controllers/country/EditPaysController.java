@@ -1,19 +1,13 @@
 package fr.suylo.gsbmedecins.controllers.country;
 
-import fr.suylo.gsbmedecins.controllers.department.DepartementController;
 import fr.suylo.gsbmedecins.models.APIAccess;
-import fr.suylo.gsbmedecins.models.Departement;
 import fr.suylo.gsbmedecins.models.Pays;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import javafx.util.StringConverter;
 import lk.vivoxalabs.customstage.CustomStage;
 
 import java.io.IOException;

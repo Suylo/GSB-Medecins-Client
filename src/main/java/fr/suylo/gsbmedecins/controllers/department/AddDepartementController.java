@@ -1,8 +1,6 @@
 package fr.suylo.gsbmedecins.controllers.department;
 
-import fr.suylo.gsbmedecins.controllers.MedecinController;
 import fr.suylo.gsbmedecins.models.APIAccess;
-import fr.suylo.gsbmedecins.models.Departement;
 import fr.suylo.gsbmedecins.models.Pays;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

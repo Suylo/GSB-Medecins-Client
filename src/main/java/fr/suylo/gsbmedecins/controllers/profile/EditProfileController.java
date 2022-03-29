@@ -9,7 +9,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.util.StringConverter;
 import lk.vivoxalabs.customstage.CustomStage;
@@ -18,6 +21,7 @@ import java.io.IOException;
 
 public class EditProfileController {
 
+    private final String speIsNull = "// Aucune spécialité complémentaire.";
     @FXML
     public TextField doctorLastName, doctorName, doctorAddress, doctorPhone;
     @FXML
@@ -28,10 +32,8 @@ public class EditProfileController {
     public ComboBox<Departement> doctorDepartment;
     @FXML
     public Button buttonSave;
-
     private Integer id;
     private Integer valueDepartment;
-    private final String speIsNull = "// Aucune spécialité complémentaire.";
 
     public void loadData(Integer index) {
         this.setId(index);
@@ -54,7 +56,7 @@ public class EditProfileController {
         ObservableSet<String> uniqueData = FXCollections.observableSet();
         uniqueData.add(this.speIsNull);
         for (Medecin m : lesMedecins) {
-            if (m.getSpe() != null){
+            if (m.getSpe() != null) {
                 uniqueData.add(m.getSpe());
             }
         }
@@ -71,7 +73,7 @@ public class EditProfileController {
         doctorPhone.setText(unMedecin.getTel());
         doctorSpe.getItems().addAll(uniqueData);
         doctorDepartment.setValue(unMedecin.getDepartement());
-        if (unMedecin.getSpe() == null){
+        if (unMedecin.getSpe() == null) {
             doctorSpe.setValue(this.speIsNull);
         } else {
             doctorSpe.setValue(unMedecin.getSpe());
@@ -106,7 +108,7 @@ public class EditProfileController {
             CustomStage stage = ((CustomStage) buttonSave.getScene().getWindow());
             stage.setTitle("GSB - Liste des médecins");
             stage.changeScene(doctorEditedNewList);
-            if(doctorSpe.getValue().equals(this.speIsNull)){
+            if (doctorSpe.getValue().equals(this.speIsNull)) {
                 doctorSpe.setValue(null);
             }
 

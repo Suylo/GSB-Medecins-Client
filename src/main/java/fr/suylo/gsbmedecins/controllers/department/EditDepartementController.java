@@ -1,13 +1,10 @@
 package fr.suylo.gsbmedecins.controllers.department;
 
-import fr.suylo.gsbmedecins.controllers.MedecinController;
 import fr.suylo.gsbmedecins.models.APIAccess;
 import fr.suylo.gsbmedecins.models.Departement;
-import fr.suylo.gsbmedecins.models.Medecin;
 import fr.suylo.gsbmedecins.models.Pays;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -17,10 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.util.StringConverter;
 import lk.vivoxalabs.customstage.CustomStage;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
-import java.security.PublicKey;
 
 public class EditDepartementController {
 

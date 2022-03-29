@@ -1,81 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.SVGPath?>
-<?import javafx.scene.text.Font?>
-
-<AnchorPane id="navbar-dark" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="874.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.suylo.gsbmedecins.MainController">
-   <children>
-      <AnchorPane id="wrapper-dark-theme" focusTraversable="true" layoutX="1.0" layoutY="-4.0" prefHeight="1113.0" prefWidth="200.0" style="-fx-background-color: #202940;" styleClass="left-navigation" AnchorPane.bottomAnchor="-235.0" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="-4.0">
-         <children>
-            <Pane layoutX="-13.0" layoutY="-37.0" prefHeight="1161.0" prefWidth="28.0" style="-fx-background-color: #202940;" />
-            <Button id="button" fx:id="navSearchAdmin" alignment="BOTTOM_CENTER" layoutX="21.0" layoutY="427.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="157.0" text="Recherche">
-               <font>
-                  <Font size="15.0" />
-               </font></Button>
-            <Button id="button" fx:id="navHomeAdmin" alignment="BOTTOM_CENTER" centerShape="false" contentDisplay="BOTTOM" layoutX="21.0" layoutY="63.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="157.0" text="Accueil">
-               <font>
-                  <Font size="15.0" />
-               </font></Button>
-            <Button id="button" fx:id="navDoctorsAdmin" alignment="BOTTOM_CENTER" layoutX="21.0" layoutY="146.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="157.0" text="Gestion des médecins" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font size="15.0" />
-               </font></Button>
-            <SVGPath content="M2.386 8.211c-0.236 0.184-0.386 0.469-0.386 0.789v11c0 0.828 0.337 1.58 0.879 2.121s1.293 0.879 2.121 0.879h14c0.828 0 1.58-0.337 2.121-0.879s0.879-1.293 0.879-2.121v-11c-0.001-0.3-0.134-0.593-0.386-0.789l-9-7c-0.358-0.275-0.861-0.285-1.228 0zM16 21v-9c0-0.552-0.448-1-1-1h-6c-0.552 0-1 0.448-1 1v9h-3c-0.276 0-0.525-0.111-0.707-0.293s-0.293-0.431-0.293-0.707v-10.511l8-6.222 8 6.222v10.511c0 0.276-0.111 0.525-0.293 0.707s-0.431 0.293-0.707 0.293zM10 21v-8h4v8z" fill="WHITE" focusTraversable="true" layoutX="89.0" layoutY="75.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </SVGPath>
-            <SVGPath content="M8 7h13c0.552 0 1-0.448 1-1s-0.448-1-1-1h-13c-0.552 0-1 0.448-1 1s0.448 1 1 1zM8 13h13c0.552 0 1-0.448 1-1s-0.448-1-1-1h-13c-0.552 0-1 0.448-1 1s0.448 1 1 1zM8 19h13c0.552 0 1-0.448 1-1s-0.448-1-1-1h-13c-0.552 0-1 0.448-1 1s0.448 1 1 1zM3 7c0.552 0 1-0.448 1-1s-0.448-1-1-1-1 0.448-1 1 0.448 1 1 1zM3 13c0.552 0 1-0.448 1-1s-0.448-1-1-1-1 0.448-1 1 0.448 1 1 1zM3 19c0.552 0 1-0.448 1-1s-0.448-1-1-1-1 0.448-1 1 0.448 1 1 1z" fill="WHITE" focusTraversable="true" layoutX="87.0" layoutY="163.0" AnchorPane.topAnchor="168.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </SVGPath>
-            <SVGPath content="M16.041 15.856c-0.034 0.026-0.067 0.055-0.099 0.087s-0.060 0.064-0.087 0.099c-1.258 1.213-2.969 1.958-4.855 1.958-1.933 0-3.682-0.782-4.95-2.050s-2.050-3.017-2.050-4.95 0.782-3.682 2.050-4.95 3.017-2.050 4.95-2.050 3.682 0.782 4.95 2.050 2.050 3.017 2.050 4.95c0 1.886-0.745 3.597-1.959 4.856zM21.707 20.293l-3.675-3.675c1.231-1.54 1.968-3.493 1.968-5.618 0-2.485-1.008-4.736-2.636-6.364s-3.879-2.636-6.364-2.636-4.736 1.008-6.364 2.636-2.636 3.879-2.636 6.364 1.008 4.736 2.636 6.364 3.879 2.636 6.364 2.636c2.125 0 4.078-0.737 5.618-1.968l3.675 3.675c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414z" fill="WHITE" layoutX="90.0" layoutY="440.0" />
-            <Button id="buttonLogout" fx:id="navAdminLogout" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="9.0" layoutY="738.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="181.0" text="Se déconnecter" textFill="WHITE" />
-            <SVGPath content="M17 21v-2c0-1.38-0.561-2.632-1.464-3.536s-2.156-1.464-3.536-1.464h-7c-1.38 0-2.632 0.561-3.536 1.464s-1.464 2.156-1.464 3.536v2c0 0.552 0.448 1 1 1s1-0.448 1-1v-2c0-0.829 0.335-1.577 0.879-2.121s1.292-0.879 2.121-0.879h7c0.829 0 1.577 0.335 2.121 0.879s0.879 1.292 0.879 2.121v2c0 0.552 0.448 1 1 1s1-0.448 1-1zM13.5 7c0-1.38-0.561-2.632-1.464-3.536s-2.156-1.464-3.536-1.464-2.632 0.561-3.536 1.464-1.464 2.156-1.464 3.536 0.561 2.632 1.464 3.536 2.156 1.464 3.536 1.464 2.632-0.561 3.536-1.464 1.464-2.156 1.464-3.536zM11.5 7c0 0.829-0.335 1.577-0.879 2.121s-1.292 0.879-2.121 0.879-1.577-0.335-2.121-0.879-0.879-1.292-0.879-2.121 0.335-1.577 0.879-2.121 1.292-0.879 2.121-0.879 1.577 0.335 2.121 0.879 0.879 1.292 0.879 2.121zM23 10h-6c-0.552 0-1 0.448-1 1s0.448 1 1 1h6c0.552 0 1-0.448 1-1s-0.448-1-1-1z" fill="WHITE" layoutX="32.0" layoutY="756.0" />
-            <Button id="button" fx:id="navCountryAdmin" alignment="BOTTOM_CENTER" layoutX="21.0" layoutY="244.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="157.0" text="Gestion des pays">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-            <Button id="button" fx:id="navDepartmentAdmin" alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="23.0" layoutY="328.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="157.0" text="Gestion des Départements" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-            <SVGPath content="M5 13.397v-9.859c0.44-0.218 1.365-0.538 3-0.538 1.281 0 2.361 0.421 3.629 0.928 1.232 0.493 2.652 1.072 4.371 1.072 1.298 0 2.278-0.175 3-0.397v9.859c-0.44 0.218-1.365 0.538-3 0.538-1.281 0-2.361-0.421-3.629-0.928-1.232-0.493-2.652-1.072-4.371-1.072-1.298 0-2.278 0.175-3 0.397zM5 22v-6.462c0.44-0.218 1.365-0.538 3-0.538 1.281 0 2.361 0.421 3.629 0.928 1.232 0.493 2.652 1.072 4.371 1.072 3.247 0 4.507-1.093 4.707-1.293 0.195-0.195 0.293-0.451 0.293-0.707v-12c0-0.552-0.448-1-1-1-0.265 0-0.506 0.103-0.685 0.272-0.096 0.078-0.984 0.728-3.315 0.728-1.281 0-2.361-0.421-3.629-0.928-1.232-0.493-2.652-1.072-4.371-1.072-3.247 0-4.507 1.093-4.707 1.293-0.195 0.195-0.293 0.451-0.293 0.707v19c0 0.552 0.448 1 1 1s1-0.448 1-1z" fill="WHITE" layoutX="90.0" layoutY="256.0" />
-            <SVGPath content="M5 2c-0.828 0-1.58 0.337-2.121 0.879s-0.879 1.293-0.879 2.121v14c0 0.828 0.337 1.58 0.879 2.121s1.293 0.879 2.121 0.879h14c0.828 0 1.58-0.337 2.121-0.879s0.879-1.293 0.879-2.121v-14c0-0.828-0.337-1.58-0.879-2.121s-1.293-0.879-2.121-0.879zM20 8h-16v-3c0-0.276 0.111-0.525 0.293-0.707s0.431-0.293 0.707-0.293h14c0.276 0 0.525 0.111 0.707 0.293s0.293 0.431 0.293 0.707zM8 10v10h-3c-0.276 0-0.525-0.111-0.707-0.293s-0.293-0.431-0.293-0.707v-9zM10 20v-10h10v9c0 0.276-0.111 0.525-0.293 0.707s-0.431 0.293-0.707 0.293z" fill="WHITE" layoutX="90.0" layoutY="341.0" />
-            <Pane layoutX="-1.0" layoutY="-45.0" prefHeight="52.0" prefWidth="201.0" style="-fx-background-color: #202940;">
-               <children>
-                  <Label layoutX="42.0" layoutY="24.0" prefHeight="22.0" prefWidth="181.0" text="Galaxy Swiss Bourdin" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView cache="true" depthTest="DISABLE" fitHeight="30.0" fitWidth="28.0" focusTraversable="true" layoutX="8.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
-                     <viewport>
-                        <Rectangle2D />
-                     </viewport>
-                     <image>
-                        <Image url="@../fr/suylo/gsbmedecins/img/gsb.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="30.0" prefHeight="22.0" prefWidth="201.0" style="-fx-effect: none;" text="ADMINISTRATION" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-   </children>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="navbar-dark" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="874.0"
+            prefWidth="200.0" xmlns="http://javafx.com/javafx/17"
+            fx:controller="fr.suylo.gsbmedecins.MainController">
+    <children>
+        <AnchorPane id="wrapper-dark-theme" focusTraversable="true" layoutX="1.0" layoutY="-4.0" prefHeight="1113.0"
+                    prefWidth="200.0" style="-fx-background-color: #202940;" styleClass="left-navigation"
+                    AnchorPane.bottomAnchor="-235.0" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="-4.0">
+            <children>
+                <Pane layoutX="-13.0" layoutY="-37.0" prefHeight="1161.0" prefWidth="28.0"
+                      style="-fx-background-color: #202940;"/>
+                <Button id="button" fx:id="navSearchAdmin" alignment="BOTTOM_CENTER" layoutX="21.0" layoutY="427.0"
+                        mnemonicParsing="false" prefHeight="71.0" prefWidth="157.0" text="Recherche">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Button>
+                <Button id="button" fx:id="navHomeAdmin" alignment="BOTTOM_CENTER" centerShape="false"
+                        contentDisplay="BOTTOM" layoutX="21.0" layoutY="63.0" mnemonicParsing="false" prefHeight="71.0"
+                        prefWidth="157.0" text="Accueil">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Button>
+                <Button id="button" fx:id="navDoctorsAdmin" alignment="BOTTOM_CENTER" layoutX="21.0" layoutY="146.0"
+                        mnemonicParsing="false" prefHeight="87.0" prefWidth="157.0" text="Gestion des médecins"
+                        textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Button>
+                <SVGPath
+                        content="M2.386 8.211c-0.236 0.184-0.386 0.469-0.386 0.789v11c0 0.828 0.337 1.58 0.879 2.121s1.293 0.879 2.121 0.879h14c0.828 0 1.58-0.337 2.121-0.879s0.879-1.293 0.879-2.121v-11c-0.001-0.3-0.134-0.593-0.386-0.789l-9-7c-0.358-0.275-0.861-0.285-1.228 0zM16 21v-9c0-0.552-0.448-1-1-1h-6c-0.552 0-1 0.448-1 1v9h-3c-0.276 0-0.525-0.111-0.707-0.293s-0.293-0.431-0.293-0.707v-10.511l8-6.222 8 6.222v10.511c0 0.276-0.111 0.525-0.293 0.707s-0.431 0.293-0.707 0.293zM10 21v-8h4v8z"
+                        fill="WHITE" focusTraversable="true" layoutX="89.0" layoutY="75.0">
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </SVGPath>
+                <SVGPath
+                        content="M8 7h13c0.552 0 1-0.448 1-1s-0.448-1-1-1h-13c-0.552 0-1 0.448-1 1s0.448 1 1 1zM8 13h13c0.552 0 1-0.448 1-1s-0.448-1-1-1h-13c-0.552 0-1 0.448-1 1s0.448 1 1 1zM8 19h13c0.552 0 1-0.448 1-1s-0.448-1-1-1h-13c-0.552 0-1 0.448-1 1s0.448 1 1 1zM3 7c0.552 0 1-0.448 1-1s-0.448-1-1-1-1 0.448-1 1 0.448 1 1 1zM3 13c0.552 0 1-0.448 1-1s-0.448-1-1-1-1 0.448-1 1 0.448 1 1 1zM3 19c0.552 0 1-0.448 1-1s-0.448-1-1-1-1 0.448-1 1 0.448 1 1 1z"
+                        fill="WHITE" focusTraversable="true" layoutX="87.0" layoutY="163.0"
+                        AnchorPane.topAnchor="168.0">
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </SVGPath>
+                <SVGPath
+                        content="M16.041 15.856c-0.034 0.026-0.067 0.055-0.099 0.087s-0.060 0.064-0.087 0.099c-1.258 1.213-2.969 1.958-4.855 1.958-1.933 0-3.682-0.782-4.95-2.050s-2.050-3.017-2.050-4.95 0.782-3.682 2.050-4.95 3.017-2.050 4.95-2.050 3.682 0.782 4.95 2.050 2.050 3.017 2.050 4.95c0 1.886-0.745 3.597-1.959 4.856zM21.707 20.293l-3.675-3.675c1.231-1.54 1.968-3.493 1.968-5.618 0-2.485-1.008-4.736-2.636-6.364s-3.879-2.636-6.364-2.636-4.736 1.008-6.364 2.636-2.636 3.879-2.636 6.364 1.008 4.736 2.636 6.364 3.879 2.636 6.364 2.636c2.125 0 4.078-0.737 5.618-1.968l3.675 3.675c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414z"
+                        fill="WHITE" layoutX="90.0" layoutY="440.0"/>
+                <Button id="buttonLogout" fx:id="navAdminLogout" alignment="CENTER_RIGHT" contentDisplay="CENTER"
+                        layoutX="9.0" layoutY="738.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="181.0"
+                        text="Se déconnecter" textFill="WHITE"/>
+                <SVGPath
+                        content="M17 21v-2c0-1.38-0.561-2.632-1.464-3.536s-2.156-1.464-3.536-1.464h-7c-1.38 0-2.632 0.561-3.536 1.464s-1.464 2.156-1.464 3.536v2c0 0.552 0.448 1 1 1s1-0.448 1-1v-2c0-0.829 0.335-1.577 0.879-2.121s1.292-0.879 2.121-0.879h7c0.829 0 1.577 0.335 2.121 0.879s0.879 1.292 0.879 2.121v2c0 0.552 0.448 1 1 1s1-0.448 1-1zM13.5 7c0-1.38-0.561-2.632-1.464-3.536s-2.156-1.464-3.536-1.464-2.632 0.561-3.536 1.464-1.464 2.156-1.464 3.536 0.561 2.632 1.464 3.536 2.156 1.464 3.536 1.464 2.632-0.561 3.536-1.464 1.464-2.156 1.464-3.536zM11.5 7c0 0.829-0.335 1.577-0.879 2.121s-1.292 0.879-2.121 0.879-1.577-0.335-2.121-0.879-0.879-1.292-0.879-2.121 0.335-1.577 0.879-2.121 1.292-0.879 2.121-0.879 1.577 0.335 2.121 0.879 0.879 1.292 0.879 2.121zM23 10h-6c-0.552 0-1 0.448-1 1s0.448 1 1 1h6c0.552 0 1-0.448 1-1s-0.448-1-1-1z"
+                        fill="WHITE" layoutX="32.0" layoutY="756.0"/>
+                <Button id="button" fx:id="navCountryAdmin" alignment="BOTTOM_CENTER" layoutX="21.0" layoutY="244.0"
+                        mnemonicParsing="false" prefHeight="71.0" prefWidth="157.0" text="Gestion des pays">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Button>
+                <Button id="button" fx:id="navDepartmentAdmin" alignment="BOTTOM_CENTER" contentDisplay="CENTER"
+                        layoutX="23.0" layoutY="328.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="157.0"
+                        text="Gestion des Départements" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Button>
+                <SVGPath
+                        content="M5 13.397v-9.859c0.44-0.218 1.365-0.538 3-0.538 1.281 0 2.361 0.421 3.629 0.928 1.232 0.493 2.652 1.072 4.371 1.072 1.298 0 2.278-0.175 3-0.397v9.859c-0.44 0.218-1.365 0.538-3 0.538-1.281 0-2.361-0.421-3.629-0.928-1.232-0.493-2.652-1.072-4.371-1.072-1.298 0-2.278 0.175-3 0.397zM5 22v-6.462c0.44-0.218 1.365-0.538 3-0.538 1.281 0 2.361 0.421 3.629 0.928 1.232 0.493 2.652 1.072 4.371 1.072 3.247 0 4.507-1.093 4.707-1.293 0.195-0.195 0.293-0.451 0.293-0.707v-12c0-0.552-0.448-1-1-1-0.265 0-0.506 0.103-0.685 0.272-0.096 0.078-0.984 0.728-3.315 0.728-1.281 0-2.361-0.421-3.629-0.928-1.232-0.493-2.652-1.072-4.371-1.072-3.247 0-4.507 1.093-4.707 1.293-0.195 0.195-0.293 0.451-0.293 0.707v19c0 0.552 0.448 1 1 1s1-0.448 1-1z"
+                        fill="WHITE" layoutX="90.0" layoutY="256.0"/>
+                <SVGPath
+                        content="M5 2c-0.828 0-1.58 0.337-2.121 0.879s-0.879 1.293-0.879 2.121v14c0 0.828 0.337 1.58 0.879 2.121s1.293 0.879 2.121 0.879h14c0.828 0 1.58-0.337 2.121-0.879s0.879-1.293 0.879-2.121v-14c0-0.828-0.337-1.58-0.879-2.121s-1.293-0.879-2.121-0.879zM20 8h-16v-3c0-0.276 0.111-0.525 0.293-0.707s0.431-0.293 0.707-0.293h14c0.276 0 0.525 0.111 0.707 0.293s0.293 0.431 0.293 0.707zM8 10v10h-3c-0.276 0-0.525-0.111-0.707-0.293s-0.293-0.431-0.293-0.707v-9zM10 20v-10h10v9c0 0.276-0.111 0.525-0.293 0.707s-0.431 0.293-0.707 0.293z"
+                        fill="WHITE" layoutX="90.0" layoutY="341.0"/>
+                <Pane layoutX="-1.0" layoutY="-45.0" prefHeight="52.0" prefWidth="201.0"
+                      style="-fx-background-color: #202940;">
+                    <children>
+                        <Label layoutX="42.0" layoutY="24.0" prefHeight="22.0" prefWidth="181.0"
+                               text="Galaxy Swiss Bourdin" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="15.0"/>
+                            </font>
+                        </Label>
+                        <ImageView cache="true" depthTest="DISABLE" fitHeight="30.0" fitWidth="28.0"
+                                   focusTraversable="true" layoutX="8.0" layoutY="21.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <viewport>
+                                <Rectangle2D/>
+                            </viewport>
+                            <image>
+                                <Image url="@../fr/suylo/gsbmedecins/img/gsb.png"/>
+                            </image>
+                        </ImageView>
+                    </children>
+                </Pane>
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="30.0" prefHeight="22.0"
+                       prefWidth="201.0" style="-fx-effect: none;" text="ADMINISTRATION" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="15.0"/>
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>

@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 public class HomeController implements Initializable {
 
     @FXML
-    public Label userLastName, userFirstName, userAddress, userEmbauche, userTitle, userID;
+    public Label userLastName, userFirstName, userAddress, userTitle, userID;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

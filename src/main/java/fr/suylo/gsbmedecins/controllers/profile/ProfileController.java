@@ -1,16 +1,9 @@
 package fr.suylo.gsbmedecins.controllers.profile;
 
-import com.google.gson.Gson;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.models.APIAccess;
 import fr.suylo.gsbmedecins.models.Medecin;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-
-import java.util.Objects;
 
 public class ProfileController {
 

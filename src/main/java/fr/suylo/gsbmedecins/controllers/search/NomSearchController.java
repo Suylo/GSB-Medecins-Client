@@ -6,8 +6,6 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.controllers.CRUDController;
-import fr.suylo.gsbmedecins.controllers.profile.EditProfileController;
-import fr.suylo.gsbmedecins.controllers.profile.ProfileController;
 import fr.suylo.gsbmedecins.models.Medecin;
 import fr.suylo.gsbmedecins.models.UserSession;
 import javafx.beans.property.ReadOnlyObjectWrapper;

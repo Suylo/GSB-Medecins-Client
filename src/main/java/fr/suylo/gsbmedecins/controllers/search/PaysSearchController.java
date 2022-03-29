@@ -1,15 +1,11 @@
 package fr.suylo.gsbmedecins.controllers.search;
 
-import com.google.gson.Gson;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.controllers.CRUDController;
-import fr.suylo.gsbmedecins.controllers.profile.ProfileController;
-import fr.suylo.gsbmedecins.models.*;
+import fr.suylo.gsbmedecins.models.APIAccess;
+import fr.suylo.gsbmedecins.models.Medecin;
+import fr.suylo.gsbmedecins.models.Pays;
+import fr.suylo.gsbmedecins.models.UserSession;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +22,6 @@ import lk.vivoxalabs.customstage.CustomStage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -169,7 +164,7 @@ public class PaysSearchController implements Initializable {
         });
 
         searchEnter.setOnAction(event -> {
-            if (selectCountries.getValue() == null){
+            if (selectCountries.getValue() == null) {
                 myTable.setPlaceholder(new Label("Veuillez choisir un pays avant de débuter la recherche"));
             } else {
                 Medecin[] medecins = APIAccess.getMedecinsByPays(this.valueCountry);
@@ -177,7 +172,7 @@ public class PaysSearchController implements Initializable {
                 myTable.getItems().clear();
                 myTable.getItems().addAll(medecins);
 
-                if (medecins.length == 0){
+                if (medecins.length == 0) {
                     myTable.setPlaceholder(new Label("Aucun médecin trouvé pour ce pays"));
                 }
             }

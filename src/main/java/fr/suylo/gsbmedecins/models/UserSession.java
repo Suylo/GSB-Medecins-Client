@@ -16,10 +16,9 @@ import java.util.Objects;
 
 public class UserSession {
 
-    private static UserSession instance;
-
     public static String userID;
     public static String userPassword;
+    private static UserSession instance;
 
     private UserSession(String id, String passwd) {
         UserSession.userID = id;
@@ -81,7 +80,7 @@ public class UserSession {
         stage.changeScene(rootPane);
     }
 
-    public static void loadUserUI(Double x, Double y) throws IOException{
+    public static void loadUserUI(Double x, Double y) throws IOException {
         Parent login = FXMLLoader.load(Objects.requireNonNull(UserSession.class.getClassLoader().getResource("login.fxml")));
         VBox container = new VBox(login);
         StackPane rootPane = new StackPane();

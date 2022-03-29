@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2000.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.suylo.gsbmedecins.controllers.country.PaysController">
-   <children>
-      <Pane layoutX="252.0" prefHeight="2000.0" prefWidth="1095.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label id="titleHome" fx:id="titlePays" alignment="CENTER" layoutX="1.0" layoutY="52.0" prefHeight="17.0" prefWidth="1145.0" text="Liste des pays :" />
-            <Label id="titleHome" fx:id="titleBlank" alignment="CENTER" layoutX="1.0" layoutY="98.0" prefHeight="17.0" prefWidth="1145.0" />
-            <TableView fx:id="tableView" layoutX="322.0" layoutY="146.0" prefHeight="579.0" prefWidth="503.0">
-               <columns>
-                  <TableColumn id="colCountry" fx:id="id" editable="false" maxWidth="1500.0" prefWidth="171.0" sortable="false" text="#">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="id" />
-                     </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn id="colCountry" fx:id="nom" editable="false" maxWidth="3000.0" prefWidth="174.0" sortable="false" text="Nom">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="nom" />
-                     </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn id="colCountry" fx:id="action" editable="false" minWidth="5.0" text="Action">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="action" />
-                     </cellValueFactory>
-                  </TableColumn>
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-         </children>
-      </Pane>
-   </children>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="2000.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/17"
+            fx:controller="fr.suylo.gsbmedecins.controllers.country.PaysController">
+    <children>
+        <Pane layoutX="252.0" prefHeight="2000.0" prefWidth="1095.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label id="titleHome" fx:id="titlePays" alignment="CENTER" layoutX="1.0" layoutY="52.0"
+                       prefHeight="17.0" prefWidth="1145.0" text="Liste des pays :"/>
+                <Label id="titleHome" fx:id="titleBlank" alignment="CENTER" layoutX="1.0" layoutY="98.0"
+                       prefHeight="17.0" prefWidth="1145.0"/>
+                <TableView fx:id="tableView" layoutX="322.0" layoutY="146.0" prefHeight="579.0" prefWidth="503.0">
+                    <columns>
+                        <TableColumn id="colCountry" fx:id="id" editable="false" maxWidth="1500.0" prefWidth="171.0"
+                                     sortable="false" text="#">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="id"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn id="colCountry" fx:id="nom" editable="false" maxWidth="3000.0" prefWidth="174.0"
+                                     sortable="false" text="Nom">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="nom"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn id="colCountry" fx:id="action" editable="false" minWidth="5.0" text="Action">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="action"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </children>
+        </Pane>
+    </children>
 </AnchorPane>

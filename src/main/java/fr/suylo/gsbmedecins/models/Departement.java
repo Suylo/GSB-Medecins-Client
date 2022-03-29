@@ -16,7 +16,7 @@ public class Departement {
     }
 
 
-    public Departement(Integer id){
+    public Departement(Integer id) {
         this.id = id;
     }
 
@@ -25,7 +25,7 @@ public class Departement {
         this.nom = nom;
     }
 
-    public Departement(String nom, Pays pays){
+    public Departement(String nom, Pays pays) {
         this.nom = nom;
         this.pays = pays;
     }

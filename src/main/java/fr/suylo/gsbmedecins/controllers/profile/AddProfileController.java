@@ -1,5 +1,6 @@
 package fr.suylo.gsbmedecins.controllers.profile;
 
+import fr.suylo.gsbmedecins.controllers.MedecinController;
 import fr.suylo.gsbmedecins.models.APIAccess;
 import fr.suylo.gsbmedecins.models.Departement;
 import fr.suylo.gsbmedecins.models.Medecin;
@@ -16,7 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.util.StringConverter;
 import lk.vivoxalabs.customstage.CustomStage;
-import fr.suylo.gsbmedecins.controllers.MedecinController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,7 +44,7 @@ public class AddProfileController implements Initializable {
         ObservableSet<String> uniqueData = FXCollections.observableSet();
         uniqueData.add("");
         for (Medecin m : lesMedecins) {
-            if (m.getSpe() != null){
+            if (m.getSpe() != null) {
                 uniqueData.add(m.getSpe());
             }
         }

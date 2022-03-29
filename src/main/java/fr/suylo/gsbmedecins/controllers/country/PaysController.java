@@ -2,7 +2,9 @@ package fr.suylo.gsbmedecins.controllers.country;
 
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import fr.suylo.gsbmedecins.models.*;
+import fr.suylo.gsbmedecins.models.APIAccess;
+import fr.suylo.gsbmedecins.models.Pays;
+import fr.suylo.gsbmedecins.models.UserSession;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +27,7 @@ import java.util.ResourceBundle;
 
 public class PaysController implements Initializable {
 
+    public final Button addPays = new Button("Ajouter un pays");
     @FXML
     public TableView<Pays> tableView;
     @FXML
@@ -33,9 +36,7 @@ public class PaysController implements Initializable {
     public TableColumn<Pays, Long> id;
     @FXML
     public TableColumn<Pays, Pays> action = new TableColumn<>("Action");
-
     public Label titlePays, titleBlank;
-    public final Button addPays = new Button("Ajouter un pays");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -43,7 +44,7 @@ public class PaysController implements Initializable {
         action.setVisible(false);
         id.setVisible(false);
         addPays.getStyleClass().add("button-see");
-        if(UserSession.getUserLoggedOn()){
+        if (UserSession.getUserLoggedOn()) {
             titleBlank.setGraphic(addPays);
             addPays.setAlignment(Pos.BOTTOM_CENTER);
             addPays.setOnAction(event -> {
@@ -92,11 +93,11 @@ public class PaysController implements Initializable {
                 editButton.getStyleClass().add("button-edit");
                 removeButton.getStyleClass().add("button-remove");
                 editButton.setOnAction(event -> {
-                    Pane editPaysView = null;
+                    Pane editCountryView = null;
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("editPays.fxml"));
                     try {
-                        editPaysView = loader.load();
-                        editPaysView.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                        editCountryView = loader.load();
+                        editCountryView.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -105,12 +106,12 @@ public class PaysController implements Initializable {
                     editPaysController.loadEditPays();
                     CustomStage stage = ((CustomStage) editButton.getScene().getWindow());
                     stage.setTitle("GSB - Profil d'un médecin ");
-                    stage.changeScene(editPaysView);
+                    stage.changeScene(editCountryView);
                 });
                 removeButton.setOnAction(event -> {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Confirmation de suppresion d'un pays");
-                    alert.setHeaderText("Êtes-vous sûr de vouloir supprimer le pays N°" +  id.getCellData(getTableRow().getIndex()) + " ?");
+                    alert.setHeaderText("Êtes-vous sûr de vouloir supprimer le pays N°" + id.getCellData(getTableRow().getIndex()) + " ?");
                     Stage stage;
                     stage = (Stage) alert.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(new Image("fr/suylo/gsbmedecins/img/gsb.png"));
@@ -134,7 +135,7 @@ public class PaysController implements Initializable {
         reload();
     }
 
-    public void reload(){
+    public void reload() {
         tableView.getItems().clear();
         tableView.getItems().addAll(
                 APIAccess.getAllPays()

@@ -25,22 +25,21 @@ public class AddPaysController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        APIAccess.getAllPays();
 
         countryID.setText("Ajout d'un pays");
 
         buttonSave.setOnAction(event -> {
-            Pane addedCountry = null;
+            Pane addCountry = null;
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("pays.fxml"));
             try {
-                addedCountry = loader.load();
-                addedCountry.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                addCountry = loader.load();
+                addCountry.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
             } catch (IOException e) {
                 e.printStackTrace();
             }
             CustomStage stage = ((CustomStage) buttonSave.getScene().getWindow());
             stage.setTitle("GSB - Liste des pays");
-            stage.changeScene(addedCountry);
+            stage.changeScene(addCountry);
 
             APIAccess.addPays(countryName);
 

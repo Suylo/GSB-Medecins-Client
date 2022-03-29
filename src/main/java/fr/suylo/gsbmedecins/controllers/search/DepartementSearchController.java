@@ -160,7 +160,7 @@ public class DepartementSearchController implements Initializable {
         });
 
         searchEnter.setOnAction(event -> {
-            if (selectDepartments.getValue() == null){
+            if (selectDepartments.getValue() == null) {
                 myTable.setPlaceholder(new Label("Veuillez choisir un département avant de débuter la recherche !"));
             } else {
                 Medecin[] lesMedecins = APIAccess.getMedecinsByDepartementID(this.valueDepartment);

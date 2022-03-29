@@ -46,7 +46,7 @@ public class LoginController implements Initializable {
         ObservableList<User> data = FXCollections.observableArrayList();
         for (User user : usersJson) {
             // Un utilisateur = un objet
-            data.addAll(new User(user.getId(), user.getLogin(), user.getNom(), user.getPrenom(), user.getMotdepasse(), user.getAdresse(), user.getEmbauche()));
+            data.addAll(new User(user.getId(), user.getLogin(), user.getNom(), user.getPrenom(), user.getMotdepasse(), user.getAdresse()));
         }
 
         // Quand on clique sur le bouton "Connexion"

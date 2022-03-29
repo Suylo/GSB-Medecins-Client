@@ -162,24 +162,29 @@ public class SpecialiteSearchController implements Initializable {
         });
 
         searchEnter.setOnAction(event -> {
-            this.speciality = selectSpecialities.getValue().replace(" ", "+");
-
-            HttpResponse<JsonNode> apiResponse = null;
-            try {
-                apiResponse = Unirest.get("http://localhost:8080/api/v1/medecins/specialite?spe=" + this.speciality).asJson();
-            } catch (UnirestException e) {
-                e.printStackTrace();
-            }
-            Medecin[] medecinsByNomOrPrenom = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Medecin[].class);
-
-            ObservableList<Medecin> data = FXCollections.observableArrayList();
-            for (Medecin medecin : medecinsByNomOrPrenom) {
-                data.addAll(new Medecin(medecin.getId(), medecin.getNom(), medecin.getPrenom(), medecin.getAdresse(), medecin.getTel(), medecin.getSpe()));
-            }
-            myTable.getItems().clear();
-            myTable.getItems().addAll(data);
             if(selectSpecialities.getValue() == null){
-                myTable.setPlaceholder(new Label("Veuillez choisir une spécialité avant de lancer la recherche !"));
+                myTable.setPlaceholder(new Label("Veuillez choisir une spécialité"));
+            } else {
+                this.speciality = selectSpecialities.getValue().replace(" ", "+");
+                HttpResponse<JsonNode> apiResponse = null;
+                try {
+                    apiResponse = Unirest.get("http://localhost:8080/api/v1/medecins/specialite?spe=" + this.speciality).asJson();
+                } catch (UnirestException e) {
+                    e.printStackTrace();
+                }
+                Medecin[] medecinsByNomOrPrenom = new Gson().fromJson(String.valueOf(Objects.requireNonNull(apiResponse).getBody().toString()), Medecin[].class);
+
+                ObservableList<Medecin> data = FXCollections.observableArrayList();
+                for (Medecin medecin : medecinsByNomOrPrenom) {
+                    data.addAll(new Medecin(medecin.getId(), medecin.getNom(), medecin.getPrenom(), medecin.getAdresse(), medecin.getTel(), medecin.getSpe()));
+                }
+
+                myTable.getItems().clear();
+                myTable.getItems().addAll(data);
+
+                if (data.isEmpty()) {
+                    myTable.setPlaceholder(new Label("Aucun médecin trouvé"));
+                }
             }
         });
         myTable.setPlaceholder(new Label("Veuillez commencer votre recherche !"));

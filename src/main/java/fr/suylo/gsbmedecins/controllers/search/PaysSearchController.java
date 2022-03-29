@@ -169,15 +169,17 @@ public class PaysSearchController implements Initializable {
         });
 
         searchEnter.setOnAction(event -> {
-            Medecin[] medecins = APIAccess.getMedecinsByPays(this.valueCountry);
-
-            myTable.getItems().clear();
-            myTable.getItems().addAll(medecins);
             if (selectCountries.getValue() == null){
-                myTable.setPlaceholder(new Label("Veuillez choisir un pays avant de lancer la recherche !"));
-            }
-            if (medecins.length == 0) {
-                myTable.setPlaceholder(new Label("Aucun médecins n'a été trouvé pour ce pays !"));
+                myTable.setPlaceholder(new Label("Veuillez choisir un pays avant de débuter la recherche"));
+            } else {
+                Medecin[] medecins = APIAccess.getMedecinsByPays(this.valueCountry);
+
+                myTable.getItems().clear();
+                myTable.getItems().addAll(medecins);
+
+                if (medecins.length == 0){
+                    myTable.setPlaceholder(new Label("Aucun médecin trouvé pour ce pays"));
+                }
             }
         });
         myTable.setPlaceholder(new Label("Veuillez commencer votre recherche !"));

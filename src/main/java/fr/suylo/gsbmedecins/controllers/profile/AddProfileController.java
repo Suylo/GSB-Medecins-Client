@@ -1,5 +1,6 @@
 package fr.suylo.gsbmedecins.controllers.profile;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.suylo.gsbmedecins.controllers.MedecinController;
 import fr.suylo.gsbmedecins.models.APIAccess;
 import fr.suylo.gsbmedecins.models.Departement;
@@ -10,16 +11,17 @@ import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import lk.vivoxalabs.customstage.CustomStage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AddProfileController implements Initializable {
@@ -28,6 +30,8 @@ public class AddProfileController implements Initializable {
     public TextField doctorLastName, doctorName, doctorAddress, doctorPhone;
     @FXML
     public Label doctorID;
+    @FXML
+    public Label formCheckError;
     @FXML
     public ComboBox<String> doctorSpe;
     @FXML
@@ -38,6 +42,8 @@ public class AddProfileController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        formCheckError.setStyle("-fx-text-fill: red;");
+
         ObservableList<Medecin> lesMedecins = APIAccess.getAllMedecins();
         ObservableList<Departement> lesDepartements = APIAccess.getAllDepartements();
 
@@ -73,22 +79,50 @@ public class AddProfileController implements Initializable {
 
         doctorID.setText("Ajout d'un médecin");
         buttonSave.setOnAction(event -> {
-            Pane doctorAdded = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("doctors.fxml"));
-            try {
-                doctorAdded = loader.load();
-                doctorAdded.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            CustomStage stage = ((CustomStage) buttonSave.getScene().getWindow());
-            stage.setTitle("GSB - Liste des médecins");
-            stage.changeScene(doctorAdded);
+            if (doctorLastName.getText().isEmpty() || doctorName.getText().isEmpty() || doctorAddress.getText().isEmpty()
+                    || doctorPhone.getText().isEmpty() || doctorSpe.getValue() == null || doctorDepartment.getValue() == null) {
+                formCheckError.setText("✕ Veuillez remplir tous les champs !");
+            } else {
+                // doctorLastName, doctorName, doctorSpe only contains letters a-zA-Z max length 40 no numbers and doctorAdresses can contains numbers and letters max 50 caracters - gh copilot
+                if (doctorLastName.getText().matches("[a-zA-Z]{1,20}") && doctorName.getText().matches("[a-zA-Z]{1,20}")
+                        && doctorSpe.getValue().matches("[a-zA-Z]{1,40}")
+                        && doctorAddress.getText().matches("[a-zA-Z0-9]{1,50}")
+                        && doctorPhone.getText().matches("[0-9]{1,10}")) {
+                    Pane doctorAdded = null;
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("doctors.fxml"));
+                    try {
+                        doctorAdded = loader.load();
+                        doctorAdded.getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    CustomStage stage = ((CustomStage) buttonSave.getScene().getWindow());
+                    stage.setTitle("GSB - Liste des médecins");
+                    stage.changeScene(doctorAdded);
 
-            // Ajout de médecin
-            APIAccess.addMedecin(doctorLastName, doctorName, doctorAddress, doctorPhone, doctorSpe, this.valueDepartment);
-            MedecinController medecinController = loader.getController();
-            medecinController.reload();
+                    // Ajout de médecin
+                    APIAccess.addMedecin(doctorLastName, doctorName, doctorAddress, doctorPhone, doctorSpe, this.valueDepartment);
+                    MedecinController medecinController = loader.getController();
+                    medecinController.reload();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur lors de l'ajout d'un médecin");
+                    alert.setHeaderText("Veuillez vérifier les champs");
+                    Label label = new Label("✕ Le nom et le prénom ne doivent contenir que des lettres et doit être compris entre 3 et 20 caractères");
+                    label.setStyle("-fx-text-fill: red;-fx-font-family: 'Roboto Light';-fx-font-size: 15px;");
+                    Label labelAddress = new Label("✕ L'adresse doit être composé de chiffres et de lettres formar (Adresse, VilLe, Code Postal) et doivent être compris entre 10 et 50 caractères");
+                    labelAddress.setStyle("-fx-text-fill: red;-fx-font-family: 'Roboto Light';-fx-font-size: 15px;");
+                    Label labelPhone = new Label("✕ Le numéro de téléphone doit être composé de chiffres et doit être compris entre 10 et 10 caractères");
+                    labelPhone.setStyle("-fx-text-fill: red;-fx-font-family: 'Roboto Light';-fx-font-size: 15px;");
+                    VBox vbox = new VBox(label, labelAddress, labelPhone);
+                    alert.getDialogPane().setContent(vbox);
+                    alert.setContentText(vbox.getChildren().toString());
+                    Stage stage;
+                    stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(new Image("fr/suylo/gsbmedecins/img/gsb.png"));
+                    alert.showAndWait();
+                }
+            }
         });
     }
 }

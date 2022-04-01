@@ -2,10 +2,14 @@ package fr.suylo.gsbmedecins.models;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import lk.vivoxalabs.customstage.CustomStage;
 import lk.vivoxalabs.customstage.CustomStageBuilder;
 import lk.vivoxalabs.customstage.tools.NavigationType;
@@ -127,6 +131,20 @@ public class UserSession {
     public static void cleanUserSession() {
         userID = null;
         userPassword = null;
+    }
+
+    public static void errorAlert(String title, String headerText, VBox block) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.getDialogPane().setContent(block);
+        alert.setContentText(block.getChildren().toString());
+
+        alert.getDialogPane().lookupButton(ButtonType.OK).setStyle("-fx-background-color:#202940 ;-fx-text-fill: white;-fx-font-size: 15px;-fx-font-family: 'Calibri', sans-serif;");
+        Stage stage;
+        stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("fr/suylo/gsbmedecins/img/gsb.png"));
+        alert.show();
     }
 
     @Override

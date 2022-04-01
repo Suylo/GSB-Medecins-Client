@@ -5,6 +5,7 @@ import fr.suylo.gsbmedecins.controllers.MedecinController;
 import fr.suylo.gsbmedecins.models.APIAccess;
 import fr.suylo.gsbmedecins.models.Departement;
 import fr.suylo.gsbmedecins.models.Medecin;
+import fr.suylo.gsbmedecins.models.UserSession;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
@@ -13,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -81,13 +83,18 @@ public class AddProfileController implements Initializable {
         buttonSave.setOnAction(event -> {
             if (doctorLastName.getText().isEmpty() || doctorName.getText().isEmpty() || doctorAddress.getText().isEmpty()
                     || doctorPhone.getText().isEmpty() || doctorSpe.getValue() == null || doctorDepartment.getValue() == null) {
-                formCheckError.setText("✕ Veuillez remplir tous les champs !");
+                Label error = new Label("❌ Tous les champs sont obligatoires !");
+                error.setStyle("-fx-text-fill: red;-fx-font-family: 'Roboto Light';-fx-font-size: 17px;");
+                VBox vBox = new VBox(error);
+
+                UserSession.errorAlert("Erreur", "Erreur lors de l'ajout d'un médecin ❓", vBox);
             } else {
                 // doctorLastName, doctorName, doctorSpe only contains letters a-zA-Z max length 40 no numbers and doctorAdresses can contains numbers and letters max 50 caracters - gh copilot
-                if (doctorLastName.getText().matches("[a-zA-Z]{1,20}") && doctorName.getText().matches("[a-zA-Z]{1,20}")
-                        && doctorSpe.getValue().matches("[a-zA-Z]{1,40}")
-                        && doctorAddress.getText().matches("[a-zA-Z0-9]{1,50}")
-                        && doctorPhone.getText().matches("[0-9]{1,10}")) {
+
+                if (doctorLastName.getText().matches("[a-zA-Z\\s]{2,20}")
+                        && doctorName.getText().matches("[a-zA-Z\\s]{2,20}")
+                        && doctorAddress.getText().matches("^[a-zA-Z0-9\\sàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ,]{10,50}$")
+                        && doctorPhone.getText().matches("^[0-9+]{1,14}")) {
                     Pane doctorAdded = null;
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("doctors.fxml"));
                     try {
@@ -105,22 +112,13 @@ public class AddProfileController implements Initializable {
                     MedecinController medecinController = loader.getController();
                     medecinController.reload();
                 } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Erreur lors de l'ajout d'un médecin");
-                    alert.setHeaderText("Veuillez vérifier les champs");
-                    Label label = new Label("✕ Le nom et le prénom ne doivent contenir que des lettres et doit être compris entre 3 et 20 caractères");
-                    label.setStyle("-fx-text-fill: red;-fx-font-family: 'Roboto Light';-fx-font-size: 15px;");
-                    Label labelAddress = new Label("✕ L'adresse doit être composé de chiffres et de lettres formar (Adresse, VilLe, Code Postal) et doivent être compris entre 10 et 50 caractères");
-                    labelAddress.setStyle("-fx-text-fill: red;-fx-font-family: 'Roboto Light';-fx-font-size: 15px;");
-                    Label labelPhone = new Label("✕ Le numéro de téléphone doit être composé de chiffres et doit être compris entre 10 et 10 caractères");
-                    labelPhone.setStyle("-fx-text-fill: red;-fx-font-family: 'Roboto Light';-fx-font-size: 15px;");
-                    VBox vbox = new VBox(label, labelAddress, labelPhone);
-                    alert.getDialogPane().setContent(vbox);
-                    alert.setContentText(vbox.getChildren().toString());
-                    Stage stage;
-                    stage = (Stage) alert.getDialogPane().getScene().getWindow();
-                    stage.getIcons().add(new Image("fr/suylo/gsbmedecins/img/gsb.png"));
-                    alert.showAndWait();
+                    Label label = new Label("✕ Le nom et le prénom ne doivent contenir que des lettres. (Min. 3 caractères ; Max. 20)"
+                            + "\n✕ L'adresse doit être composé de chiffres et de lettres au format (Adresse, VilLe, Code Postal) (Min. 10 caractères ; Max. 50)"
+                            + "\n✕ Le numéro de téléphone doit être uniquement composé de chiffres. (Ne pas indiquer le code du pays)");
+                    label.setStyle("-fx-text-fill: red;-fx-font-family: 'Roboto Light';-fx-font-size: 17px;");
+                    VBox vbox = new VBox(label);
+
+                    UserSession.errorAlert("Errreur lors de l'ajout d'un médecin", "Veuillez vérifier les champs!", vbox);
                 }
             }
         });

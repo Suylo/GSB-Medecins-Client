@@ -67,11 +67,11 @@ public class AddDepartementController implements Initializable {
                 departmentNameError.setText("Le nom du département est obligatoire");
                 countrySelectError.setText("Le pays est obligatoire");
             } else if (!departmentName.getText().isEmpty() && countrySelect.getValue() == null) {
-                departmentNameError.setVisible(false);
                 countrySelectError.setText("Le pays est obligatoire");
             } else {
                 if (departmentIfExist.size() == 0) {
-                    if (departmentName.getText().length() >= 3 && departmentName.getText().length() < 50) {
+                    // check if departmentName matches all letters, no numbers or special characters, min 3 characters and max 30 characters
+                    if (departmentName.getText().matches("[a-zA-Z\\sàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ-]{3,30}")) {
                         Pane doctorAdded = null;
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("departements.fxml"));
                         try {
@@ -88,7 +88,7 @@ public class AddDepartementController implements Initializable {
                         DepartementController departementController = loader.getController();
                         departementController.reload();
                     } else {
-                        departmentNameError.setText("Le nom du département doit contenir entre 3 et 50 caractères");
+                        departmentNameError.setText("Le nom du département ne doit contenir que des lettres, (min. 3 ; max. 50)");
                     }
                 } else {
                     departmentNameError.setText("Le nom du département existe déjà");

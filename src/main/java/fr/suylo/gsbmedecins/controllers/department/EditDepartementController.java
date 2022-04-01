@@ -85,7 +85,7 @@ public class EditDepartementController {
                 departmentNameError.setText("Le nom du département est obligatoire");
             } else {
                 if (departmentIfExist.size() == 0 || departmentIfExist.size() == 1 && departmentName.getText().equals(departmentOldValue)) {
-                    if (departmentName.getText().length() >= 3 && departmentName.getText().length() < 50) {
+                    if (departmentName.getText().matches("[a-zA-Z\\sàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ]{3,30}")) {
                         Pane departmentEditedNewList = null;
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("departements.fxml"));
                         try {
@@ -104,7 +104,7 @@ public class EditDepartementController {
                         DepartementController departementController = loader.getController();
                         departementController.reload();
                     } else {
-                        departmentNameError.setText("Le nom du département doit contenir entre 3 et 50 caractères");
+                        departmentNameError.setText("Le nom du département ne doit contenir que des lettres, (min. 3 ; max. 50)");
                     }
                 } else {
                     departmentNameError.setText("Le nom de ce département existe déjà !");

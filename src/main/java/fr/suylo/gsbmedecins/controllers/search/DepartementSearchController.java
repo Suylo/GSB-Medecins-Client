@@ -112,6 +112,7 @@ public class DepartementSearchController implements Initializable {
 
     private void searchDepartments() {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        id.setVisible(UserSession.getUserLoggedOn());
         nomCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
         prenomCol.setCellValueFactory(new PropertyValueFactory<>("prenom"));
         spe.setCellValueFactory(new PropertyValueFactory<>("spe"));

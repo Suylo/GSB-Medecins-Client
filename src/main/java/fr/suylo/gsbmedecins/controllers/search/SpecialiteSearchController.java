@@ -112,6 +112,7 @@ public class SpecialiteSearchController implements Initializable {
 
     private void searchSpecialities() {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        id.setVisible(UserSession.getUserLoggedOn());
         nomCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
         prenomCol.setCellValueFactory(new PropertyValueFactory<>("prenom"));
         spe.setCellValueFactory(new PropertyValueFactory<>("spe"));

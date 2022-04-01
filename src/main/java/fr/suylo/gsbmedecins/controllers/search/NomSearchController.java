@@ -92,6 +92,7 @@ public class NomSearchController implements Initializable {
 
     public void searchDoctorsByFLName() {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        id.setVisible(UserSession.getUserLoggedOn());
         nomCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
         prenomCol.setCellValueFactory(new PropertyValueFactory<>("prenom"));
         spe.setCellValueFactory(new PropertyValueFactory<>("spe"));

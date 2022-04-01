@@ -64,8 +64,8 @@ public class MedecinController implements Initializable {
             });
         }
 
-        id.setVisible(false);
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        id.setVisible(UserSession.getUserLoggedOn());
         nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         adresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
         prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));

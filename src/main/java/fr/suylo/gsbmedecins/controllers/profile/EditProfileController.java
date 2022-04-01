@@ -108,9 +108,9 @@ public class EditProfileController {
                 UserSession.errorAlert("Erreur", "Erreur lors de l'ajout d'un médecin ❓", vBox);
             } else {
                 // doctorLastName, doctorName, doctorSpe only contains letters a-zA-Z max length 40 no numbers and doctorAdresses can contains numbers and letters max 50 caracters - gh copilot
-                if (doctorLastName.getText().matches("[a-zA-Z\\sàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ]{2,20}")
-                        && doctorName.getText().matches("[a-zA-Z\\sàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ]{2,20}")
-                        && doctorAddress.getText().matches("^[a-zA-Z0-9\\sàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ,]{10,50}$")
+                if (doctorLastName.getText().matches("[a-zA-Z\\sàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ-]{2,20}")
+                        && doctorName.getText().matches("[a-zA-Z\\sàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ-]{2,20}")
+                        && doctorAddress.getText().matches("^[a-zA-Z0-9\\sàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ,-]{10,50}$")
                         && doctorPhone.getText().matches("^[0-9+]{1,14}")) {
 
                     Pane doctorEditedNewList = null;

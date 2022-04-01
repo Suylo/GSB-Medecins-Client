@@ -56,7 +56,7 @@ public class EditPaysController {
             } else {
                 ObservableList<Integer> paysValue = APIAccess.getPaysByNom(countryName.getText().trim());
                 if (paysValue.size() == 0 || paysValue.size() == 1 && countryName.getText().equals(countryOldValue)) {
-                    if (countryName.getText().length() < 40 && countryName.getText().length() > 4) {
+                    if (countryName.getText().matches("[a-zA-Z\\sàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ-]{3,30}")) {
                         Pane paysEdited = null;
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("pays.fxml"));
                         try {
@@ -74,7 +74,7 @@ public class EditPaysController {
                         PaysController paysController = loader.getController();
                         paysController.reload();
                     } else {
-                        countryNameError.setText("Le nom du pays doit contenir entre 4 et 40 caractères !");
+                        countryNameError.setText("Le nom du pays ne doit contenir que des lettres (min. 3 ; max. 50)");
                     }
                 } else {
                     countryNameError.setText("Le pays existe déjà !");

@@ -111,7 +111,15 @@ public class PaysController implements Initializable {
                 removeButton.setOnAction(event -> {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Confirmation de suppresion d'un pays");
-                    alert.setHeaderText("Êtes-vous sûr de vouloir supprimer le pays N°" + id.getCellData(getTableRow().getIndex()) + " ?");
+                    alert.setHeaderText("Êtes-vous sûr de vouloir supprimer le pays " + nom.getCellData(getTableRow().getIndex()) + " ?");
+
+                    Label label = new Label("⚠ ATTENTION : Supprimer un pays supprimera tous les départements \n de celui-ci ainsi que tous ses médecins !\n- Cette action est irréversible. \n");
+                    label.setStyle("-fx-text-fill: red;-fx-font-size: 17px;-fx-font-family: 'Calibri Light', sans-serif;");
+
+                    alert.getDialogPane().setContent(label);
+                    alert.getDialogPane().getStylesheets().add("fr/suylo/gsbmedecins/css/main.css");
+                    alert.getDialogPane().lookupButton(ButtonType.OK).setStyle("-fx-background-color:#202940 ;-fx-text-fill: white;-fx-font-size: 15px;-fx-font-family: 'Calibri', sans-serif;");
+                    alert.getDialogPane().lookupButton(ButtonType.CANCEL).setStyle("-fx-background-color: #202940;-fx-text-fill: white;-fx-font-size: 15px;-fx-font-family: 'Calibri', sans-serif;");
                     Stage stage;
                     stage = (Stage) alert.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(new Image("fr/suylo/gsbmedecins/img/gsb.png"));

@@ -36,13 +36,14 @@ public class CRUDController {
                     + "\n- Prénom : " + prenom
                     + "\n- Spécialité : " + speValue
             );
-            label.setStyle("-fx-text-fill: black;-fx-font-family: 'Roboto Light';-fx-font-size: 18px;");
+            label.setStyle("-fx-text-fill: black;-fx-font-family: 'Roboto Light';-fx-font-size: 17px;");
 
             VBox vBox = new VBox();
             vBox.getChildren().addAll(label);
 
             alert.getDialogPane().setContent(vBox);
-
+            alert.getDialogPane().lookupButton(ButtonType.OK).setStyle("-fx-background-color:#202940 ;-fx-text-fill: white;-fx-font-size: 15px;-fx-font-family: 'Calibri', sans-serif;");
+            alert.getDialogPane().lookupButton(ButtonType.CANCEL).setStyle("-fx-background-color: #202940;-fx-text-fill: white;-fx-font-size: 15px;-fx-font-family: 'Calibri', sans-serif;");
             Stage stage;
             stage = (Stage) alert.getDialogPane().getScene().getWindow();
             stage.getIcons().add(new Image("fr/suylo/gsbmedecins/img/gsb.png"));

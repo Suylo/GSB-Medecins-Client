@@ -132,6 +132,8 @@ public class MedecinController implements Initializable {
                     VBox vBox = new VBox();
                     vBox.getChildren().addAll(label);
 
+                    alert.getDialogPane().lookupButton(ButtonType.OK).setStyle("-fx-background-color:#202940 ;-fx-text-fill: white;-fx-font-size: 15px;-fx-font-family: 'Calibri', sans-serif;");
+                    alert.getDialogPane().lookupButton(ButtonType.CANCEL).setStyle("-fx-background-color: #202940;-fx-text-fill: white;-fx-font-size: 15px;-fx-font-family: 'Calibri', sans-serif;");
                     alert.getDialogPane().setContent(vBox);
                     Stage stage;
                     stage = (Stage) alert.getDialogPane().getScene().getWindow();

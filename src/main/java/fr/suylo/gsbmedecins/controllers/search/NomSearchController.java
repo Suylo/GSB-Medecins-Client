@@ -136,7 +136,12 @@ public class NomSearchController implements Initializable {
 
                 CRUDController.onRead(seeButton, id.getCellData(getTableRow().getIndex()));
                 CRUDController.onEdit(editButton, id.getCellData(getTableRow().getIndex()));
-                CRUDController.onDelete(removeButton, myTable, id.getCellData(getTableRow().getIndex()));
+                CRUDController.onDelete(removeButton, myTable,
+                        id.getCellData(getTableRow().getIndex()),
+                        spe.getCellData(getTableRow().getIndex()),
+                        nomCol.getCellData(getTableRow().getIndex()),
+                        prenomCol.getCellData(getTableRow().getIndex())
+                );
             }
         });
 

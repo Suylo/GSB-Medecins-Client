@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lk.vivoxalabs.customstage.CustomStage;
 
@@ -16,11 +17,32 @@ import java.util.Optional;
 
 public class CRUDController {
 
-    public static void onDelete(Button btn, TableView myTable, Integer index) {
+    private static String speValue;
+
+    public static void onDelete(Button btn, TableView myTable, Integer index, String spe, String nom, String prenom) {
         btn.setOnAction(event -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation de suppresion d'un médecin");
             alert.setHeaderText("Êtes-vous sûr de vouloir supprimer le médecin N°" + index + " ?");
+
+            if (spe == null){
+                speValue = "//";
+            } else {
+                speValue = spe;
+            }
+
+            Label label = new Label();
+            label.setText("- Nom : " + nom
+                    + "\n- Prénom : " + prenom
+                    + "\n- Spécialité : " + speValue
+            );
+            label.setStyle("-fx-text-fill: black;-fx-font-family: 'Roboto Light';-fx-font-size: 18px;");
+
+            VBox vBox = new VBox();
+            vBox.getChildren().addAll(label);
+
+            alert.getDialogPane().setContent(vBox);
+
             Stage stage;
             stage = (Stage) alert.getDialogPane().getScene().getWindow();
             stage.getIcons().add(new Image("fr/suylo/gsbmedecins/img/gsb.png"));

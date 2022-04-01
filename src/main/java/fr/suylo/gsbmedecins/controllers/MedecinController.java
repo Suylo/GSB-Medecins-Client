@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
@@ -41,6 +42,8 @@ public class MedecinController implements Initializable {
     public Label titleMedecins;
     @FXML
     public Label titleBlank;
+
+    private String speValue;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -111,6 +114,25 @@ public class MedecinController implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Confirmation de suppresion d'un médecin");
                     alert.setHeaderText("Êtes-vous sûr de vouloir supprimer le médecin N°" + id.getCellData(getTableRow().getIndex()) + " ?");
+
+                    if (spe.getCellData(getTableRow().getIndex()) == null){
+                        speValue = "// Aucune spécialité complémentaire";
+                    } else {
+                        speValue = spe.getCellData(getTableRow().getIndex());
+                    }
+
+                    Label label = new Label();
+                    label.setText("- Nom : " + nom.getCellData(getTableRow().getIndex())
+                        + "\n- Prénom : " + prenom.getCellData(getTableRow().getIndex())
+                        + "\n- Adresse : " + adresse.getCellData(getTableRow().getIndex())
+                            + "\n- Spécialité : " + speValue
+                    );
+                    label.setStyle("-fx-text-fill: black;-fx-font-family: 'Roboto Light';-fx-font-size: 18px;");
+
+                    VBox vBox = new VBox();
+                    vBox.getChildren().addAll(label);
+
+                    alert.getDialogPane().setContent(vBox);
                     Stage stage;
                     stage = (Stage) alert.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(new Image("fr/suylo/gsbmedecins/img/gsb.png"));

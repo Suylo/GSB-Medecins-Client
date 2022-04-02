@@ -12,6 +12,7 @@ module fr.suylo.gsbmedecins {
 
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
+    requires jbcrypt;
 
     opens fr.suylo.gsbmedecins to javafx.fxml;
     exports fr.suylo.gsbmedecins;

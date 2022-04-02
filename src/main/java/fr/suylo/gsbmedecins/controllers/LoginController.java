@@ -11,10 +11,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,6 +27,8 @@ public class LoginController implements Initializable {
 
     @FXML
     public TextField loginPassword, loginID;
+    @FXML
+    public Label loginError;
     @FXML
     public Button buttonSubmit;
 
@@ -54,26 +58,28 @@ public class LoginController implements Initializable {
             // Récupération du texte des champs
             String login = loginID.getText();
             String mdp = loginPassword.getText();
+            loginError.setStyle("-fx-text-fill: red;");
 
             // Check si d'abord les champs ne sont pas vides
             if (!login.isEmpty() && !mdp.isEmpty()) {
                 // On parcours tous les utilisateurs
                 for (User user : data) {
+
                     // Check si le login et mdp des champs correspondent aux utilisateurs de l'API
-                    if (user.getLogin().equals(login) && user.getMotdepasse().equals(mdp)) {
-                        // Exécution de la fonction connexion(identifiant, motdepasse)
-                        connexion(login, mdp);
-                        // On sort de la boucle
-                        break;
+                    if (user.getLogin().equals(loginID.getText())) {
+                        boolean ok = BCrypt.checkpw(loginPassword.getText(), user.getMotdepasse());
+                        if (ok) {
+                            connexion(login, user.getMotdepasse());
+                            break;
+                        }
+                    } else {
+                        // Si le login et le mot de passe ne correspondent pas, on affiche un message d'erreur
+                        loginError.setText("Identifiant ou mot de passe incorrect");
                     }
                 }
             } else {
                 // Les champs ne sont pas complétés : on affiche une erreur indiquant de compléter les champs
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Champs incomplets !");
-                alert.setHeaderText("Les champs ne peuvent être vides !");
-                alert.setContentText("Veuillez réessayer.");
-                alert.show();
+                loginError.setText("Veuillez compléter les champs");
             }
         });
 

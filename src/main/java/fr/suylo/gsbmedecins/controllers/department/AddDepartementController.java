@@ -59,7 +59,7 @@ public class AddDepartementController implements Initializable {
         });
 
         buttonSave.setOnAction(event -> {
-            ObservableList<Integer> departmentIfExist = APIAccess.getDepartementByNom(departmentName.getText());
+            ObservableList<Integer> departmentIfExist = APIAccess.getDepartementByNom(departmentName.getText().replace(" ", "+"));
 
             if (departmentName.getText().isEmpty() || departmentName.getText().trim().isEmpty() && countrySelect.getValue() == null) {
                 departmentNameError.setVisible(true);
@@ -84,7 +84,8 @@ public class AddDepartementController implements Initializable {
                         stage.setTitle("GSB - Liste des départements");
                         stage.changeScene(doctorAdded);
 
-                        APIAccess.addDepartement(departmentName, countrySelect);
+                        APIAccess.addDepartement(departmentName.getText(), countrySelect);
+
                         DepartementController departementController = loader.getController();
                         departementController.reload();
                     } else {

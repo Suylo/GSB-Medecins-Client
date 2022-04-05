@@ -241,10 +241,10 @@ public class APIAccess {
     }
 
     // POST Add Departement
-    public static void addDepartement(TextField departmentName, ComboBox<Pays> countrySelect) {
+    public static void addDepartement(String departmentName, ComboBox<Pays> countrySelect) {
         Departement newDepartement =
                 new Departement(
-                        departmentName.getText(),
+                        departmentName,
                         new Pays(
                                 countrySelect.getValue().getId()
                         )

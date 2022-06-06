@@ -19,7 +19,7 @@ L'objectif de ce projet était la réalisation d'un client lourd.
 
 - Pour la récupération des données et le traitement, utilisation d'[**Unirest**](https://kong.github.io/unirest-java/) et [**Gson**](https://github.com/google/gson) avec une API REST réalisé en Java, plus de détails [ici](https://github.com/Suylo/GSB-Medecins-API).
 
-*Projets toujours en cours de réalisation.*
+*Projet terminé.*
 
 ### **Quelques images ci-dessous**
 
